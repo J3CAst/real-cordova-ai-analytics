@@ -1,0 +1,371 @@
+id,categoria,dificultad,pregunta,sql_generado,exito,execution_accuracy,latencia_ms,n_filas,error
+AGG_01,agregacion_simple,baja,¿Cuántas reservas hay en total?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,4762.5,1,
+AGG_06,agregacion_simple,media,¿Cuál es el promedio de personas por reserva?,"SELECT AVG(numero_personas) AS promedio_personas
+FROM reservas;",True,1.0,3598.1,1,
+TMP_03,filtro_temporal,baja,¿Cuántas reservas hubo este mes?,"SELECT total_reservas 
+FROM v_resumen_diario 
+WHERE fecha = DATE_TRUNC('month', CURRENT_DATE);",False,0.0,4770.0,0,"(psycopg2.errors.UndefinedTable) no existe la relación «v_resumen_diario»
+LINE 2: FROM v_resumen_diario 
+             ^
+
+[SQL: SELECT total_reservas 
+FROM v_resumen_diario 
+WHERE fecha = DATE_TRUNC('month', CURRENT_DATE);]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+TMP_04,filtro_temporal,media,¿Cuánto se ingresó el mes pasado?,"SELECT 
+    SUM(monto) AS ingreso_total
+FROM transacciones_financieras
+WHERE tipo::text LIKE 'ingreso%' AND DATE_TRUNC('month', fecha_transaccion) = DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month');",True,1.0,10035.5,1,
+VIS_02,vista,baja,¿Cuál fue la utilidad neta de ayer?,"SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha = CURRENT_DATE - INTERVAL '1 day';",False,0.0,6626.7,0,"(psycopg2.errors.UndefinedTable) no existe la relación «v_resumen_diario»
+LINE 2: FROM v_resumen_diario 
+             ^
+
+[SQL: SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha = CURRENT_DATE - INTERVAL '1 day';]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+VIS_05,vista,media,¿Cuántas reservas por temporada muestra el detalle este año?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE EXTRACT(YEAR FROM fecha_reserva) = EXTRACT(YEAR FROM CURRENT_DATE);",True,1.0,6689.8,1,
+CMP_06,compuesta,alta,¿Cuál es la tasa de cancelación por canal?,"SELECT 
+  r.canal, 
+  ROUND(100.0 * COUNT(*) FILTER (WHERE r.estado = 'cancelada') / COUNT(*), 2) AS tasa_cancelacion_pct
+FROM reservas r
+GROUP BY r.canal;",True,1.0,10041.9,4,
+CMP_07,compuesta,alta,¿Cuál es el ingreso mensual promedio por temporada?,"SELECT 
+  TO_CHAR(fecha_transaccion, 'Month YYYY') AS mes,
+  AVG(CASE WHEN tipo::text LIKE 'ingreso%' THEN monto ELSE NULL END) AS ingreso_promedio
+FROM transacciones_financieras
+WHERE DATE_TRUNC('month', fecha_transaccion) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY TO_CHAR(fecha_transaccion, 'Month YYYY');",True,1.0,15180.4,1,
+CMP_09,compuesta,alta,¿Cuál es la categoría de ítem que más ingreso genera?,"SELECT categoria, SUM(subtotal) AS total_ingreso FROM items_reserva GROUP BY categoria ORDER BY total_ingreso DESC LIMIT 1;",True,1.0,5850.3,1,
+DOM_01,dominio,media,¿Cuántas reservas perdidas (no show) hubo este mes?,"SELECT COUNT(*) AS total_reservas_perdidas
+FROM reservas
+WHERE estado = 'no_show'
+  AND DATE_TRUNC('month', fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,8361.7,1,
+DOM_05,dominio,media,¿Cuántas reservas de grupos vinieron este mes?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE segmento = 'grupo' AND fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE);",True,1.0,6749.2,1,
+DOM_08,dominio,alta,¿Cuántas reservas confirmadas hay para la próxima semana?,"SELECT COUNT(*) AS total_reservas
+FROM reservas
+WHERE estado::text LIKE 'confirmada'
+  AND fecha_reserva >= DATE_TRUNC('week', CURRENT_DATE) + INTERVAL '1 day'
+  AND fecha_reserva <= DATE_TRUNC('week', CURRENT_DATE) + INTERVAL '7 days';",True,1.0,13201.1,1,
+AGG_04,agregacion_simple,baja,¿Cuántas reservas se completaron?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE estado::text LIKE 'completada';",True,1.0,5666.6,1,
+AGG_05,agregacion_simple,baja,¿Cuántas reservas están canceladas?,"SELECT COUNT(*) AS total_canceladas
+FROM reservas
+WHERE estado::text LIKE 'cancelada';",True,1.0,4822.4,1,
+AGG_07,agregacion_simple,media,¿Cuántas reservas llegaron por WhatsApp?,"SELECT canal, COUNT(*) AS total
+FROM reservas
+WHERE canal = 'whatsapp'
+  AND fecha_reserva >= DATE_TRUNC('week', CURRENT_DATE)
+GROUP BY canal;",True,1.0,7171.7,1,
+AGG_09,agregacion_simple,media,¿Cuál es el gasto operativo total?,"SELECT SUM(monto) AS gasto_operativo_total
+FROM transacciones_financieras
+WHERE tipo::text LIKE 'gasto_operativo%';",True,1.0,6961.0,1,
+TMP_08,filtro_temporal,alta,¿Cuántas reservas hubo en temporada alta este año?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE es_temporada_alta = TRUE
+  AND fecha_reserva >= DATE_TRUNC('year', CURRENT_DATE);",True,1.0,7887.1,1,
+TMP_10,filtro_temporal,alta,¿Cuántas reservas se hicieron los sábados este mes?,"SELECT COUNT(*) AS total_reservas
+FROM reservas
+WHERE fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '6 days'
+  AND fecha_reserva <= DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '7 days';",True,1.0,10034.1,1,
+JOI_10,join,alta,¿Cuántas reservas no show hubo por mes este año?,"SELECT 
+  TO_CHAR(fecha_reserva, 'Month YYYY') AS mes,
+  COUNT(*) AS total_no_show
+FROM reservas
+WHERE estado = 'no_show'
+  AND fecha_reserva >= DATE_TRUNC('year', CURRENT_DATE)
+GROUP BY TO_CHAR(fecha_reserva, 'Month YYYY');",True,1.0,13045.9,6,
+VIS_03,vista,media,¿Cuántas reservas completadas hubo esta semana según el detalle?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE estado = 'completada'
+  AND fecha_reserva >= DATE_TRUNC('week', CURRENT_DATE);",True,1.0,7522.2,1,
+CMP_01,compuesta,media,¿Cuántas reservas por canal hubo este mes?,"SELECT 
+  canal, 
+  COUNT(*) AS total_reservas
+FROM 
+  reservas
+WHERE 
+  fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY 
+  canal;",True,1.0,8330.5,4,
+CMP_04,compuesta,alta,¿Cuáles son los 5 días con más reservas este año?,"SELECT fecha_reserva, COUNT(*) AS total_reservas
+FROM reservas
+WHERE EXTRACT(YEAR FROM fecha_reserva) = EXTRACT(YEAR FROM CURRENT_DATE)
+GROUP BY fecha_reserva
+ORDER BY total_reservas DESC
+LIMIT 5;",True,1.0,11816.1,5,
+DOM_03,dominio,media,¿Cuántas reservas familiares llegaron por WhatsApp este mes?,"SELECT COUNT(*) AS total_reservas
+FROM reservas r
+JOIN clientes c ON r.cliente_id = c.cliente_id
+WHERE r.canal = 'whatsapp'
+  AND r.fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE)
+  AND c.segmento::text LIKE 'familiar';",True,1.0,16864.9,1,
+DOM_09,dominio,alta,¿Cuál es el porcentaje de reservas por canal este año?,"SELECT 
+  ROUND(100.0 * COUNT(*) FILTER (WHERE estado = 'completada') / COUNT(*), 2) AS tasa_completa_pct,
+  vrd.canal, 
+  COUNT(*) AS total_reservas
+FROM v_reservas_detalle vrd
+WHERE EXTRACT(YEAR FROM fecha_reserva) = EXTRACT(YEAR FROM CURRENT_DATE)
+GROUP BY vrd.canal;",True,1.0,20568.5,4,
+AGG_10,agregacion_simple,media,¿Cuántas reservas de temporada alta hay?,"SELECT COUNT(*) 
+FROM reservas 
+WHERE es_temporada_alta = TRUE;",True,1.0,4990.4,1,
+TMP_02,filtro_temporal,baja,¿Cuánto ingresó el recreo esta semana?,"SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha >= DATE_TRUNC('week', CURRENT_DATE) AND fecha <= DATE_TRUNC('week', CURRENT_DATE) + INTERVAL '6 days';",False,0.0,11741.7,0,"(psycopg2.errors.UndefinedTable) no existe la relación «v_resumen_diario»
+LINE 2: FROM v_resumen_diario 
+             ^
+
+[SQL: SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha >= DATE_TRUNC('week', CURRENT_DATE) AND fecha <= DATE_TRUNC('week', CURRENT_DATE) + INTERVAL '6 days';]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+TMP_06,filtro_temporal,media,¿Cuántas reservas por WhatsApp llegaron este mes?,"SELECT canal, COUNT(*) AS total
+FROM reservas
+WHERE canal = 'whatsapp'
+  AND fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY canal;",True,1.0,9165.7,1,
+TMP_07,filtro_temporal,media,¿Cuánto se gastó en operaciones esta semana?,"SELECT ABS(SUM(monto)) AS gasto_operativo
+FROM transacciones_financieras
+WHERE tipo::text LIKE 'gasto_operativo%'
+  AND fecha_transaccion >= DATE_TRUNC('week', CURRENT_DATE);",True,1.0,10926.0,1,
+JOI_03,join,media,¿Cuánto ingresó en promedio por reserva completada?,SELECT AVG(monto) AS ingreso_promedio FROM transacciones_financieras WHERE tipo::text LIKE 'ingreso_reserva' AND reserva_id IN ( SELECT reserva_id FROM reservas WHERE estado = 'completada' );,True,1.0,11373.6,1,
+JOI_04,join,media,¿Cuántas reservas por segmento de cliente hay este mes?,"SELECT 
+  vrd.segmento, 
+  COUNT(*) AS total_reservas
+FROM v_reservas_detalle vrd
+WHERE DATE_TRUNC('month', vrd.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY vrd.segmento;",True,1.0,12620.5,4,
+JOI_05,join,alta,¿Cuál es el ingreso total por canal de reserva este mes?,"SELECT 
+  tipo::text, 
+  SUM(monto) AS ingreso_total
+FROM transacciones_financieras
+WHERE fecha_transaccion >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY tipo::text;",True,1.0,10685.7,3,
+JOI_06,join,alta,¿Cuántos clientes recurrentes hicieron reservas este mes?,"SELECT COUNT(*) 
+FROM clientes c 
+JOIN reservas r ON c.cliente_id = r.cliente_id 
+WHERE c.es_recurrente AND DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,11868.9,1,
+JOI_09,join,alta,¿Cuál es el ticket promedio por canal de reserva?,"SELECT 
+    rd.canal, 
+    ROUND(AVG(rd.ticket_total), 2) AS ticket_promedio
+FROM v_reservas_detalle rd
+GROUP BY rd.canal;",True,1.0,9318.3,4,
+VIS_01,vista,baja,Dame el resumen financiero de hoy.,"SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha = CURRENT_DATE;",False,0.0,7049.3,0,"(psycopg2.errors.UndefinedTable) no existe la relación «v_resumen_diario»
+LINE 2: FROM v_resumen_diario 
+             ^
+
+[SQL: SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha = CURRENT_DATE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+DOM_06,dominio,alta,¿Cuál fue el ingreso por Yape y Plin este semana?,"SELECT 
+  SUM(CASE WHEN metodo_pago = 'yape' THEN monto ELSE 0 END) AS ingresos_yape,
+  SUM(CASE WHEN metodo_pago = 'plin' THEN monto ELSE 0 END) AS ingresos_plin
+FROM transacciones_financieras
+WHERE tipo::text LIKE 'ingreso%' 
+  AND fecha_transaccion >= DATE_TRUNC('week', CURRENT_DATE);",True,1.0,20172.7,1,
+DOM_07,dominio,alta,¿Cuántas devoluciones se hicieron este mes?,"SELECT COUNT(*) 
+FROM transacciones_financieras 
+WHERE tipo::text LIKE 'devolucion%' AND DATE_TRUNC('month', fecha_transaccion) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,10164.0,1,
+AGG_02,agregacion_simple,baja,¿Cuántos clientes están registrados?,SELECT COUNT(*) FROM clientes;,True,1.0,2289.3,1,
+AGG_03,agregacion_simple,baja,¿Cuál es el ingreso total registrado?,"SELECT SUM(monto) AS ingreso_total 
+FROM transacciones_financieras;",True,1.0,5317.5,1,
+TMP_12,filtro_temporal,alta,¿Cuántas reservas canceladas hubo en los últimos 30 días?,"SELECT COUNT(*) AS total_cancelaciones
+FROM reservas
+WHERE estado = 'cancelada'
+  AND fecha_reserva >= CURRENT_DATE - INTERVAL '30 days';",True,1.0,9257.4,1,
+JOI_02,join,media,¿Cuántas reservas tiene el cliente más frecuente?,"SELECT COUNT(*) 
+FROM reservas r 
+JOIN clientes c ON r.cliente_id = c.cliente_id 
+WHERE es_recurrente = TRUE ORDER BY fecha_registro DESC LIMIT 1;",False,0.0,9456.0,0,"(psycopg2.errors.GroupingError) la columna «c.fecha_registro» debe aparecer en la cláusula GROUP BY o ser usada en una función de agregación
+LINE 4: WHERE es_recurrente = TRUE ORDER BY fecha_registro DESC LIMI...
+                                            ^
+
+[SQL: SELECT COUNT(*) 
+FROM reservas r 
+JOIN clientes c ON r.cliente_id = c.cliente_id 
+WHERE es_recurrente = TRUE ORDER BY fecha_registro DESC LIMIT 1;]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+JOI_08,join,alta,¿Cuánto gastaron los clientes corporativos este mes?,"SELECT 
+  SUM(monto) AS gasto_total
+FROM transacciones_financieras
+WHERE tipo::text LIKE 'gasto%' AND es_conciliado = TRUE
+  AND DATE_TRUNC('month', fecha_transaccion) = DATE_TRUNC('month', CURRENT_DATE)
+  AND cliente_id IN (
+    SELECT cliente_id 
+    FROM clientes 
+    WHERE segmento = 'corporativo'
+  );",False,0.0,19807.8,0,"(psycopg2.errors.UndefinedColumn) no existe la columna «cliente_id»
+LINE 6:   AND cliente_id IN (
+              ^
+
+[SQL: SELECT 
+  SUM(monto) AS gasto_total
+FROM transacciones_financieras
+WHERE tipo::text LIKE 'gasto%%' AND es_conciliado = TRUE
+  AND DATE_TRUNC('month', fecha_transaccion) = DATE_TRUNC('month', CURRENT_DATE)
+  AND cliente_id IN (
+    SELECT cliente_id 
+    FROM clientes 
+    WHERE segmento = 'corporativo'
+  );]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+VIS_04,vista,media,¿Cuál es el ticket promedio este mes según el detalle?,"SELECT 
+    ROUND(AVG(vrd.ticket_total), 2) AS ticket_promedio,
+    COUNT(*)                         AS total_visitas
+FROM v_reservas_detalle vrd
+WHERE EXTRACT(MONTH FROM fecha_reserva) = EXTRACT(MONTH FROM CURRENT_DATE);",True,1.0,13135.9,1,
+VIS_06,vista,media,¿Qué día de la semana tiene más reservas según el detalle?,"SELECT dia_semana_nombre, COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+GROUP BY dia_semana_nombre
+ORDER BY total_reservas DESC;",True,1.0,8215.9,7,
+VIS_08,vista,alta,¿Cuál es el ingreso promedio diario del mes según el resumen?,"SELECT AVG(total_ingresos) AS ingreso_promedio_diario
+FROM v_resumen_diario
+WHERE fecha >= DATE_TRUNC('month', CURRENT_DATE)
+  AND fecha < DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month';",False,0.0,12130.8,0,"(psycopg2.errors.UndefinedTable) no existe la relación «v_resumen_diario»
+LINE 2: FROM v_resumen_diario
+             ^
+
+[SQL: SELECT AVG(total_ingresos) AS ingreso_promedio_diario
+FROM v_resumen_diario
+WHERE fecha >= DATE_TRUNC('month', CURRENT_DATE)
+  AND fecha < DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '1 month';]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+CMP_02,compuesta,media,¿Cuántas reservas por estado hay en total?,"SELECT 
+  estado, 
+  COUNT(*) AS total_reservas
+FROM 
+  reservas
+GROUP BY 
+  estado;",True,1.0,6774.2,4,
+CMP_05,compuesta,alta,¿Cuántas reservas por mes hubo este año?,"SELECT 
+  TO_CHAR(fecha_reserva, 'Month YYYY') AS mes,
+  COUNT(*) AS total_reservas
+FROM reservas
+WHERE EXTRACT(YEAR FROM fecha_reserva) = EXTRACT(YEAR FROM CURRENT_DATE)
+GROUP BY TO_CHAR(fecha_reserva, 'Month YYYY');",True,1.0,13650.2,6,
+CMP_08,compuesta,alta,¿Cuántas reservas no conciliadas hay?,"SELECT COUNT(*) 
+FROM transacciones_financieras 
+WHERE tipo::text LIKE 'ingreso_reserva' AND es_conciliado = FALSE;",True,1.0,7798.3,1,
+DOM_04,dominio,media,¿Cuánto fue el cuadre de caja de hoy?,"SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha = CURRENT_DATE;",False,0.0,6995.1,0,"(psycopg2.errors.UndefinedTable) no existe la relación «v_resumen_diario»
+LINE 2: FROM v_resumen_diario 
+             ^
+
+[SQL: SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha = CURRENT_DATE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+AGG_08,agregacion_simple,media,¿Cuántos clientes son recurrentes?,SELECT COUNT(*) FROM clientes WHERE es_recurrente = TRUE;,True,1.0,4017.4,1,
+TMP_01,filtro_temporal,baja,¿Cuántas reservas hay para hoy?,"SELECT COUNT(*) AS total_reservas
+FROM reservas
+WHERE fecha_reserva = CURRENT_DATE;",True,1.0,5124.9,1,
+TMP_05,filtro_temporal,media,¿Cuántas reservas hubo el fin de semana pasado?,"SELECT fecha_reserva, COUNT(*) AS total_reservas
+FROM reservas
+WHERE fecha_reserva >= DATE_TRUNC('week', CURRENT_DATE) - INTERVAL '7 days'
+  AND fecha_reserva <= DATE_TRUNC('week', CURRENT_DATE)
+GROUP BY fecha_reserva;",True,1.0,14213.2,8,
+TMP_09,filtro_temporal,alta,¿Cuál fue el ingreso del último trimestre?,"SELECT 
+    SUM(monto) AS ingreso_total
+FROM transacciones_financieras
+WHERE tipo::text LIKE 'ingreso%' AND fecha_transaccion >= DATE_TRUNC('quarter', CURRENT_DATE - INTERVAL '3 months');",True,1.0,10798.5,1,
+TMP_11,filtro_temporal,alta,¿Cuánto ingresó el recreo ayer?,"SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha = CURRENT_DATE - INTERVAL '1 day';",False,0.0,7885.7,0,"(psycopg2.errors.UndefinedTable) no existe la relación «v_resumen_diario»
+LINE 2: FROM v_resumen_diario 
+             ^
+
+[SQL: SELECT total_ingresos, total_gastos, utilidad_neta 
+FROM v_resumen_diario 
+WHERE fecha = CURRENT_DATE - INTERVAL '1 day';]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+JOI_01,join,media,¿Cuántas reservas completadas tienen transacción registrada?,"SELECT COUNT(*) 
+FROM reservas r 
+JOIN transacciones_financieras tf ON r.reserva_id = tf.reserva_id 
+WHERE r.estado = 'completada';",True,1.0,9164.0,1,
+JOI_07,join,alta,¿Cuál es el total de personas por distrito este mes?,"SELECT 
+  dr.distrito, 
+  SUM(vrd.numero_personas) AS total_personas
+FROM 
+  v_reservas_detalle vrd
+JOIN 
+  clientes c ON vrd.cliente_id = c.cliente_id
+JOIN 
+  (
+    SELECT DISTINCT cliente_id, distrito FROM clientes
+  ) dr ON c.cliente_id = dr.cliente_id
+WHERE 
+  DATE_TRUNC('month', vrd.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY 
+  dr.distrito;",False,0.0,24906.9,0,"(psycopg2.errors.UndefinedColumn) no existe la columna vrd.cliente_id
+LINE 7:   clientes c ON vrd.cliente_id = c.cliente_id
+                        ^
+HINT:  Probablemente quiera hacer referencia a la columna «vrd.cliente» o la columna «c.cliente_id».
+
+[SQL: SELECT 
+  dr.distrito, 
+  SUM(vrd.numero_personas) AS total_personas
+FROM 
+  v_reservas_detalle vrd
+JOIN 
+  clientes c ON vrd.cliente_id = c.cliente_id
+JOIN 
+  (
+    SELECT DISTINCT cliente_id, distrito FROM clientes
+  ) dr ON c.cliente_id = dr.cliente_id
+WHERE 
+  DATE_TRUNC('month', vrd.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY 
+  dr.distrito;]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+VIS_07,vista,alta,¿Cuál fue el día con mayor utilidad neta este mes?,"SELECT fecha, MAX(utilidad_neta) AS max_utilidad_neta
+FROM v_resumen_diario
+WHERE fecha >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY fecha;",False,0.0,9338.6,0,"(psycopg2.errors.UndefinedTable) no existe la relación «v_resumen_diario»
+LINE 2: FROM v_resumen_diario
+             ^
+
+[SQL: SELECT fecha, MAX(utilidad_neta) AS max_utilidad_neta
+FROM v_resumen_diario
+WHERE fecha >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY fecha;]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+CMP_03,compuesta,media,¿Cuál es el ingreso por método de pago este mes?,"SELECT 
+  metodo_pago, 
+  SUM(monto) AS ingreso_total
+FROM transacciones_financieras
+WHERE tipo::text LIKE 'ingreso%' AND fecha_transaccion >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY metodo_pago;",True,1.0,12106.6,5,
+CMP_10,compuesta,alta,¿Cuántas reservas por segmento y temporada hay en total?,"SELECT 
+  vrd.segmento,
+  CASE 
+    WHEN vrd.fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '3 months' AND vrd.fecha_reserva < DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '6 months' THEN 'verano'
+    ELSE 'invierno'
+  END AS temporada,
+  COUNT(*) AS total_reservas
+FROM 
+  v_reservas_detalle vrd
+GROUP BY 
+  vrd.segmento, 
+  CASE 
+    WHEN vrd.fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '3 months' AND vrd.fecha_reserva < DATE_TRUNC('month', CURRENT_DATE) + INTERVAL '6 months' THEN 'verano'
+    ELSE 'invierno'
+  END;",True,1.0,35813.0,4,
+DOM_02,dominio,media,¿Cuál es la tasa de pérdida de reservas este mes?,"SELECT 
+    ROUND(100.0 * COUNT(*) FILTER (WHERE estado = 'cancelada' OR estado = 'no_show') / COUNT(*), 2) AS tasa_pérdida_pct
+FROM reservas
+WHERE DATE_TRUNC('month', fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,15023.7,1,
+DOM_10,dominio,alta,¿Cuántas personas en total visitaron el recreo este mes?,"SELECT SUM(numero_personas) AS total_visitas
+FROM reservas
+WHERE fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE);",True,1.0,7636.4,1,

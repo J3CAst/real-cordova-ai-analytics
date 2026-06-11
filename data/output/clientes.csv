@@ -1,0 +1,1201 @@
+cliente_id,nombre_codigo,distrito,segmento,es_recurrente,fecha_registro
+1,Albano Llopis Hierro,Surco,familiar,False,2024-12-12
+2,Rafa Calatayud Bonet,San Juan de Lurigancho,pareja,True,2025-10-17
+3,Albino Bueno Gil,Lurigancho-Chosica,familiar,True,2024-12-27
+4,María Cristina Amor,Cieneguilla,familiar,True,2026-05-21
+5,Pepito Rivas,La Molina,corporativo,False,2024-12-08
+6,Marita Lobo Agudo,Surco,familiar,False,2024-09-05
+7,Evita Lobo Cortés,Lurigancho-Chosica,pareja,False,2024-11-30
+8,Aroa Bru Pinto,Lurigancho-Chosica,familiar,True,2024-05-30
+9,Soraya Núñez Lamas,San Juan de Lurigancho,familiar,False,2024-03-08
+10,Lupe Casanovas Pinedo,El Agustino,familiar,True,2024-05-02
+11,Emilia del Fernandez,Lurigancho-Chosica,corporativo,True,2024-04-18
+12,Natalio Goñi Mancebo,Santa Anita,familiar,False,2024-05-03
+13,Toribio de Pinto,Chaclacayo,familiar,True,2025-03-07
+14,Mercedes Patiño Cánovas,San Juan de Lurigancho,familiar,True,2025-07-29
+15,Clementina Lasa Bellido,Lurigancho-Chosica,corporativo,False,2024-09-22
+16,Pastora de Cárdenas,Lurigancho-Chosica,corporativo,False,2025-12-19
+17,Elba Gimenez Morata,San Borja,familiar,True,2024-03-27
+18,Segismundo de Moles,Chaclacayo,grupo,False,2025-09-15
+19,Anacleto Galván-Miranda,Lurigancho-Chosica,familiar,False,2024-11-26
+20,Gertrudis Segarra Clavero,Santa Anita,corporativo,True,2025-02-15
+21,Duilio Jódar Romero,San Juan de Lurigancho,familiar,False,2026-06-25
+22,Fidela Gimenez Chacón,San Borja,familiar,False,2026-03-02
+23,Apolonia Arévalo Canals,Ate,familiar,True,2024-08-25
+24,Ruy Roca Bartolomé,San Juan de Lurigancho,familiar,True,2025-08-20
+25,María Solé Ángel,Lurigancho-Chosica,familiar,False,2025-01-25
+26,Teodora de Carbó,La Molina,grupo,True,2026-04-14
+27,Rodrigo Nieto-Cantón,Cieneguilla,grupo,True,2025-03-31
+28,Camila Santiago Acero,San Borja,corporativo,True,2025-02-13
+29,Rafaela Escalona,Lurigancho-Chosica,familiar,False,2026-02-27
+30,Trinidad Martín Vera,El Agustino,familiar,False,2024-11-04
+31,Glauco Cuéllar Abascal,El Agustino,familiar,False,2025-05-18
+32,Agustina Caparrós Parejo,Santa Anita,pareja,False,2025-04-22
+33,Ambrosio de Bermúdez,San Juan de Lurigancho,familiar,False,2024-05-13
+34,Sabina Bayón Casas,Chaclacayo,familiar,False,2024-07-18
+35,Malena Dalmau Landa,Surco,familiar,False,2026-03-30
+36,Ileana Cloe Font Mesa,Lurigancho-Chosica,pareja,False,2025-09-11
+37,Isabel Villar Sanmiguel,Chaclacayo,familiar,False,2024-07-06
+38,Daniel de Neira,La Molina,pareja,False,2024-02-02
+39,Manola Grau-Giménez,Lurigancho-Chosica,pareja,False,2024-01-12
+40,Paulino Barral Granados,Lurigancho-Chosica,familiar,False,2024-04-14
+41,Tito Murillo Belda,Ate,pareja,False,2026-03-09
+42,Emilio del Gargallo,Lurigancho-Chosica,familiar,True,2026-04-17
+43,Porfirio Suárez Herrero,El Agustino,familiar,True,2026-01-04
+44,Celestina Busquets Caballero,Ate,pareja,True,2025-10-31
+45,Ileana Reig Solera,San Juan de Lurigancho,pareja,True,2024-03-25
+46,Américo Quevedo Nicolau,La Molina,familiar,True,2024-06-18
+47,Clemente de Sanabria,San Juan de Lurigancho,pareja,True,2024-08-05
+48,Casandra Lopez Sevillano,San Juan de Lurigancho,pareja,True,2025-01-23
+49,Ismael Cabañas Ayuso,Santa Anita,familiar,False,2026-04-19
+50,Arturo Guzmán Delgado,Lurigancho-Chosica,familiar,False,2025-09-23
+51,Juliana García Quero,Ate,familiar,False,2024-04-01
+52,Goyo Abril Portero,San Juan de Lurigancho,familiar,True,2025-02-15
+53,Eloísa Rocha Torrecilla,Lurigancho-Chosica,grupo,True,2024-08-28
+54,Eusebio Gelabert,La Molina,familiar,False,2024-03-31
+55,Paulina Barrera-Mir,Lurigancho-Chosica,familiar,False,2024-03-29
+56,Luís Tapia Valverde,Lurigancho-Chosica,familiar,False,2026-04-05
+57,Ambrosio Verdejo Bernat,Chaclacayo,grupo,True,2024-10-15
+58,Manuel Bayo Gutierrez,Cieneguilla,corporativo,False,2025-09-19
+59,Victor Hoz Ariño,Lurigancho-Chosica,pareja,True,2024-05-07
+60,Máxima Yáñez Molina,San Juan de Lurigancho,pareja,False,2025-02-09
+61,Nicanor Miralles,Cieneguilla,pareja,False,2025-01-05
+62,Hector Castro-Marín,Lurigancho-Chosica,familiar,False,2025-12-11
+63,Áurea Belmonte Agustí,Santa Anita,familiar,False,2025-12-12
+64,Marcela Armida Beltrán Garcés,Cieneguilla,pareja,False,2026-02-24
+65,Blas Oller-Bayona,San Juan de Lurigancho,familiar,False,2025-01-14
+66,Elodia Cruz Ríos,Lurigancho-Chosica,familiar,False,2026-04-23
+67,Mariano Sancho Ángel Aguiló,El Agustino,familiar,True,2026-05-11
+68,Natanael Baldomero Cañizares Lamas,El Agustino,grupo,True,2024-06-28
+69,Ramiro Cortés Lladó,La Molina,familiar,True,2025-03-13
+70,Clementina Paca Novoa Frutos,Surco,familiar,True,2025-02-14
+71,Laura Iglesias,El Agustino,grupo,True,2024-03-19
+72,Maximiliano Roda Lloret,El Agustino,familiar,False,2024-03-09
+73,Flavio Castrillo Juárez,Lurigancho-Chosica,familiar,False,2024-09-08
+74,Mamen Roma Agustí,San Juan de Lurigancho,corporativo,True,2024-06-22
+75,Vasco Company Araujo,El Agustino,familiar,False,2025-07-27
+76,Mamen Colomer-Ropero,Lurigancho-Chosica,grupo,False,2024-07-16
+77,Fabio Pastor Ariño,San Juan de Lurigancho,familiar,False,2025-07-09
+78,Néstor Iborra,Lurigancho-Chosica,grupo,False,2024-06-08
+79,Reyna Ramos Cortes,La Molina,corporativo,True,2025-01-02
+80,Salomón Elorza Revilla,La Molina,familiar,True,2024-02-08
+81,Rafa Márquez Requena,Ate,familiar,False,2025-01-20
+82,Cebrián Campoy-Piñeiro,San Juan de Lurigancho,corporativo,True,2024-03-01
+83,Consuela Flores Seguí,Chaclacayo,familiar,False,2025-06-27
+84,Segismundo Rómulo Goñi Gisbert,Lurigancho-Chosica,familiar,False,2024-02-06
+85,Heraclio Moya,San Juan de Lurigancho,familiar,False,2025-03-08
+86,Rolando Lorenzo Ortega,Lurigancho-Chosica,corporativo,True,2026-03-02
+87,Nidia Muñoz Amorós,Lurigancho-Chosica,familiar,False,2024-06-28
+88,Chuy Lara-Arenas,Lurigancho-Chosica,corporativo,False,2024-06-17
+89,Irma Fabiola Mir Rubio,Santa Anita,corporativo,True,2026-03-05
+90,Guadalupe Falcón Iñiguez,Lurigancho-Chosica,grupo,True,2024-03-09
+91,Abigaíl Vizcaíno Figueras,Lurigancho-Chosica,familiar,True,2025-07-19
+92,Anastasia Murillo Mir,Cieneguilla,grupo,False,2024-07-12
+93,José Luis Fabián Real Morera,Ate,familiar,False,2025-09-17
+94,Leonel Bernardo Feliu Rivero,San Juan de Lurigancho,pareja,False,2025-08-11
+95,Mario Mascaró Ramis,Lurigancho-Chosica,familiar,True,2026-05-01
+96,Evaristo Madrid Gallo,Cieneguilla,familiar,False,2025-10-29
+97,María Dolores Montserrat-Sola,Ate,grupo,False,2025-11-17
+98,Nereida García Vicente,El Agustino,familiar,False,2026-01-05
+99,Narciso Blazquez Luz,Cieneguilla,pareja,False,2026-03-11
+100,Eva María Araceli Gutierrez Menéndez,La Molina,pareja,False,2024-12-14
+101,Candelario Amat,Lurigancho-Chosica,corporativo,True,2024-03-12
+102,Jordán de Sarabia,Cieneguilla,familiar,False,2025-10-05
+103,Charo Plana-Urrutia,Lurigancho-Chosica,corporativo,False,2025-09-12
+104,Candelario de Campillo,Ate,familiar,False,2025-10-22
+105,Chus del Ayllón,Lurigancho-Chosica,familiar,True,2026-05-15
+106,Álvaro de Sastre,Ate,familiar,False,2024-07-26
+107,Natividad Molins Salas,Lurigancho-Chosica,corporativo,True,2026-02-23
+108,Selena Salmerón Cuenca,Lurigancho-Chosica,pareja,False,2026-01-07
+109,Dora Huertas Lluch,La Molina,familiar,False,2026-03-20
+110,Maura Haro Llobet,Chaclacayo,corporativo,False,2025-11-14
+111,Pepe Macias Guitart,San Juan de Lurigancho,corporativo,False,2025-02-26
+112,Esther Berrocal Chacón,Santa Anita,familiar,True,2024-08-22
+113,Gregorio de Gargallo,Lurigancho-Chosica,familiar,False,2024-04-09
+114,Griselda Muro Solano,Santa Anita,grupo,True,2025-10-07
+115,Cristian Rivera Porras,Ate,pareja,False,2026-06-26
+116,Tiburcio Pintor Tapia,San Juan de Lurigancho,pareja,False,2024-01-10
+117,Emma Porta Rius,San Juan de Lurigancho,corporativo,True,2026-04-16
+118,Rosalía de Torrents,La Molina,familiar,False,2024-12-06
+119,Isaías Torralba-Andres,Lurigancho-Chosica,familiar,False,2025-08-27
+120,Nayara Quiroga Dalmau,Lurigancho-Chosica,corporativo,True,2025-12-27
+121,María Amores Prada,Surco,grupo,False,2026-05-26
+122,Ariel Romero Cerdá,Santa Anita,grupo,False,2025-12-18
+123,Amador Juan Pinilla,San Borja,familiar,False,2025-05-23
+124,Javi Morillo,Surco,familiar,False,2025-06-08
+125,Eligia Robles Iniesta,Cieneguilla,grupo,True,2024-05-07
+126,Agustina Azorin Olmo,Santa Anita,familiar,True,2024-12-14
+127,Rosario Arjona Anguita,El Agustino,pareja,True,2025-01-19
+128,Simón Almagro,San Juan de Lurigancho,familiar,False,2024-08-24
+129,Bernardino del Carbó,Ate,grupo,False,2026-05-26
+130,Joan Jaén,Lurigancho-Chosica,corporativo,False,2025-07-27
+131,Marcio Carbó Céspedes,Surco,corporativo,True,2025-04-28
+132,Luis Miguel Amigó Mesa,San Juan de Lurigancho,familiar,True,2026-06-13
+133,Gisela Fiol Benitez,La Molina,pareja,False,2025-01-12
+134,Pablo Mata Carrillo,La Molina,corporativo,False,2026-05-29
+135,Fulgencio Romero Pellicer,El Agustino,familiar,True,2024-04-17
+136,Miriam Nogueira,Chaclacayo,pareja,False,2024-01-20
+137,Sandra Trillo Camacho,San Borja,pareja,True,2025-11-04
+138,Mercedes Segura Coronado,San Juan de Lurigancho,familiar,False,2025-11-07
+139,Quique Vélez León,Ate,pareja,False,2026-04-16
+140,Josefa Ruano Ledesma,Chaclacayo,pareja,True,2025-05-15
+141,Severo de Lorenzo,El Agustino,pareja,False,2025-12-01
+142,Remigio del Pinilla,Lurigancho-Chosica,familiar,False,2025-06-06
+143,Jose Miguel Morcillo Espada,Lurigancho-Chosica,corporativo,True,2026-01-27
+144,Galo Jordán,San Juan de Lurigancho,familiar,False,2025-06-12
+145,Valerio Llorente-Agustín,San Juan de Lurigancho,familiar,False,2026-03-13
+146,Aristides Hernández,Lurigancho-Chosica,familiar,True,2025-09-23
+147,Manu Hernandez Tamayo,Santa Anita,pareja,False,2026-02-01
+148,Rosa María Alemany Buendía,San Juan de Lurigancho,familiar,False,2025-04-02
+149,Hermenegildo de Medina,Lurigancho-Chosica,pareja,True,2026-06-22
+150,Juana Núñez Roig,Lurigancho-Chosica,corporativo,True,2026-05-04
+151,Feliciana Santiago Lillo,San Juan de Lurigancho,familiar,False,2025-04-21
+152,David Carrillo-Fernández,Ate,familiar,False,2025-05-05
+153,Ramiro Esteve Feliu,Surco,pareja,False,2024-12-02
+154,Eliana Zamorano Luna,El Agustino,familiar,False,2024-06-05
+155,Eusebio Gordillo,El Agustino,pareja,True,2025-07-14
+156,Eutropio Alcalá Castañeda,Lurigancho-Chosica,familiar,True,2025-03-02
+157,Amando Manzano Cases,Surco,familiar,True,2026-02-01
+158,Tristán Alberola Luís,Ate,pareja,False,2025-12-30
+159,Isabela Niño Espinosa,Lurigancho-Chosica,familiar,True,2024-03-20
+160,Tomás Tejedor-Carbonell,El Agustino,familiar,True,2024-04-11
+161,Leandra Benavent Baeza,La Molina,familiar,True,2024-08-23
+162,Santiago Mateu Blázquez,El Agustino,corporativo,False,2025-01-20
+163,León Rico Gonzalez,La Molina,grupo,True,2026-03-22
+164,Javiera Salas Martinez,Ate,corporativo,False,2025-10-28
+165,Lucas Martín Barrena Cabezas,Lurigancho-Chosica,familiar,False,2024-11-18
+166,Eligio Bertrán,La Molina,familiar,True,2024-08-31
+167,Chema de Crespi,Lurigancho-Chosica,familiar,True,2024-01-05
+168,Javiera Soriano Manuel,Lurigancho-Chosica,familiar,False,2024-02-20
+169,Ernesto del Santiago,La Molina,pareja,True,2024-04-20
+170,Óscar del Figuerola,Lurigancho-Chosica,familiar,True,2025-10-22
+171,Lalo Gomila Company,San Juan de Lurigancho,familiar,False,2025-02-16
+172,Andrés Felipe Barreda Daza,Santa Anita,familiar,False,2025-04-22
+173,Pilar Sara Malo Saavedra,Ate,familiar,False,2024-07-12
+174,Noemí Mateu Quevedo,Lurigancho-Chosica,corporativo,False,2025-02-26
+175,Luz Uribe,Ate,familiar,False,2025-11-11
+176,Marcelino Ariño Rosales,Cieneguilla,familiar,True,2025-05-15
+177,Dionisia Alba Bravo Granados,Lurigancho-Chosica,corporativo,True,2026-06-12
+178,Ainara Leon-Arjona,Ate,familiar,False,2024-09-29
+179,Lorenza Salamanca Lobo,San Juan de Lurigancho,familiar,False,2024-10-08
+180,Isa Téllez-Bou,San Juan de Lurigancho,grupo,False,2025-12-31
+181,Guadalupe Mínguez Montesinos,Ate,familiar,False,2024-06-11
+182,Fidel Requena Valbuena,San Juan de Lurigancho,familiar,False,2025-03-23
+183,Ruth Arco Sanz,Santa Anita,grupo,False,2024-05-16
+184,Dolores Morales Carmona,San Borja,grupo,True,2025-09-19
+185,Sara Abella,Lurigancho-Chosica,familiar,False,2026-04-22
+186,Haydée Ballester Expósito,Lurigancho-Chosica,familiar,True,2026-03-16
+187,María Ángeles Valentín Salamanca,Ate,familiar,False,2024-03-21
+188,Eliseo Castro,El Agustino,familiar,True,2025-03-23
+189,Vanesa Tormo Carrión,Lurigancho-Chosica,pareja,True,2024-02-14
+190,Rosalía Dafne Cuadrado Mercader,El Agustino,pareja,False,2026-05-05
+191,Leoncio Raya Buendía,Ate,familiar,False,2024-12-15
+192,Jerónimo Carpio Correa,Cieneguilla,corporativo,True,2026-02-13
+193,José Manuel Patricio Llano Ribes,Chaclacayo,pareja,True,2026-01-19
+194,Daniela Saura Coca,Lurigancho-Chosica,familiar,False,2025-08-18
+195,Édgar Verdejo,Chaclacayo,pareja,False,2024-07-31
+196,Emiliano Ribera Nieto,Santa Anita,grupo,False,2026-02-27
+197,Segismundo Acedo-Luna,La Molina,familiar,False,2025-04-08
+198,Marina Tovar-Comas,San Borja,familiar,True,2025-11-24
+199,Julie del Márquez,Santa Anita,pareja,False,2026-05-07
+200,Florinda del Montserrat,La Molina,pareja,False,2024-10-20
+201,Lucho del Guillen,San Borja,familiar,False,2025-09-30
+202,Federico Suárez Piquer,Chaclacayo,familiar,False,2025-08-22
+203,Jose Miguel Arco Cases,Cieneguilla,familiar,False,2026-02-19
+204,Eusebia Cabrera-Sacristán,Lurigancho-Chosica,familiar,True,2024-06-03
+205,Zaida Saura,Lurigancho-Chosica,grupo,False,2024-01-24
+206,Hernando Cortes Benavides,Surco,familiar,True,2025-12-30
+207,Fortunato Puga-Bernat,San Juan de Lurigancho,grupo,False,2025-05-25
+208,Fortunata del Torrents,Santa Anita,corporativo,True,2026-04-20
+209,Martin Bayona Guitart,El Agustino,familiar,False,2025-03-22
+210,Raúl de Roura,La Molina,corporativo,False,2024-06-01
+211,Iván Delgado Marí,Chaclacayo,pareja,True,2024-02-14
+212,Fermín Barba Marcos,San Juan de Lurigancho,familiar,False,2025-07-10
+213,Irene Coello Hidalgo,San Juan de Lurigancho,familiar,False,2026-04-05
+214,Marcia Escolano Domínguez,Cieneguilla,familiar,False,2024-09-28
+215,Marcos Piñeiro Hernando,Lurigancho-Chosica,familiar,False,2026-02-12
+216,Bienvenida Guerra-Serra,La Molina,familiar,False,2025-01-29
+217,Dominga Agustí Sola,Lurigancho-Chosica,corporativo,False,2025-03-22
+218,Camila de Sala,La Molina,familiar,False,2025-06-20
+219,Emperatriz Rodrigo-Ibáñez,Chaclacayo,familiar,True,2025-12-10
+220,Conrado Gregorio Tomas Campillo,Lurigancho-Chosica,pareja,True,2025-01-03
+221,Marianela Palomar Marqués,Surco,familiar,False,2025-04-03
+222,Severino Priego Llobet,Santa Anita,familiar,False,2024-01-13
+223,Teresa Avilés-Valdés,San Borja,pareja,False,2025-03-20
+224,Marcio del Gilabert,La Molina,grupo,False,2024-10-22
+225,Dionisia Nidia Cerro Caballero,Lurigancho-Chosica,familiar,True,2024-03-02
+226,Rufino Isidro Aragonés Patiño,San Juan de Lurigancho,pareja,False,2024-07-23
+227,Wálter Marquez Morillo,San Borja,familiar,False,2025-10-07
+228,Cornelio Catalán Paz,San Juan de Lurigancho,familiar,False,2026-04-04
+229,Zaira Llamas,San Juan de Lurigancho,familiar,True,2024-09-12
+230,Yago Tirado-Marquez,Lurigancho-Chosica,familiar,False,2025-06-10
+231,Joaquín Benet Chico,Ate,familiar,True,2024-12-16
+232,Soraya Paz Bosch,San Juan de Lurigancho,pareja,True,2025-09-04
+233,Eligio Casals Sanz,Santa Anita,grupo,False,2025-07-26
+234,Luís Piquer-Pera,Cieneguilla,familiar,False,2024-06-17
+235,Jonatan de Mosquera,Surco,familiar,True,2024-12-09
+236,Maximino Simó Matas,Surco,familiar,True,2025-09-26
+237,Buenaventura Arrieta Arcos,Cieneguilla,familiar,False,2025-04-17
+238,Azahar Cabanillas Guitart,Surco,familiar,True,2026-04-15
+239,Guillermo Santiago Peláez,San Juan de Lurigancho,familiar,False,2026-04-19
+240,Maristela Cortes Ribera,San Juan de Lurigancho,grupo,False,2024-06-02
+241,María Manuela Raya Losa,Ate,corporativo,False,2024-02-20
+242,Concha Salcedo Sales,Ate,familiar,False,2025-01-01
+243,Ariel Pedrero Palmer,San Borja,corporativo,False,2024-04-04
+244,Eliana Falcó Carvajal,El Agustino,familiar,False,2025-12-07
+245,Natanael Garay Almazán,Cieneguilla,grupo,True,2024-03-19
+246,Daniela Casas Fuertes,Ate,familiar,False,2024-04-16
+247,Claudia de Guijarro,Lurigancho-Chosica,familiar,True,2025-05-25
+248,Rufino Acedo Lluch,Santa Anita,familiar,False,2024-08-12
+249,Julián Iglesia Díaz,Lurigancho-Chosica,corporativo,False,2024-06-19
+250,Blas Alcolea Palma,Surco,grupo,True,2025-01-04
+251,Etelvina Alcázar-Dávila,San Juan de Lurigancho,corporativo,True,2025-02-16
+252,Bernardino Robledo Zorrilla,Chaclacayo,familiar,False,2024-06-25
+253,Jordán Sanabria Paredes,Lurigancho-Chosica,corporativo,True,2026-03-08
+254,Asunción Sans-Vara,Chaclacayo,grupo,False,2024-12-10
+255,Amada Pascuala Vázquez Mata,La Molina,grupo,False,2025-12-12
+256,Américo Tejero Querol,Santa Anita,corporativo,False,2025-10-24
+257,Jose Luis Salcedo Beltrán,Cieneguilla,grupo,True,2024-05-05
+258,María Fernanda Colomer Bastida,Lurigancho-Chosica,familiar,True,2024-07-15
+259,Mateo Morcillo-Piquer,Chaclacayo,familiar,True,2026-04-04
+260,Javi José Antonio Ros Cabezas,Lurigancho-Chosica,grupo,False,2024-06-26
+261,Palmira de Ropero,Santa Anita,corporativo,False,2025-12-02
+262,Hilario del Santana,Chaclacayo,grupo,False,2025-09-11
+263,Pastora Bustamante Milla,San Juan de Lurigancho,pareja,False,2025-10-24
+264,Natalia Jara Perelló,El Agustino,familiar,True,2024-08-25
+265,Anabel Bou Blázquez,Cieneguilla,familiar,False,2024-05-24
+266,Ariadna Peralta Castillo,Surco,pareja,False,2026-05-14
+267,Lázaro Murcia Carvajal,San Juan de Lurigancho,grupo,False,2025-09-30
+268,Trinidad Rocha Aznar,San Borja,pareja,False,2025-03-22
+269,Esperanza Feliciana Calleja Vera,Lurigancho-Chosica,pareja,False,2024-11-26
+270,Nando Toledo Gomez,Lurigancho-Chosica,familiar,True,2024-06-17
+271,Sonia Pedrero Cardona,Ate,grupo,False,2025-03-08
+272,Coral Romeu-Amo,Ate,familiar,True,2025-02-19
+273,Cipriano Llano Mendizábal,Santa Anita,corporativo,False,2025-06-11
+274,Adelaida Escudero Clemente,Ate,familiar,False,2026-05-29
+275,Anastasia Cifuentes Anglada,La Molina,familiar,True,2024-05-22
+276,Concepción Peñalver,Cieneguilla,familiar,True,2025-10-14
+277,Evita Criado Pelayo,San Juan de Lurigancho,corporativo,True,2025-04-29
+278,Renata Blazquez Badía,Santa Anita,pareja,False,2024-08-29
+279,René Ayala Bilbao,Lurigancho-Chosica,familiar,True,2025-02-26
+280,Nadia Rodrigo Torralba,Ate,pareja,False,2025-11-17
+281,Elena Garriga Vila,Lurigancho-Chosica,pareja,False,2024-06-25
+282,Irene Cantero Luque,Lurigancho-Chosica,familiar,True,2026-01-25
+283,Natividad Mendez,San Juan de Lurigancho,familiar,False,2024-03-11
+284,Hector de Aguilera,Santa Anita,familiar,True,2024-11-13
+285,Curro Rodolfo Cervantes Jaume,El Agustino,grupo,False,2025-03-25
+286,Azeneth Aguilera Valencia,Chaclacayo,familiar,False,2025-10-30
+287,Berto Pinto Grau,Ate,familiar,False,2026-02-16
+288,Serafina del Bello,San Borja,pareja,True,2025-09-08
+289,Isaías Alfonso Segura,San Borja,familiar,False,2024-04-30
+290,Maricela Román Quiroga,El Agustino,familiar,True,2025-10-10
+291,Baudelio Hermenegildo Almansa Morcillo,Surco,familiar,True,2024-09-23
+292,Jimena Selena Paredes Borja,El Agustino,familiar,False,2025-11-09
+293,Domingo Ruano Pérez,Lurigancho-Chosica,corporativo,False,2026-03-24
+294,Hector Menéndez Nicolás,Lurigancho-Chosica,familiar,True,2024-12-10
+295,Reyes Diéguez Benito,Lurigancho-Chosica,familiar,False,2026-03-04
+296,Juan Manuel Viana Ferrera,Ate,familiar,False,2025-06-26
+297,Pascuala Coloma Guzman,El Agustino,familiar,False,2024-06-08
+298,Eduardo Figueroa Durán,San Juan de Lurigancho,pareja,True,2024-08-25
+299,Chus Uribe Simó,Lurigancho-Chosica,corporativo,True,2026-05-25
+300,Jacinta Moraleda-Molina,Lurigancho-Chosica,familiar,False,2024-08-22
+301,Anabel Somoza Salamanca,El Agustino,familiar,False,2025-04-15
+302,Manolo Barbero-Ortiz,Lurigancho-Chosica,familiar,False,2026-02-27
+303,Fabián Serrano Sans,San Juan de Lurigancho,familiar,False,2024-02-28
+304,Gerónimo Madrid Benítez,Santa Anita,familiar,False,2024-05-20
+305,Martirio Lilia Planas Sevillano,Ate,familiar,True,2026-06-20
+306,Rosa María de Sandoval,Chaclacayo,familiar,True,2026-06-07
+307,Felipe Tamarit,Lurigancho-Chosica,corporativo,True,2026-02-17
+308,Américo Sanjuan Calderón,San Borja,pareja,False,2025-06-17
+309,José Antonio Duque Ariza,El Agustino,familiar,False,2025-01-19
+310,Isabel Zamora Yáñez,La Molina,pareja,False,2024-09-03
+311,Florencia Luna Ponce,Lurigancho-Chosica,familiar,False,2025-09-27
+312,Nidia Badía Nadal,San Juan de Lurigancho,familiar,True,2024-04-12
+313,Arcelia Pomares Luz,Santa Anita,corporativo,True,2025-01-26
+314,Trinidad Brígida Mínguez Bertrán,La Molina,familiar,True,2026-06-24
+315,Álvaro Olmo Menéndez,El Agustino,familiar,False,2025-08-31
+316,Manuel Blazquez Menendez,Cieneguilla,pareja,False,2026-05-18
+317,Milagros Moya Castell,San Juan de Lurigancho,familiar,False,2026-03-28
+318,Mohamed Roda Verdugo,Santa Anita,familiar,False,2025-07-16
+319,Gerardo Mendizábal Escribano,Lurigancho-Chosica,familiar,True,2024-11-28
+320,Raquel Torre Fernandez,Santa Anita,familiar,False,2024-12-17
+321,Casemiro Berenguer Marqués,El Agustino,familiar,False,2024-06-06
+322,Regina Zurita,El Agustino,familiar,False,2024-02-28
+323,Valentina Castro Peñas,Cieneguilla,familiar,False,2024-08-27
+324,Cipriano Daza Río,Ate,corporativo,False,2024-03-08
+325,Filomena Gámez Saldaña,San Juan de Lurigancho,pareja,True,2025-03-18
+326,Cruz Haro Mendoza,San Juan de Lurigancho,familiar,False,2025-12-29
+327,Gerónimo Saez,La Molina,corporativo,True,2025-12-18
+328,Roque Graciano Valverde Álamo,Lurigancho-Chosica,familiar,False,2025-10-12
+329,Sebastian Flores Chacón,Santa Anita,familiar,False,2025-01-23
+330,Miguel Ángel Terrón Pera,San Juan de Lurigancho,corporativo,False,2026-05-11
+331,Pelayo Villalobos Casanovas,Surco,familiar,False,2025-03-18
+332,Rico Cueto Llamas,Lurigancho-Chosica,corporativo,True,2025-11-28
+333,Brunilda Ruiz,Lurigancho-Chosica,familiar,False,2024-05-22
+334,Sebastian del Olmedo,Lurigancho-Chosica,familiar,True,2024-02-11
+335,Amelia Prieto Vallés,El Agustino,familiar,False,2025-08-03
+336,Guadalupe de Perera,Cieneguilla,familiar,False,2024-12-14
+337,Feliciano Cabeza Naranjo,San Juan de Lurigancho,familiar,True,2024-08-14
+338,Alejo Madrid Sureda,Surco,familiar,False,2024-08-03
+339,Jacinta Adadia Bernad,Santa Anita,familiar,False,2024-01-30
+340,Cándido Conde-Álamo,Cieneguilla,grupo,True,2025-10-19
+341,Román Maldonado Gámez,El Agustino,pareja,False,2025-04-12
+342,Amado Gómez Rivas,Ate,familiar,True,2025-12-11
+343,Bartolomé Valero Alegre,San Juan de Lurigancho,grupo,True,2026-03-11
+344,Dalila Cobo-Manuel,El Agustino,corporativo,True,2025-10-28
+345,Marino Osorio Hernandez,Lurigancho-Chosica,pareja,True,2026-06-05
+346,Cayetana Boada Zabaleta,Santa Anita,familiar,False,2025-07-14
+347,Juan José Vera Vera,Lurigancho-Chosica,familiar,False,2026-05-10
+348,Guiomar Soriano Arranz,Ate,familiar,True,2025-08-23
+349,Dolores Alegre Palau,San Juan de Lurigancho,familiar,False,2024-04-14
+350,Dalila Calleja Márquez,San Juan de Lurigancho,familiar,False,2024-07-26
+351,Gabriel Nevado Díez,Lurigancho-Chosica,familiar,False,2025-12-22
+352,Melania Esparza Cepeda,Lurigancho-Chosica,familiar,False,2024-04-08
+353,Alicia Marcos Fortuny,Surco,familiar,False,2024-03-09
+354,Venceslás Arnaiz,Chaclacayo,familiar,True,2025-05-05
+355,José Ángel Heliodoro Sáenz Isern,Ate,familiar,False,2024-02-26
+356,Eric Palau,San Juan de Lurigancho,pareja,True,2024-03-15
+357,Elena Casanova Pedro,Santa Anita,familiar,False,2025-11-09
+358,Perlita Sabater Pomares,San Borja,familiar,True,2025-06-10
+359,Jose Ramón Valencia Pedrero,Surco,pareja,True,2026-03-17
+360,Salvador Blanch-Rodriguez,La Molina,familiar,False,2024-05-02
+361,María Cristina Escribano Marin,Lurigancho-Chosica,grupo,False,2025-05-13
+362,Aníbal Mosquera Marqués,La Molina,familiar,True,2025-04-21
+363,María Cristina Rojas Diaz,Chaclacayo,corporativo,False,2025-11-20
+364,Itziar Arnal Osorio,Chaclacayo,familiar,False,2025-11-06
+365,Miguel Barceló-Benavides,Lurigancho-Chosica,familiar,False,2025-09-23
+366,Loida Cuesta Anguita,Chaclacayo,familiar,False,2024-08-09
+367,Nidia Ricarda Ríos Arana,San Juan de Lurigancho,corporativo,True,2024-07-15
+368,Desiderio Pazos Paredes,Cieneguilla,familiar,False,2025-08-17
+369,Alejandra Corral-Sandoval,Chaclacayo,familiar,True,2025-07-30
+370,Isidora Benítez Cervantes,Santa Anita,familiar,False,2026-04-02
+371,Gisela Miralles Lopez,El Agustino,familiar,False,2025-01-22
+372,Albert Estrada Valera,San Juan de Lurigancho,pareja,False,2026-03-15
+373,Zaira Carranza Juárez,Cieneguilla,familiar,False,2025-02-08
+374,Clotilde Machado Tudela,San Juan de Lurigancho,familiar,False,2024-11-06
+375,Borja Benavent Sans,Ate,grupo,False,2024-09-25
+376,Antonia Montenegro Olivera,San Borja,familiar,True,2024-04-10
+377,Macarena del Marín,El Agustino,corporativo,False,2024-09-01
+378,Régulo Pardo Verdugo,Chaclacayo,familiar,True,2024-12-14
+379,Cornelio Chamorro Guzmán,San Juan de Lurigancho,corporativo,True,2026-02-06
+380,Geraldo Peinado Solsona,Chaclacayo,pareja,False,2026-05-06
+381,Mariano Boix Bastida,El Agustino,familiar,False,2025-04-25
+382,Paca Tejero Zaragoza,La Molina,familiar,True,2025-09-30
+383,Sandra Benavent Casares,San Juan de Lurigancho,familiar,True,2025-05-07
+384,Jafet Solano Villar,Cieneguilla,pareja,False,2025-06-19
+385,Valentín Espada Castelló,Chaclacayo,familiar,False,2025-11-03
+386,Zaida Baquero,Chaclacayo,familiar,True,2024-07-11
+387,Calista Mateu,Santa Anita,familiar,True,2024-09-12
+388,Felix Gomis Oliva,Lurigancho-Chosica,pareja,False,2026-03-17
+389,Teo Aníbal Iglesia Ferrándiz,La Molina,familiar,False,2026-05-05
+390,Bernardino Mateo-Bueno,Ate,pareja,False,2026-02-19
+391,Manu Correa Donoso,San Juan de Lurigancho,corporativo,False,2025-06-08
+392,Alondra Andrade-Bertrán,El Agustino,familiar,False,2024-03-11
+393,Dulce Galvez-Riera,San Borja,familiar,True,2024-02-17
+394,Vilma Manjón Matas,Santa Anita,corporativo,False,2026-01-20
+395,Samuel del Martorell,San Borja,familiar,True,2025-12-05
+396,Omar Barreda Cruz,San Juan de Lurigancho,familiar,True,2025-11-13
+397,Julie Sobrino Frías,Ate,familiar,False,2025-06-12
+398,Bienvenida Estefanía Montaña Ojeda,Cieneguilla,familiar,False,2025-09-11
+399,Ricardo Pellicer Villa,San Juan de Lurigancho,grupo,False,2026-05-22
+400,Feliciano Herranz Soler,San Borja,corporativo,False,2024-07-09
+401,Jafet Huguet-Chico,Lurigancho-Chosica,pareja,False,2024-05-30
+402,Espiridión Plana Ripoll,Ate,corporativo,True,2025-01-20
+403,Santos Morán Milla,La Molina,familiar,False,2024-10-21
+404,Josep Villa Solera,San Borja,grupo,False,2026-02-13
+405,Jose Ramón Aitor Bosch Pozuelo,Lurigancho-Chosica,familiar,False,2026-02-24
+406,Dalila Garrido Osorio,Chaclacayo,grupo,True,2024-03-16
+407,Epifanio Uría Sosa,San Borja,familiar,True,2025-03-19
+408,Adelia de Rosa,San Juan de Lurigancho,pareja,False,2024-07-27
+409,Prudencio Paz-Quintana,Santa Anita,corporativo,False,2025-07-22
+410,Herberto Azcona Ferreras,El Agustino,familiar,True,2025-07-17
+411,Elvira de Pomares,Lurigancho-Chosica,pareja,False,2026-02-22
+412,Ramona Losa Carrera,Santa Anita,familiar,False,2024-07-18
+413,Haroldo Perea Nicolau,San Borja,familiar,False,2026-05-16
+414,Priscila Cobos Flor,El Agustino,familiar,True,2026-03-01
+415,Leyre Arjona Arrieta,San Juan de Lurigancho,pareja,True,2024-03-01
+416,Pepe Mínguez Sáez,San Juan de Lurigancho,familiar,True,2026-03-17
+417,Brígida Villalba Chaves,Lurigancho-Chosica,familiar,True,2025-05-24
+418,Esther Candelas Pozo Martínez,Santa Anita,familiar,False,2025-06-06
+419,Saturnina Vergara,Santa Anita,grupo,False,2026-04-06
+420,Olga Marí Taboada,Ate,corporativo,True,2024-01-26
+421,Eusebia Canals Riera,Ate,familiar,False,2026-06-25
+422,Rómulo Vinicio Amor Sánchez,Surco,familiar,False,2025-02-16
+423,Maricruz Goñi-Aznar,Santa Anita,familiar,True,2026-06-25
+424,Carlota Zamora Pinto,Surco,familiar,False,2024-08-17
+425,Alcides de Farré,San Juan de Lurigancho,familiar,False,2024-01-30
+426,Estefanía Riquelme Cordero,La Molina,familiar,True,2025-10-03
+427,Hernán Valls,Cieneguilla,familiar,False,2026-01-02
+428,Patricio Cervera Villena,Lurigancho-Chosica,familiar,True,2024-11-18
+429,Eufemia del Zaragoza,San Juan de Lurigancho,familiar,False,2025-08-08
+430,Carmela Segura Noriega,Lurigancho-Chosica,corporativo,False,2026-04-28
+431,Nicolasa Lamas Tomé,San Juan de Lurigancho,pareja,True,2024-10-25
+432,Emilio del Gomila,Santa Anita,familiar,False,2025-04-07
+433,Pastor Cristóbal Torrijos Molins,San Juan de Lurigancho,familiar,True,2026-01-15
+434,Manuelita Llanos Maestre,Lurigancho-Chosica,familiar,False,2024-07-08
+435,Nicolasa Pino-Prat,San Borja,pareja,False,2025-06-20
+436,Espiridión Arnal Maestre,El Agustino,familiar,True,2024-05-02
+437,Ángela Salamanca Jerez,Santa Anita,corporativo,True,2026-01-14
+438,Cosme Linares,Lurigancho-Chosica,familiar,False,2026-05-23
+439,Bruno Canales-Heras,Ate,pareja,False,2025-01-11
+440,Nicanor Gonzalez Guerrero,Lurigancho-Chosica,familiar,False,2024-03-22
+441,Hilario Murillo Sureda,Ate,familiar,False,2024-06-05
+442,Abilio Cruz Ramírez,Lurigancho-Chosica,familiar,False,2026-01-08
+443,Modesta Flores Madrigal,Lurigancho-Chosica,pareja,False,2025-05-13
+444,Mohamed Amor Borrás Guerra,Lurigancho-Chosica,corporativo,False,2026-04-11
+445,Yago Díez Rios,Lurigancho-Chosica,familiar,False,2024-09-30
+446,Silvio Puerta Valbuena,Cieneguilla,pareja,False,2024-10-16
+447,Urbano Alejo Agullo Martín,Santa Anita,pareja,False,2026-06-01
+448,Ascensión Áurea Naranjo Luís,Lurigancho-Chosica,corporativo,False,2025-12-06
+449,Luciana del Cañete,Cieneguilla,familiar,False,2026-02-22
+450,Elena Fernández Capdevila,Lurigancho-Chosica,familiar,False,2025-05-28
+451,Pío Segarra Jimenez,Lurigancho-Chosica,familiar,False,2024-10-16
+452,Rafa Navas Marquez,San Juan de Lurigancho,familiar,False,2026-06-01
+453,Chucho Ramirez,Cieneguilla,familiar,False,2025-10-26
+454,Eugenia Bolaños,El Agustino,pareja,True,2025-09-14
+455,Cirino Checa Tejada,Santa Anita,familiar,True,2025-05-17
+456,Abraham del Pla,El Agustino,corporativo,False,2024-12-31
+457,Primitiva Lasa Murcia,Santa Anita,corporativo,False,2025-04-14
+458,Paloma Alberdi-Jurado,Santa Anita,corporativo,False,2025-07-12
+459,Américo de Solana,San Borja,familiar,False,2025-04-21
+460,Hermenegildo Valverde Mercader,Lurigancho-Chosica,pareja,True,2024-07-01
+461,Gerónimo Marino Giner Gilabert,San Juan de Lurigancho,pareja,True,2024-07-26
+462,Calista Sanz Pereira,Chaclacayo,pareja,True,2025-10-07
+463,Zaira del Gil,Lurigancho-Chosica,familiar,True,2025-01-19
+464,Trinidad Rocío Bilbao Zaragoza,San Juan de Lurigancho,familiar,True,2025-11-24
+465,Ofelia Pardo,El Agustino,corporativo,False,2024-05-01
+466,Aurelia Barrio-Vega,Chaclacayo,familiar,True,2024-11-10
+467,Lupe Conde-Córdoba,San Juan de Lurigancho,grupo,True,2025-05-24
+468,Isaura Carnero,El Agustino,familiar,False,2024-11-15
+469,Laura Bou-Vicens,San Borja,familiar,False,2025-11-23
+470,Javi Catalán Vilanova,San Juan de Lurigancho,familiar,True,2025-10-07
+471,Marcela Barco Sevilla,San Juan de Lurigancho,familiar,False,2025-04-23
+472,Hector Iñiguez Acero,Chaclacayo,corporativo,False,2024-12-04
+473,Angelina Arrieta-Roda,Lurigancho-Chosica,familiar,False,2025-06-19
+474,Kike Barrena Bayón,San Borja,familiar,True,2026-01-03
+475,Eric Rebollo Escolano,San Juan de Lurigancho,pareja,False,2024-07-29
+476,Florentina Piñeiro Sanabria,Ate,corporativo,False,2025-08-09
+477,Anita Cañas Oliveras,San Borja,familiar,False,2024-07-03
+478,Julio César Pozo Ángel,Santa Anita,familiar,False,2024-07-16
+479,Silvestre de Alsina,Lurigancho-Chosica,familiar,False,2025-04-08
+480,Nerea Rodrigo Pinilla,La Molina,familiar,False,2024-12-22
+481,Jeremías del Cortina,Ate,familiar,False,2025-03-04
+482,Urbano Carbajo,Santa Anita,familiar,True,2024-02-20
+483,María Luisa Alcázar Hernandez,Santa Anita,familiar,False,2024-11-16
+484,Aureliano Aragonés Salom,El Agustino,pareja,False,2024-03-16
+485,Raimundo de Quesada,San Juan de Lurigancho,corporativo,False,2025-11-12
+486,Julián de Barbero,San Borja,corporativo,False,2024-08-05
+487,Ema Guillén,Lurigancho-Chosica,pareja,False,2026-06-13
+488,Maricruz Montes Gálvez,El Agustino,familiar,False,2025-04-13
+489,Natalio Vázquez Giner,Lurigancho-Chosica,corporativo,False,2025-10-04
+490,Emigdio Américo Díez Roldán,San Juan de Lurigancho,familiar,False,2026-05-13
+491,Amanda Ocaña Piquer,La Molina,familiar,True,2026-03-25
+492,Obdulia Rico Real,Lurigancho-Chosica,familiar,True,2024-08-19
+493,Godofredo Cirino Sáenz Hernando,San Juan de Lurigancho,pareja,False,2024-12-16
+494,Timoteo Paulino Cobos Sierra,Santa Anita,corporativo,True,2024-03-30
+495,Haydée del Cañete,Chaclacayo,familiar,True,2025-08-26
+496,Edu de Murillo,Ate,pareja,False,2024-05-02
+497,Soraya Peláez Bru,San Juan de Lurigancho,familiar,False,2026-04-12
+498,Amancio Ledesma,Lurigancho-Chosica,familiar,True,2025-08-08
+499,María Cristina Almudena Beltran Fabra,Lurigancho-Chosica,grupo,False,2026-05-18
+500,Jose Gallardo,Santa Anita,grupo,True,2025-06-01
+501,Wálter Adrián Galán Falcón,San Juan de Lurigancho,familiar,False,2024-07-01
+502,Zoraida Herrera Fuente,La Molina,pareja,True,2025-09-08
+503,Leoncio del Luna,Ate,pareja,False,2025-08-14
+504,Luna Palomar Mendez,Chaclacayo,corporativo,False,2025-02-10
+505,Loida Valencia Solano,San Juan de Lurigancho,familiar,True,2024-06-02
+506,Pía Montero Frutos,Surco,familiar,False,2025-07-29
+507,Haydée Arroyo Giralt,Lurigancho-Chosica,grupo,True,2024-08-14
+508,Eladio Rios Marquez,San Borja,pareja,False,2024-08-24
+509,Fidel Grau,San Juan de Lurigancho,familiar,True,2025-08-13
+510,Serafina Hoyos-Valera,Lurigancho-Chosica,grupo,False,2026-05-05
+511,Domitila Torres Trujillo,El Agustino,corporativo,True,2025-12-16
+512,Quique Ortuño Dominguez,Surco,grupo,True,2024-08-05
+513,Laura de Barral,San Juan de Lurigancho,grupo,False,2026-03-24
+514,Simón Benavente Atienza,Chaclacayo,pareja,False,2024-01-10
+515,Bernardita Guardia Bayo,Chaclacayo,familiar,False,2024-08-22
+516,César Vega Sarmiento,San Juan de Lurigancho,familiar,False,2025-08-02
+517,Martin Tomas Torrents,Lurigancho-Chosica,familiar,True,2024-01-25
+518,Juan Pablo Reina Albero,Ate,familiar,True,2024-01-26
+519,Palmira Llobet,La Molina,familiar,True,2026-04-12
+520,Adán José Ros Escobar,El Agustino,familiar,False,2024-06-15
+521,Juan Francisco Comas Hernando,Chaclacayo,familiar,False,2024-10-25
+522,Lucila Dolores Pablo Lastra,Ate,familiar,True,2025-09-08
+523,Glauco Ramis Segovia,Ate,pareja,False,2026-05-27
+524,Pablo de Marín,Lurigancho-Chosica,familiar,False,2024-05-05
+525,Arturo Ramirez Pinilla,Lurigancho-Chosica,pareja,False,2025-08-08
+526,Juanita de Agustí,San Juan de Lurigancho,pareja,False,2024-09-23
+527,Josep Roura Muñoz,Chaclacayo,grupo,False,2026-05-29
+528,Victorino Álvarez Arnau,Santa Anita,grupo,True,2024-12-22
+529,Virgilio Talavera,Santa Anita,pareja,True,2025-02-25
+530,Óscar Benavente Lozano,Ate,familiar,True,2026-04-23
+531,Máxima Aparicio-Escobar,Surco,pareja,True,2025-05-03
+532,Cristóbal Cobos Puig,Santa Anita,pareja,False,2024-04-29
+533,Ceferino Lope Hernandez Porcel,La Molina,familiar,False,2026-04-19
+534,Fátima Chaves Bermudez,Lurigancho-Chosica,familiar,True,2026-02-16
+535,Amelia Cabañas Ruiz,El Agustino,familiar,False,2024-12-26
+536,Francisco Puente Morera,Lurigancho-Chosica,familiar,False,2024-02-16
+537,Ruben Sanjuan-Trujillo,Lurigancho-Chosica,familiar,True,2024-12-20
+538,Manola Perez Rosales,Santa Anita,grupo,False,2024-10-15
+539,Nadia Pinto-Boada,Ate,familiar,False,2025-04-03
+540,Pepe de Blanca,San Borja,familiar,True,2025-02-20
+541,Goyo Correa Porras,Lurigancho-Chosica,pareja,False,2025-05-06
+542,Ascensión Bravo Adadia,Cieneguilla,familiar,False,2025-04-23
+543,Fernanda Lerma Calatayud,San Juan de Lurigancho,grupo,True,2024-07-24
+544,Ciro Rosa Sanchez,Lurigancho-Chosica,corporativo,True,2026-05-15
+545,Loida del Calderón,Lurigancho-Chosica,grupo,True,2024-02-10
+546,Galo Buendía Morata,Ate,grupo,False,2025-08-21
+547,Esteban Riba Pons,San Juan de Lurigancho,corporativo,False,2024-05-11
+548,Yolanda de Vázquez,Lurigancho-Chosica,familiar,False,2024-09-20
+549,Carla Chamorro Leiva,Lurigancho-Chosica,familiar,False,2025-04-12
+550,Jose Manuel Coello-Barroso,Santa Anita,pareja,True,2024-09-16
+551,Eliana Robledo Marí,Surco,familiar,False,2026-01-22
+552,Geraldo Infante Huerta,San Borja,pareja,False,2026-02-09
+553,María Manuela Chelo Seco Campo,Lurigancho-Chosica,grupo,True,2024-07-29
+554,Abraham Hector Márquez Pinto,La Molina,familiar,False,2025-05-26
+555,Eva María Ros Cerdán,Lurigancho-Chosica,corporativo,False,2025-04-11
+556,María Cristina Font Tello,Lurigancho-Chosica,pareja,False,2025-05-03
+557,Heliodoro Montaña Manuel,San Juan de Lurigancho,familiar,True,2026-02-01
+558,Ricarda Herrera-Moreno,San Juan de Lurigancho,corporativo,False,2025-08-07
+559,Sebastian Pozo-Patiño,Cieneguilla,familiar,False,2024-06-25
+560,Chus Escolano-Amores,Lurigancho-Chosica,familiar,True,2025-12-18
+561,Isidoro Manuel,Surco,pareja,False,2024-04-17
+562,Nerea Valera Chaparro,Chaclacayo,pareja,False,2025-04-15
+563,Edmundo de Rocha,San Juan de Lurigancho,corporativo,False,2025-08-08
+564,Jacobo Tello Pérez,Santa Anita,familiar,True,2026-04-10
+565,Ámbar Ripoll,El Agustino,familiar,False,2026-04-24
+566,Ruperto Palomares Blázquez,San Juan de Lurigancho,pareja,False,2024-06-18
+567,Nando del Delgado,Lurigancho-Chosica,familiar,True,2024-03-09
+568,Mireia Pulido-Mármol,Lurigancho-Chosica,corporativo,False,2025-10-30
+569,Adelardo Cabello Jordán,San Juan de Lurigancho,pareja,False,2024-12-10
+570,Piedad Villena,San Juan de Lurigancho,familiar,False,2026-05-16
+571,Noemí Giner-Salinas,El Agustino,pareja,False,2025-08-04
+572,Jordana Vall Contreras,San Juan de Lurigancho,corporativo,False,2025-06-19
+573,Jose Antonio Calvo Marqués,Cieneguilla,familiar,False,2025-10-08
+574,Bautista Cifuentes Olivé,Ate,pareja,False,2025-04-29
+575,Jessica Gabaldón Vázquez,Cieneguilla,pareja,True,2026-01-20
+576,Juanita Cabanillas Ríos,Chaclacayo,pareja,False,2025-12-03
+577,Anabel Marín Arribas,Ate,corporativo,False,2024-06-27
+578,Teobaldo Novoa Canales,La Molina,corporativo,False,2024-09-12
+579,Juan de Cuesta,Cieneguilla,familiar,False,2025-05-29
+580,Inmaculada del Guardiola,Lurigancho-Chosica,pareja,False,2025-09-21
+581,Ciro Rosell Priego,Lurigancho-Chosica,pareja,True,2024-02-15
+582,Verónica Chita Sancho Román,La Molina,familiar,False,2025-08-27
+583,Pastor Garmendia Fuster,Chaclacayo,familiar,False,2025-03-08
+584,Luis Cal Estévez,San Juan de Lurigancho,pareja,True,2025-07-22
+585,Chelo Seco Carbonell,El Agustino,familiar,False,2025-02-11
+586,Lucía Millán Pont,Surco,corporativo,True,2025-09-01
+587,Aurora Oliveras-Ortiz,El Agustino,corporativo,False,2025-12-12
+588,Carmela Ruth Martorell Blazquez,San Juan de Lurigancho,corporativo,False,2024-07-27
+589,Azahara Gómez Mayoral,Lurigancho-Chosica,pareja,False,2024-06-30
+590,Glauco Cid Vicente,San Juan de Lurigancho,pareja,True,2025-08-26
+591,María Cervera Pla,El Agustino,grupo,False,2025-10-19
+592,Jose Francisco Duran Diaz,San Borja,corporativo,True,2026-01-30
+593,Buenaventura Ciro Miranda Sanmartín,San Borja,familiar,True,2024-03-24
+594,Adelia Tormo Cerezo,Lurigancho-Chosica,corporativo,False,2024-10-30
+595,Mar Vega Uría,La Molina,familiar,True,2025-09-27
+596,Herminia Saldaña Torres,San Juan de Lurigancho,familiar,False,2024-09-16
+597,Lorenzo Anguita Giménez,Ate,familiar,False,2025-03-29
+598,Emigdio Gomila Malo,Cieneguilla,familiar,True,2024-09-18
+599,Marcia Valbuena Vicente,Surco,grupo,True,2024-06-24
+600,Aurora Leal-Pedraza,Lurigancho-Chosica,pareja,False,2026-04-22
+601,Ricardo Sainz Gil,Lurigancho-Chosica,pareja,True,2025-10-22
+602,Quirino Huertas Martorell,El Agustino,familiar,False,2024-02-20
+603,Dorotea Olivé Bonet,La Molina,familiar,False,2025-11-13
+604,Román Gálvez Gallego,Santa Anita,corporativo,False,2025-06-28
+605,Melania Inés Daza Chaparro,Surco,familiar,False,2024-11-16
+606,Samuel Barranco,San Juan de Lurigancho,familiar,False,2026-06-04
+607,Luisina Lucas Diéguez,Chaclacayo,familiar,False,2025-05-17
+608,Espiridión Luciano Lastra Vilar,Lurigancho-Chosica,corporativo,False,2024-05-27
+609,Remigio Reina Barranco,Ate,familiar,True,2025-03-06
+610,Pascual Cazorla Iborra,El Agustino,corporativo,True,2024-08-15
+611,Saturnina Huertas Pozo,Lurigancho-Chosica,grupo,False,2026-01-30
+612,Luis Leiva Ribas,San Borja,familiar,True,2025-08-05
+613,Angelita Buendía Quintana,Ate,familiar,False,2026-03-11
+614,Ovidio Peinado-Sanz,El Agustino,familiar,False,2026-01-28
+615,Marisa Acedo Buendía,Santa Anita,grupo,False,2025-12-13
+616,Susanita Barroso Puga,Lurigancho-Chosica,pareja,False,2024-12-04
+617,Sara Galán Uría,Lurigancho-Chosica,familiar,False,2025-02-21
+618,Saturnina Luque Nebot,Santa Anita,corporativo,True,2026-04-30
+619,Belén Toro-Nuñez,San Juan de Lurigancho,pareja,False,2024-03-16
+620,Augusto Segura Alegre,Lurigancho-Chosica,grupo,True,2024-07-11
+621,Isidro Sastre Abascal,La Molina,pareja,True,2025-10-26
+622,Omar Catalán,Chaclacayo,pareja,True,2025-04-13
+623,Ulises Lledó Bueno,Ate,pareja,True,2025-07-13
+624,Ariel Peral-Dalmau,Lurigancho-Chosica,familiar,True,2024-03-21
+625,Maura Mayoral Guillén,Ate,grupo,False,2025-10-28
+626,Pastor Bustamante Abella,San Juan de Lurigancho,pareja,False,2024-11-27
+627,Angélica Cazorla Gonzalo,Lurigancho-Chosica,familiar,True,2026-03-17
+628,Adelia Aguiló Nuñez,Santa Anita,corporativo,True,2024-07-06
+629,Nélida Catalán Tejedor,San Juan de Lurigancho,familiar,False,2024-04-20
+630,Gregorio de Calatayud,San Juan de Lurigancho,familiar,False,2024-06-09
+631,Flor Martínez Cerro,Chaclacayo,familiar,False,2025-08-17
+632,Miguel Ángel Clavero Bayona,San Juan de Lurigancho,familiar,False,2026-04-04
+633,Adelia Córdoba-Sacristán,Lurigancho-Chosica,familiar,True,2025-06-29
+634,Mauricio Cordero,San Juan de Lurigancho,familiar,True,2025-10-01
+635,Noelia Isaura Gaya Bolaños,El Agustino,corporativo,True,2024-06-05
+636,Renato Casal Plana,Cieneguilla,corporativo,True,2025-06-30
+637,Estela Chaves Huguet,Lurigancho-Chosica,pareja,True,2025-03-06
+638,Edelmiro López Amor,Lurigancho-Chosica,familiar,True,2025-04-13
+639,Juan Antonio Vergara,Surco,familiar,False,2024-10-20
+640,Emiliana Ballester Heras,San Juan de Lurigancho,familiar,True,2026-02-07
+641,Aurelia Hernando Valero,La Molina,corporativo,False,2024-04-20
+642,Vilma Albero,Lurigancho-Chosica,corporativo,False,2025-07-14
+643,Benigna Pombo Rivero,San Juan de Lurigancho,familiar,False,2025-07-21
+644,Nilda de Sotelo,Santa Anita,familiar,True,2024-04-23
+645,Lázaro Bauzà Alcalá,Lurigancho-Chosica,familiar,False,2025-02-11
+646,Alex Barrena,Lurigancho-Chosica,familiar,False,2025-09-10
+647,Eloísa Vallejo,Ate,corporativo,False,2025-10-07
+648,Odalys Quesada Blanca,Lurigancho-Chosica,pareja,False,2026-04-13
+649,María Manuela de Lobato,Lurigancho-Chosica,familiar,False,2024-05-09
+650,Aníbal José Mari Frutos Cortés,La Molina,corporativo,False,2026-04-13
+651,Genoveva Batalla Menéndez,San Borja,familiar,True,2025-11-10
+652,Ambrosio de Boix,San Juan de Lurigancho,familiar,True,2025-11-05
+653,Javi Ballesteros Mendoza,Cieneguilla,pareja,False,2024-09-29
+654,Adolfo Cervantes Alberdi,Chaclacayo,pareja,False,2024-09-11
+655,Fanny Zabala Villar,Chaclacayo,familiar,False,2025-02-06
+656,Gilberto Castañeda Leiva,Cieneguilla,familiar,False,2024-07-02
+657,Florencio Román Lladó,Chaclacayo,familiar,True,2026-03-24
+658,Eleuterio Benítez Valderrama,Ate,familiar,False,2025-12-08
+659,Fernanda Baquero,La Molina,familiar,True,2026-02-15
+660,Carina Pedro-Criado,Lurigancho-Chosica,familiar,True,2025-01-31
+661,Victoriano Carlos Gracia,Lurigancho-Chosica,familiar,False,2026-03-01
+662,Alfredo Alberola Hidalgo,Lurigancho-Chosica,pareja,True,2024-03-12
+663,Filomena Piñol Conesa,El Agustino,grupo,False,2024-10-05
+664,Leonel Rius Gomez,Chaclacayo,familiar,True,2025-05-14
+665,Horacio del Linares,San Juan de Lurigancho,corporativo,False,2024-04-30
+666,Florencia Carreras-Vallés,La Molina,corporativo,False,2024-03-22
+667,Dani Villalobos Arteaga,Surco,familiar,False,2025-09-14
+668,Valentín Sola Lumbreras,Ate,grupo,True,2025-04-27
+669,Antonia Saura Aguiló,Ate,familiar,False,2025-07-27
+670,Esteban Mateu,Lurigancho-Chosica,familiar,False,2025-01-11
+671,Flor Uriarte Ferrán,San Juan de Lurigancho,familiar,False,2026-04-29
+672,Carlos de Redondo,La Molina,pareja,False,2024-02-07
+673,Kike del Agustí,Santa Anita,pareja,False,2025-06-04
+674,Reynaldo Peñalver Meléndez,Santa Anita,familiar,True,2024-06-10
+675,Juan Manuel Gárate,Lurigancho-Chosica,grupo,False,2025-10-14
+676,América Cisneros Losada,San Juan de Lurigancho,pareja,False,2024-05-24
+677,Édgar Guardiola Vizcaíno,La Molina,familiar,False,2025-10-03
+678,Jesusa Blazquez Bustos,Cieneguilla,familiar,False,2026-02-24
+679,Melchor Prado Benavides,Santa Anita,grupo,True,2026-06-01
+680,Isaac Castrillo Guzmán,San Juan de Lurigancho,familiar,True,2025-03-29
+681,Teodoro Miró-Pozo,Lurigancho-Chosica,grupo,False,2025-05-21
+682,Jennifer Llabrés Guillen,Ate,corporativo,True,2024-04-26
+683,Borja Canales,Lurigancho-Chosica,pareja,True,2024-08-29
+684,Celestino Sancho Solano,San Borja,pareja,True,2025-05-02
+685,Azeneth Palma Galiano,Lurigancho-Chosica,familiar,True,2025-12-03
+686,Jesús Eligio Carretero Botella,Lurigancho-Chosica,grupo,False,2024-09-01
+687,Severiano Pastor Arjona Garrido,San Juan de Lurigancho,pareja,False,2025-05-24
+688,Artemio Hurtado Pagès,Cieneguilla,familiar,True,2025-09-07
+689,Amarilis Martínez,San Juan de Lurigancho,familiar,True,2025-02-08
+690,Albino Quiroga Santamaria,San Juan de Lurigancho,familiar,False,2026-05-13
+691,Diana de Sevilla,Santa Anita,familiar,False,2024-06-07
+692,Benjamín Albero Barrio,El Agustino,grupo,False,2024-12-11
+693,Conrado Pérez Perales,El Agustino,corporativo,False,2024-05-10
+694,Maristela Jove-Benavides,Lurigancho-Chosica,pareja,False,2024-02-03
+695,Conrado Salcedo Castells,San Juan de Lurigancho,grupo,False,2024-05-22
+696,Azucena Arnau Serra,Lurigancho-Chosica,familiar,False,2024-03-19
+697,Óscar Rosselló Prat,San Juan de Lurigancho,familiar,False,2026-02-09
+698,Graciano Roldan Duque,Chaclacayo,familiar,False,2025-07-03
+699,Wálter Exposito,Lurigancho-Chosica,familiar,False,2025-03-03
+700,Jacinto Comas-Aramburu,La Molina,corporativo,False,2025-01-16
+701,Josep Hernán Tello Barrera,Lurigancho-Chosica,familiar,False,2024-05-16
+702,Gregorio Cervantes-Rius,La Molina,familiar,False,2024-11-05
+703,Diana Aliaga,San Juan de Lurigancho,corporativo,False,2025-08-17
+704,Julia Tormo Núñez,Chaclacayo,pareja,True,2026-05-28
+705,Estrella Pont,Cieneguilla,corporativo,True,2025-02-24
+706,Albert Montaña Gilabert,Lurigancho-Chosica,familiar,True,2024-02-15
+707,Ambrosio Suarez-Ávila,Lurigancho-Chosica,familiar,False,2025-07-09
+708,Cruz Cuervo-Cabrera,San Borja,familiar,False,2025-01-20
+709,Eliseo de Gimenez,Lurigancho-Chosica,familiar,True,2026-06-13
+710,Felicidad Durán Echeverría,San Borja,familiar,True,2025-01-02
+711,Ester Palmer-Anaya,San Juan de Lurigancho,familiar,False,2025-06-30
+712,Marcela Cisneros-Fabra,Lurigancho-Chosica,familiar,False,2026-02-03
+713,Esmeralda de Trujillo,Surco,grupo,False,2024-02-28
+714,Amaro Guerrero Gilabert,Surco,familiar,False,2024-01-31
+715,Judith Abascal,Cieneguilla,corporativo,False,2025-05-30
+716,Cintia Rosenda Castrillo Niño,San Juan de Lurigancho,familiar,True,2024-10-02
+717,América Almeida Coloma,Ate,familiar,True,2024-08-08
+718,Teo Zorrilla Patiño,Lurigancho-Chosica,familiar,False,2024-04-22
+719,Ofelia Priego Cabrero,La Molina,familiar,True,2025-06-06
+720,Felix Borja Criado Rueda,Ate,familiar,True,2026-01-26
+721,Carmelita Palacios Godoy,Lurigancho-Chosica,grupo,True,2024-09-29
+722,Encarnita Mariño Castejón,Santa Anita,corporativo,False,2024-10-03
+723,Pascual Posada Antúnez,Lurigancho-Chosica,pareja,False,2024-10-09
+724,Ester Águeda Giner Calvet,Chaclacayo,corporativo,False,2026-02-09
+725,Fito Bermejo Gárate,Ate,grupo,False,2025-06-22
+726,Carina Borrego Narváez,Ate,familiar,False,2025-11-24
+727,Eligio Gallego Iborra,San Juan de Lurigancho,pareja,False,2024-04-15
+728,Domitila Campoy Abella,San Borja,familiar,True,2024-03-15
+729,Isabel Rivas Delgado,Ate,corporativo,True,2025-10-05
+730,Vera Pinedo Ortega,Ate,familiar,False,2026-04-28
+731,Armida Tello Gomis,Ate,familiar,False,2024-09-09
+732,Angelina Aragonés Mariño,Ate,familiar,False,2024-02-01
+733,Dorita Calvo Benavent,Lurigancho-Chosica,grupo,False,2025-06-14
+734,Vicente Perez Cuevas,Santa Anita,grupo,True,2024-04-26
+735,Viviana de Neira,Chaclacayo,pareja,False,2026-01-19
+736,Ildefonso Cózar Rovira,La Molina,corporativo,False,2024-09-01
+737,Aureliano Muñoz Fuertes,Santa Anita,pareja,False,2024-10-22
+738,Obdulia Lara Lucena,Ate,familiar,True,2025-04-06
+739,Atilio de Pozo,La Molina,pareja,True,2026-06-07
+740,Sol del Corral,Santa Anita,pareja,True,2024-03-25
+741,Abril Roma Bonilla,Lurigancho-Chosica,pareja,False,2025-04-02
+742,Julia Chus Caballero Amigó,Lurigancho-Chosica,familiar,False,2024-11-17
+743,Melchor Manzanares Bilbao,Santa Anita,familiar,True,2026-01-05
+744,Fabio Puga Sotelo,Ate,familiar,False,2026-01-29
+745,Artemio Ponce-Esteban,Santa Anita,familiar,True,2025-07-30
+746,Flora Estévez Salinas,Santa Anita,familiar,False,2024-03-10
+747,Isidro Sola-Lago,Lurigancho-Chosica,familiar,False,2024-12-17
+748,Lope Barrio-Corbacho,Ate,corporativo,False,2024-05-30
+749,Nicanor Núñez Riba,San Juan de Lurigancho,corporativo,False,2024-12-19
+750,Ana del Yáñez,Cieneguilla,familiar,True,2025-10-12
+751,Noelia del Gutiérrez,San Juan de Lurigancho,familiar,True,2026-01-09
+752,Aníbal Hector Arana Vallés,El Agustino,familiar,False,2026-06-06
+753,Rosalía Colom,Santa Anita,familiar,False,2024-07-05
+754,Carmela Diego Galán,San Juan de Lurigancho,corporativo,False,2024-10-26
+755,Alfonso Roda Bermudez,La Molina,corporativo,False,2025-11-07
+756,Sergio Coloma,La Molina,pareja,False,2025-02-04
+757,Zaida Bautista Bonet,Lurigancho-Chosica,grupo,False,2025-08-25
+758,Gisela del Llorente,Lurigancho-Chosica,familiar,False,2026-03-18
+759,África Alberola Yáñez,Cieneguilla,corporativo,True,2025-10-13
+760,Hipólito Conde Colomer,San Borja,familiar,False,2026-05-30
+761,Marisela Cabrera-Camacho,San Borja,familiar,False,2026-05-24
+762,Rubén Macias Núñez,Lurigancho-Chosica,familiar,False,2025-09-30
+763,Gregorio Torralba-Suárez,El Agustino,familiar,False,2024-02-28
+764,Emiliano Quintana Cobo,El Agustino,familiar,True,2025-09-16
+765,Hector Muñoz Gámez,San Juan de Lurigancho,pareja,False,2024-03-17
+766,Águeda Leiva Perales,Ate,familiar,False,2024-02-01
+767,Salomé Mateo Mercader,El Agustino,pareja,False,2025-03-11
+768,Tecla Cabello Goñi,Lurigancho-Chosica,familiar,False,2024-07-27
+769,Ramiro Ismael Montesinos Leon,Ate,familiar,True,2025-10-09
+770,Mireia Anunciación Expósito Sala,San Juan de Lurigancho,familiar,False,2024-11-24
+771,Perla Tormo Villalonga,Lurigancho-Chosica,pareja,False,2025-08-03
+772,José Ángel Cuenca Bastida,El Agustino,corporativo,True,2025-04-28
+773,Graciana Cerdá,San Juan de Lurigancho,grupo,True,2026-03-25
+774,Albina Durán-Fernández,San Juan de Lurigancho,pareja,False,2024-11-07
+775,Edelmiro Aparicio Sastre,Ate,familiar,False,2024-03-19
+776,Ofelia Flor Lledó,Ate,grupo,True,2025-07-26
+777,Ligia Puente Casals,Cieneguilla,pareja,False,2024-02-17
+778,Gilberto del Salmerón,Lurigancho-Chosica,familiar,False,2024-10-02
+779,Maristela Olmo Ocaña,Santa Anita,corporativo,False,2024-09-11
+780,Reinaldo Botella-López,San Borja,pareja,True,2024-02-12
+781,Amarilis Cánovas Gargallo,Lurigancho-Chosica,familiar,False,2024-12-09
+782,Nilo de Leon,El Agustino,pareja,False,2025-09-28
+783,Ainara Agullo,Santa Anita,pareja,False,2026-01-06
+784,Moisés Duran Aguirre,Lurigancho-Chosica,corporativo,False,2024-12-13
+785,Marco Mayoral-Llopis,San Juan de Lurigancho,corporativo,True,2025-10-20
+786,Tamara Oller Segovia,Lurigancho-Chosica,corporativo,False,2025-01-26
+787,Joan Matas,Cieneguilla,pareja,False,2026-03-19
+788,Gisela Marisol Calatayud Aguilera,Lurigancho-Chosica,familiar,True,2026-03-05
+789,Mar Lumbreras Martín,Ate,familiar,False,2024-06-16
+790,Ana Belén Navarrete Lloret,San Juan de Lurigancho,corporativo,False,2025-05-20
+791,Eladio Martín-Fabra,Santa Anita,familiar,False,2024-08-20
+792,Ramona Hernandez,San Juan de Lurigancho,corporativo,False,2024-03-29
+793,Graciana Nadia Montenegro Chaves,Lurigancho-Chosica,grupo,False,2024-02-09
+794,Emiliana Jover Riquelme,Santa Anita,corporativo,False,2025-09-20
+795,Paz Aranda Falcó,La Molina,familiar,True,2025-06-17
+796,Olegario del Palmer,Surco,corporativo,False,2026-02-27
+797,Telmo Che Escrivá Marin,Lurigancho-Chosica,familiar,False,2024-05-31
+798,Belen Jordán España,San Juan de Lurigancho,pareja,False,2025-06-05
+799,Dan Padilla Godoy,Lurigancho-Chosica,familiar,False,2025-04-22
+800,Rocío Muñoz Peral,Cieneguilla,familiar,False,2025-02-08
+801,Emilia Silva-Carranza,El Agustino,familiar,True,2025-12-31
+802,Toribio Belda Sureda,Santa Anita,familiar,True,2024-10-29
+803,Azeneth Pizarro,San Juan de Lurigancho,familiar,False,2026-04-03
+804,Hilario Amando Contreras Cervantes,Chaclacayo,familiar,False,2024-11-07
+805,Guadalupe Seco Clemente,San Juan de Lurigancho,familiar,False,2025-05-06
+806,Roque Berrocal Torrent,Ate,pareja,True,2025-05-31
+807,Faustino Barco Acuña,El Agustino,familiar,False,2025-12-03
+808,Cruz Domingo-Cuadrado,Ate,familiar,True,2026-01-30
+809,Berto Roura Román,Ate,grupo,False,2025-09-18
+810,Judith Pla Acuña,La Molina,corporativo,False,2024-02-28
+811,Chus del Alcalá,Lurigancho-Chosica,familiar,False,2025-05-15
+812,Celestina Alemán,Surco,corporativo,True,2024-01-07
+813,Daniel del Miguel,Ate,familiar,True,2024-07-19
+814,Gregorio Vaquero Maza,San Juan de Lurigancho,familiar,False,2024-09-16
+815,Sergio Arroyo Martí,San Juan de Lurigancho,familiar,False,2025-03-27
+816,Pascuala Viña Zamora,El Agustino,pareja,True,2025-06-08
+817,Victoria Cañete Noriega,Chaclacayo,corporativo,False,2026-01-31
+818,Pili Fabra Cózar,Lurigancho-Chosica,grupo,True,2025-09-18
+819,Danilo Gomez Castro,Lurigancho-Chosica,familiar,False,2024-11-24
+820,Macario Vargas Dominguez,San Borja,grupo,False,2024-07-10
+821,Olivia Arcos Perez,Chaclacayo,familiar,False,2025-02-01
+822,Matilde de Asensio,Ate,familiar,False,2024-06-16
+823,Amado Carmona Riera,La Molina,familiar,False,2025-11-21
+824,Beatriz Iriarte Sánchez,Chaclacayo,familiar,False,2024-08-25
+825,Ovidio Agustí,La Molina,pareja,False,2025-04-12
+826,Nadia Cabrero Viña,El Agustino,familiar,False,2025-02-23
+827,María Dolores Odalis Cerro Riquelme,Santa Anita,familiar,True,2024-06-11
+828,Pacífica Carranza,San Borja,familiar,False,2025-03-15
+829,Ruben Camino Valenciano,El Agustino,corporativo,False,2024-11-04
+830,Chus Reyes Jódar Zabala,Santa Anita,familiar,False,2024-11-09
+831,Ofelia Redondo Marquez,San Juan de Lurigancho,corporativo,False,2024-09-06
+832,Leocadio Valderrama Galiano,San Juan de Lurigancho,grupo,False,2026-01-16
+833,Custodia Acedo Alberto,Cieneguilla,grupo,False,2024-05-18
+834,Silvestre Uribe Company,San Borja,familiar,False,2024-05-19
+835,Angelita Cadenas,Chaclacayo,familiar,False,2025-02-01
+836,Javier del Laguna,Cieneguilla,familiar,False,2025-12-22
+837,Aureliano Díaz Ariza,Chaclacayo,pareja,False,2025-03-27
+838,Rosario Milla Rojas,El Agustino,pareja,True,2024-06-29
+839,Teodoro Arroyo Agustí,Santa Anita,familiar,False,2024-08-02
+840,Fidel Pallarès Río,Ate,familiar,False,2025-02-20
+841,Gilberto Noriega España,Surco,familiar,True,2024-06-25
+842,Gloria Sastre Llabrés,Chaclacayo,corporativo,False,2025-08-22
+843,Rosalía Robles Diaz,Cieneguilla,familiar,False,2024-06-24
+844,Pablo Barral Cuervo,San Juan de Lurigancho,grupo,False,2024-06-10
+845,Zaida Tolosa Ríos,La Molina,corporativo,False,2024-10-08
+846,Fortunata Reyes Palmer Andres,San Juan de Lurigancho,familiar,False,2024-07-21
+847,Águeda Torrents Carbajo,Lurigancho-Chosica,familiar,False,2025-09-30
+848,Amalia Barroso Jurado,Lurigancho-Chosica,familiar,True,2025-05-03
+849,Pastor Zamorano Goicoechea,Lurigancho-Chosica,familiar,False,2025-06-09
+850,Lourdes Bustos,San Juan de Lurigancho,grupo,False,2025-11-03
+851,Jose Angel del Plaza,Santa Anita,grupo,False,2024-08-18
+852,Violeta de Alberdi,San Juan de Lurigancho,familiar,True,2024-08-31
+853,Susana Soria,Lurigancho-Chosica,familiar,True,2026-02-09
+854,Anselmo Tur Montes,Lurigancho-Chosica,corporativo,False,2025-01-09
+855,Eligia Ayuso Vendrell,Ate,corporativo,False,2024-12-11
+856,Milagros del Quintana,Lurigancho-Chosica,familiar,False,2024-12-31
+857,Jeremías Saldaña Samper,San Juan de Lurigancho,pareja,False,2024-05-16
+858,Itziar Molina Carrera,Surco,familiar,False,2026-02-11
+859,Aurelio Quintanilla Revilla,Ate,familiar,True,2024-02-25
+860,Malena de Bou,Lurigancho-Chosica,grupo,False,2025-04-18
+861,Mar Gabaldón,Lurigancho-Chosica,familiar,False,2025-12-09
+862,Filomena Ballester Gisbert,Lurigancho-Chosica,familiar,False,2025-12-06
+863,Manuelita Suárez Parra,Lurigancho-Chosica,corporativo,False,2025-12-03
+864,Atilio Girona Abril,Surco,familiar,False,2025-06-14
+865,Saturnina Manzanares Yuste,Ate,pareja,True,2025-08-03
+866,Alonso Córdoba Ugarte,Ate,familiar,False,2024-08-06
+867,Ascensión Izquierdo Ferrández,Santa Anita,familiar,True,2024-10-18
+868,Teodosio Pozo Garriga,Cieneguilla,familiar,False,2025-12-10
+869,Pepito Neira,Lurigancho-Chosica,familiar,True,2024-06-16
+870,Amalia Casal Sanjuan,Santa Anita,familiar,False,2025-12-11
+871,Ligia Cañizares-Valenzuela,La Molina,pareja,False,2024-01-07
+872,Paulina Atienza,Lurigancho-Chosica,pareja,False,2026-05-09
+873,Sofía Tomas Verdugo,San Juan de Lurigancho,familiar,True,2024-10-02
+874,Carmela Castellanos-Calleja,El Agustino,familiar,True,2025-08-24
+875,María Dolores Vera Montserrat Varela,Lurigancho-Chosica,pareja,False,2025-08-20
+876,María Fernanda Hurtado Llanos,Lurigancho-Chosica,familiar,False,2025-09-10
+877,Emilia Santamaría Cañellas,Lurigancho-Chosica,familiar,True,2024-08-02
+878,María Cristina Vila Martínez,Chaclacayo,grupo,False,2026-04-30
+879,Olivia Gelabert Font,San Juan de Lurigancho,grupo,True,2024-11-21
+880,Oriana Ema Ojeda Cazorla,San Juan de Lurigancho,familiar,False,2024-10-03
+881,Macarena Mora,Chaclacayo,familiar,True,2024-06-28
+882,Mar Tenorio Rincón,San Juan de Lurigancho,familiar,True,2026-04-09
+883,Valentín Teo Rocamora Alberto,El Agustino,familiar,True,2026-03-23
+884,Albano Piquer Codina,San Juan de Lurigancho,pareja,False,2024-03-23
+885,Cornelio Lasa Cuevas,Santa Anita,familiar,False,2025-03-21
+886,Camilo Barrios-Marquez,Chaclacayo,familiar,False,2024-11-12
+887,Alejandra del Santamaria,Surco,pareja,True,2024-06-08
+888,Teófila Nereida Gomez Porcel,El Agustino,pareja,False,2025-01-04
+889,Rita Maestre,Santa Anita,corporativo,True,2024-03-13
+890,Gala Riera Milla,Chaclacayo,familiar,False,2026-05-07
+891,Adolfo Iglesias Franco,San Borja,familiar,False,2025-11-19
+892,Xavier del Ferrándiz,Ate,familiar,False,2024-10-27
+893,Jacobo Chus Benavente Estévez,Cieneguilla,corporativo,True,2024-09-26
+894,Azeneth Pi,Ate,corporativo,False,2024-03-04
+895,Eligia Lamas Castillo,San Juan de Lurigancho,familiar,True,2024-09-06
+896,Soraya Jara-Adán,La Molina,familiar,False,2025-05-28
+897,Olimpia Cortina Ariño,Ate,familiar,False,2024-08-26
+898,María Azcona Mascaró,Lurigancho-Chosica,familiar,True,2026-02-01
+899,Malena Palma-Beltran,Lurigancho-Chosica,pareja,False,2025-05-08
+900,Constanza Espejo,Lurigancho-Chosica,familiar,False,2026-03-19
+901,Rubén Vazquez Cuervo,La Molina,grupo,False,2025-10-08
+902,Lupe del Briones,El Agustino,familiar,True,2025-06-26
+903,Vasco de Mármol,La Molina,familiar,False,2025-05-29
+904,Emilia Gil Taboada,Lurigancho-Chosica,corporativo,False,2026-05-22
+905,Baudelio Oliva Salinas,Lurigancho-Chosica,familiar,True,2025-01-08
+906,Ágata María Ángeles Hervás Ariño,La Molina,corporativo,False,2025-05-13
+907,Zoraida Carballo Polo,Lurigancho-Chosica,familiar,False,2025-02-02
+908,Paloma del Amat,Surco,familiar,False,2026-03-13
+909,Lola Verdugo Salinas,La Molina,familiar,True,2026-01-26
+910,Eusebio Fernández Montes,Santa Anita,corporativo,False,2026-03-09
+911,Atilio Diego Aguilera,Lurigancho-Chosica,familiar,False,2024-04-11
+912,Nico Garcés,La Molina,corporativo,False,2025-10-20
+913,Cristian Rozas Bello,San Juan de Lurigancho,corporativo,True,2024-08-26
+914,Jeremías Mármol Arellano,Surco,familiar,False,2024-05-15
+915,Amando Enríquez Infante,El Agustino,pareja,False,2026-05-16
+916,Lucio Goñi Jordán,Ate,grupo,False,2025-09-25
+917,Javiera Quiroga Roselló,La Molina,corporativo,False,2025-05-06
+918,Guiomar Carrasco Aguado,Ate,pareja,False,2024-04-08
+919,Amalia Belmonte-Pallarès,El Agustino,familiar,False,2026-02-20
+920,Espiridión Mata Bolaños,Lurigancho-Chosica,grupo,False,2025-03-13
+921,Francisca Prats Anguita,Santa Anita,familiar,False,2026-01-06
+922,Juanito Gimeno Cerezo,Ate,familiar,False,2025-08-30
+923,Emiliana de Martí,Lurigancho-Chosica,grupo,False,2025-08-02
+924,Leonel Cid Casal,Lurigancho-Chosica,familiar,False,2024-03-05
+925,Luciano Prado Blázquez,Ate,pareja,False,2025-04-18
+926,Reinaldo Núñez,Chaclacayo,familiar,True,2024-11-24
+927,Yolanda Vila Cisneros,Chaclacayo,pareja,False,2024-09-07
+928,Dan Iriarte Ferrera,El Agustino,grupo,False,2024-06-27
+929,Nico Ballester Serra,San Juan de Lurigancho,pareja,False,2026-05-03
+930,Espiridión Bautista Iglesia,La Molina,pareja,True,2024-06-01
+931,Primitivo Torrens,Ate,pareja,True,2025-05-28
+932,Belen Guitart Cabo,San Juan de Lurigancho,familiar,False,2025-03-18
+933,Anastasia Ximena Ferrer Moll,San Borja,grupo,True,2026-01-24
+934,Eulalia Maza Corominas,Lurigancho-Chosica,familiar,True,2026-05-28
+935,Filomena Molina-Romero,La Molina,familiar,False,2024-09-18
+936,Faustino Hoz Giralt,Lurigancho-Chosica,pareja,False,2025-11-08
+937,Sosimo Palomares-Cañizares,Chaclacayo,familiar,False,2025-05-30
+938,Joaquina Salinas Palmer,San Juan de Lurigancho,pareja,False,2025-04-19
+939,Mamen Camps Echevarría,San Juan de Lurigancho,corporativo,False,2024-05-07
+940,Timoteo Chaves-Ferrándiz,San Juan de Lurigancho,familiar,True,2025-02-12
+941,Prudencio Benet Alfonso,Cieneguilla,corporativo,False,2026-02-26
+942,Santos Quirós Garcia,La Molina,corporativo,False,2024-02-26
+943,Dorita del Comas,San Juan de Lurigancho,familiar,False,2025-07-22
+944,Consuelo Manso Cañete,Lurigancho-Chosica,familiar,False,2025-12-22
+945,Lina Botella,Surco,pareja,True,2025-09-08
+946,Lidia Alarcón Haro,Santa Anita,familiar,True,2024-09-14
+947,Berta Salmerón,Lurigancho-Chosica,pareja,False,2024-09-04
+948,Lorenzo Coll Tomás,La Molina,corporativo,True,2025-07-11
+949,Damián Torrent Guardiola,Lurigancho-Chosica,corporativo,False,2024-04-07
+950,Gil Guillén-Arnau,Chaclacayo,familiar,False,2024-11-17
+951,Yésica Paniagua,Lurigancho-Chosica,corporativo,False,2025-08-25
+952,África Sanz Artigas,Lurigancho-Chosica,pareja,False,2024-03-02
+953,Aroa Vázquez Llanos,Lurigancho-Chosica,pareja,False,2025-02-13
+954,Macaria Dávila-Peñas,Santa Anita,grupo,False,2025-08-11
+955,Maristela Bermejo Villanueva,Lurigancho-Chosica,familiar,False,2025-01-25
+956,Yésica Gisbert Villalonga,Cieneguilla,familiar,False,2025-09-22
+957,Salomé Ochoa Torrens,Santa Anita,grupo,True,2026-01-18
+958,Adelaida Leyre Chamorro Sabater,La Molina,familiar,False,2024-09-14
+959,Antonio del Galán,San Juan de Lurigancho,pareja,False,2024-08-21
+960,Cayetano Paredes Carrasco,Santa Anita,familiar,False,2024-12-23
+961,Ruperta Murillo Carballo,Lurigancho-Chosica,corporativo,False,2026-01-18
+962,Julia Galvez Cuéllar,Santa Anita,corporativo,False,2025-09-30
+963,Domingo Aroca Castell,Lurigancho-Chosica,pareja,False,2026-06-09
+964,Candelaria Cañizares-Vila,San Juan de Lurigancho,corporativo,False,2024-03-01
+965,Brunilda Barba-Delgado,Lurigancho-Chosica,corporativo,True,2025-02-05
+966,Juan Ramirez Alfonso,San Juan de Lurigancho,corporativo,True,2025-03-16
+967,Cándido Sanchez Soto,Ate,corporativo,True,2026-01-18
+968,Damián Reig Clavero,Chaclacayo,corporativo,False,2026-06-24
+969,Mateo Vicente Lamas,Chaclacayo,familiar,False,2024-09-17
+970,Ámbar Santana Bayona,Lurigancho-Chosica,familiar,False,2024-12-23
+971,Gabriela Catalán Camps,El Agustino,familiar,True,2024-01-26
+972,Juan Carlos Varela,La Molina,pareja,True,2025-10-14
+973,Marcio Bárcena Elías,San Juan de Lurigancho,pareja,False,2026-01-09
+974,María Carmen Alma Vaquero Carpio,Lurigancho-Chosica,familiar,False,2024-05-24
+975,Mónica Castillo Abella,Santa Anita,familiar,True,2025-11-01
+976,Ignacia Pellicer,Lurigancho-Chosica,familiar,False,2024-03-08
+977,Inés Grande,La Molina,corporativo,True,2026-01-18
+978,Felicia Cabañas Roig,San Borja,grupo,False,2024-07-26
+979,Jorge Guerrero-Blanes,Santa Anita,corporativo,True,2025-03-16
+980,Valentina Macaria Real Jiménez,Chaclacayo,corporativo,False,2024-10-20
+981,Pedro Aguilar Yáñez,Santa Anita,familiar,True,2024-07-02
+982,Adelaida Perez,Santa Anita,pareja,False,2024-11-15
+983,Guadalupe Paredes Campillo,San Juan de Lurigancho,corporativo,True,2024-08-28
+984,Modesta Izaguirre Jurado,Santa Anita,familiar,False,2026-04-12
+985,Marcia Pavón Llorens,Lurigancho-Chosica,familiar,False,2025-09-09
+986,Hilario Tolosa,Chaclacayo,familiar,False,2024-10-04
+987,Manuelita Tomás Izaguirre,San Juan de Lurigancho,familiar,False,2025-04-21
+988,Fabiola Puig-Cervera,San Borja,familiar,False,2024-07-03
+989,Jacinto de Cabrera,Santa Anita,familiar,False,2024-11-29
+990,Gracia Nevado,Chaclacayo,pareja,True,2026-05-05
+991,Obdulia Noa Azorin Cuevas,Chaclacayo,familiar,False,2025-08-27
+992,Samu Bou Codina,San Juan de Lurigancho,familiar,True,2026-01-02
+993,Irma Anunciación Baró Jódar,Lurigancho-Chosica,familiar,False,2024-12-10
+994,Ani Arellano Planas,San Juan de Lurigancho,pareja,False,2025-09-14
+995,Morena Loreto Macías Barceló,La Molina,familiar,False,2024-09-29
+996,Isabel Alarcón Franch,Lurigancho-Chosica,pareja,True,2026-03-15
+997,Cleto Ale Vicens Villalobos,Lurigancho-Chosica,corporativo,False,2024-12-25
+998,Carla Nereida Araujo Palomares,Ate,pareja,False,2025-01-06
+999,Cayetano Bolaños Llorente,Lurigancho-Chosica,grupo,False,2025-09-12
+1000,Nayara Prats Ramirez,El Agustino,familiar,False,2026-06-29
+1001,Juan Antonio Alcántara,Lurigancho-Chosica,familiar,True,2024-04-16
+1002,Leonardo Luís Oliveras,Lurigancho-Chosica,grupo,False,2025-06-23
+1003,Daniel Ferreras-Sanz,La Molina,familiar,False,2025-09-19
+1004,Adela Julián-Díez,La Molina,familiar,False,2025-09-24
+1005,Ascensión Belmonte,San Juan de Lurigancho,familiar,False,2026-02-20
+1006,Francisco Bautista Vilanova Jiménez,Lurigancho-Chosica,familiar,False,2026-04-15
+1007,Dionisia Salas-Pi,Lurigancho-Chosica,grupo,True,2026-05-24
+1008,Regina Hervia Nicolás,Santa Anita,familiar,True,2025-12-13
+1009,Viviana Amorós Toledo,Cieneguilla,familiar,False,2024-06-29
+1010,Anastasio Piñeiro-Giménez,Ate,familiar,False,2024-12-23
+1011,Haydée Osuna Villalonga,San Juan de Lurigancho,grupo,False,2026-04-12
+1012,Pancho Lago Hurtado,Lurigancho-Chosica,grupo,False,2025-03-22
+1013,Heraclio Nogués Benitez,El Agustino,familiar,False,2026-05-11
+1014,Jordán Mir Otero,Surco,pareja,True,2024-12-05
+1015,Edelmira España-Falcón,Ate,familiar,False,2026-02-14
+1016,Desiderio Herranz,San Juan de Lurigancho,familiar,True,2025-02-16
+1017,Darío Franco,Surco,familiar,True,2025-01-22
+1018,Felipa Calixta Campillo Carretero,El Agustino,corporativo,False,2024-05-01
+1019,María Luisa Agudo Arnal,Lurigancho-Chosica,familiar,True,2026-01-19
+1020,María Teresa Miró Ugarte,El Agustino,familiar,False,2026-06-11
+1021,Jose Luis España-Vicente,San Juan de Lurigancho,pareja,True,2025-03-11
+1022,Consuela Castellanos Balaguer,Lurigancho-Chosica,familiar,True,2026-03-27
+1023,Judith Antúnez Valverde,La Molina,pareja,False,2025-06-23
+1024,Teodora Díaz Sebastián,La Molina,familiar,True,2024-07-05
+1025,Jimena Moles,Lurigancho-Chosica,familiar,True,2024-01-14
+1026,Nicolás Galvez Pino,San Juan de Lurigancho,familiar,False,2026-06-21
+1027,Fermín Pardo Jover,San Borja,familiar,True,2024-10-17
+1028,Dorotea de Leon,Ate,pareja,False,2026-01-02
+1029,Fabiana Flavia Espejo Valenzuela,Santa Anita,familiar,True,2025-10-20
+1030,Hugo Perales,San Juan de Lurigancho,corporativo,True,2025-07-21
+1031,Elisa Sanmartín Escolano,San Juan de Lurigancho,familiar,True,2026-06-06
+1032,Lucio Granados Cabo,San Juan de Lurigancho,pareja,True,2025-02-23
+1033,Leopoldo del Piquer,Chaclacayo,familiar,False,2024-10-31
+1034,Salomón Conde Suárez,El Agustino,familiar,True,2024-01-16
+1035,Humberto Valero Cañizares,El Agustino,familiar,True,2026-03-14
+1036,Pacífica del Torrecilla,San Juan de Lurigancho,pareja,False,2025-04-11
+1037,Lisandro Asenjo-Puig,Cieneguilla,familiar,True,2024-06-02
+1038,Amor Garriga Izquierdo,Cieneguilla,pareja,True,2026-01-10
+1039,Jafet Nadal Juan,San Juan de Lurigancho,familiar,True,2025-07-14
+1040,Manuelita Jiménez Núñez,La Molina,grupo,True,2024-01-31
+1041,Azucena Ortega Flor,Lurigancho-Chosica,familiar,False,2026-06-15
+1042,Mirta Díaz-Luís,San Borja,familiar,False,2025-07-05
+1043,Nerea Vicens Torrent,San Juan de Lurigancho,familiar,False,2025-11-25
+1044,Graciano Macías Silva,Ate,familiar,False,2024-08-13
+1045,Miguel Navas Robles,Santa Anita,pareja,False,2026-06-07
+1046,Susana Bellido Bernad,Surco,pareja,False,2024-09-08
+1047,Corona Mir Moliner,San Juan de Lurigancho,familiar,True,2025-03-28
+1048,Marciano Prats-Linares,Chaclacayo,familiar,False,2025-11-22
+1049,Piedad Viñas Sanjuan,Ate,corporativo,False,2025-10-05
+1050,Cirino Alvarado Casares,Santa Anita,pareja,True,2024-12-30
+1051,Ramiro Bernal-Galvez,San Juan de Lurigancho,grupo,False,2024-09-16
+1052,Aroa Bustos Bartolomé,Ate,familiar,False,2026-01-05
+1053,Amelia de Puerta,El Agustino,pareja,False,2026-03-24
+1054,Baldomero Jáuregui Cortés,San Borja,pareja,False,2024-05-10
+1055,Esmeralda Grande Huertas,Surco,familiar,False,2025-03-17
+1056,Maura Cases Castro,Lurigancho-Chosica,familiar,True,2026-03-29
+1057,Alberto Arana Palacios,Cieneguilla,familiar,False,2025-05-20
+1058,Josefina Lladó Salgado,Lurigancho-Chosica,corporativo,False,2024-07-28
+1059,Carmen del Royo,Ate,familiar,False,2026-03-24
+1060,Esmeralda del Tirado,Cieneguilla,familiar,False,2026-04-18
+1061,Samuel de Sala,San Juan de Lurigancho,pareja,False,2025-04-23
+1062,Haydée Juan Cortés,Santa Anita,grupo,True,2025-04-16
+1063,Aarón Zabala Cerezo,Ate,grupo,True,2025-06-18
+1064,Joel Juanito Aguirre Téllez,Lurigancho-Chosica,corporativo,False,2026-01-11
+1065,Adalberto Rodolfo Ros Marco,Santa Anita,pareja,True,2024-12-25
+1066,Leocadio Pereira Fabregat,Lurigancho-Chosica,familiar,True,2025-10-01
+1067,Isa del Iborra,San Juan de Lurigancho,corporativo,False,2024-09-10
+1068,Saturnina Pineda Giménez,Cieneguilla,pareja,False,2025-02-12
+1069,Héctor Heras Villanueva,La Molina,familiar,True,2025-02-26
+1070,Moreno Ramiro Leiva Rey,Cieneguilla,familiar,False,2024-10-19
+1071,Ciriaco Cerezo Manjón,San Juan de Lurigancho,pareja,False,2024-06-20
+1072,María Pilar Santamaría Lladó,El Agustino,pareja,False,2026-02-03
+1073,Felipe Aliaga,Chaclacayo,familiar,False,2024-08-24
+1074,Juanito Alonso Estevez,Santa Anita,familiar,True,2024-06-07
+1075,Eloy Bernardino Ríos Aguiló,Chaclacayo,familiar,False,2024-12-27
+1076,Carlos Alcolea Uriarte,Lurigancho-Chosica,familiar,False,2024-12-03
+1077,Ignacia Mesa Valentín,Chaclacayo,pareja,False,2025-07-30
+1078,Obdulia Angulo Murillo,Lurigancho-Chosica,familiar,False,2024-05-04
+1079,Amaro Larrea Poza,El Agustino,familiar,False,2024-04-20
+1080,José de Fernandez,La Molina,familiar,True,2025-01-23
+1081,Saturnina Alberola Carro,Ate,corporativo,False,2025-01-21
+1082,Regina Salazar Huertas,Chaclacayo,familiar,True,2024-02-22
+1083,Jeremías Burgos,Surco,familiar,True,2026-03-20
+1084,Jordi Porcel,Lurigancho-Chosica,corporativo,False,2025-04-29
+1085,Candela Arnal Viñas,El Agustino,corporativo,False,2024-07-08
+1086,Jose Angel Martín-Fiol,Lurigancho-Chosica,corporativo,True,2025-07-13
+1087,Toni Gibert Carbajo,Cieneguilla,familiar,False,2025-01-01
+1088,Eufemia Alcolea Diego,Chaclacayo,familiar,False,2025-03-04
+1089,Azeneth Priego-Herrero,Ate,familiar,False,2024-01-14
+1090,Luis Ángel Talavera Cortina,San Juan de Lurigancho,corporativo,True,2025-07-30
+1091,Edelmiro Criado Valero,Lurigancho-Chosica,familiar,False,2024-05-21
+1092,Evelia Íngrid Barreda Barreda,El Agustino,familiar,True,2025-07-06
+1093,Pascual Campo Casas,San Borja,corporativo,False,2026-01-27
+1094,Federico del Ródenas,La Molina,pareja,True,2024-10-26
+1095,Omar Pina Palma,Ate,pareja,True,2024-07-28
+1096,Vinicio Ariza-Toro,San Borja,familiar,False,2025-11-10
+1097,Emilia del Falcó,San Juan de Lurigancho,corporativo,False,2026-05-30
+1098,Lalo Oliveras Morales,Santa Anita,familiar,False,2025-12-28
+1099,Toño Cueto-Bayón,Cieneguilla,familiar,False,2026-04-05
+1100,Jafet Marqués Lago,Santa Anita,familiar,False,2026-04-21
+1101,Jenny Abascal Velasco,Lurigancho-Chosica,grupo,True,2025-08-11
+1102,Vasco Alfonso Pascual,Lurigancho-Chosica,familiar,True,2025-01-05
+1103,Palmira Barroso Ponce,San Borja,pareja,False,2024-10-21
+1104,Nilda Valencia,Cieneguilla,familiar,False,2026-05-06
+1105,Mariano Luna Mora,San Borja,familiar,False,2025-09-28
+1106,Aura Bárcena Zabala,Chaclacayo,pareja,False,2024-04-13
+1107,Silvestre Castilla Escalona,Surco,familiar,False,2024-02-18
+1108,Balduino Torralba,El Agustino,pareja,False,2024-10-24
+1109,Alcides Pont Trillo,El Agustino,pareja,False,2026-03-27
+1110,Odalys Marta Jaén Avilés,Lurigancho-Chosica,pareja,False,2025-07-23
+1111,Marcio de Alberto,San Juan de Lurigancho,pareja,False,2024-11-20
+1112,Áurea Bernal Solé,Lurigancho-Chosica,familiar,True,2024-04-04
+1113,Manuela Ricart Peinado,San Juan de Lurigancho,familiar,False,2024-03-31
+1114,Débora Lucía Armas Bejarano,San Juan de Lurigancho,familiar,True,2025-04-17
+1115,Cándido Vives Caballero,El Agustino,familiar,True,2024-06-06
+1116,Juan Pablo del Falcó,Lurigancho-Chosica,pareja,False,2024-10-27
+1117,Máxima Ibarra,Cieneguilla,grupo,False,2026-06-04
+1118,León Ribes Camacho,San Juan de Lurigancho,corporativo,False,2026-06-14
+1119,Nereida Segarra Roldán,Lurigancho-Chosica,pareja,False,2024-06-10
+1120,Ruy Escribano Querol,Lurigancho-Chosica,familiar,False,2026-02-23
+1121,Máxima Cruz Salazar,Lurigancho-Chosica,pareja,False,2025-07-01
+1122,Malena Morata Peral,Surco,corporativo,False,2025-10-02
+1123,Sara Morales Hernandez,San Juan de Lurigancho,pareja,False,2026-05-24
+1124,Clotilde del Izquierdo,Chaclacayo,familiar,False,2025-07-13
+1125,Jacinta Puerta Abad,Lurigancho-Chosica,corporativo,False,2024-02-23
+1126,Marc Adán Villaverde Cepeda,San Borja,familiar,True,2025-04-13
+1127,Eutimio Girona Garmendia,Chaclacayo,corporativo,False,2025-05-04
+1128,Rolando Llorente Vidal,San Juan de Lurigancho,pareja,False,2026-05-14
+1129,Ángeles Cortes-Busquets,Santa Anita,familiar,True,2024-02-28
+1130,Felipa Costa Chacón,Santa Anita,familiar,True,2025-02-15
+1131,Vilma Iborra Guijarro,Ate,pareja,False,2025-02-02
+1132,Arturo Lucho Pulido Gelabert,Santa Anita,pareja,True,2024-04-29
+1133,Rosa María Tolosa Duran,Ate,corporativo,True,2026-01-28
+1134,Salud Bustos-Mas,La Molina,corporativo,True,2024-02-28
+1135,Francisca Bermudez-Barba,San Juan de Lurigancho,familiar,False,2025-06-03
+1136,Vanesa Rovira Riera,Santa Anita,familiar,False,2024-07-06
+1137,Raúl de Piñeiro,Ate,familiar,False,2024-03-25
+1138,Juan Francisco Alfonso Montaña Conde,Ate,grupo,True,2025-05-22
+1139,Octavia Giner,San Juan de Lurigancho,pareja,False,2024-08-25
+1140,Nicodemo Pozo Salinas,Lurigancho-Chosica,corporativo,True,2026-06-12
+1141,Apolonia Girona,Santa Anita,familiar,False,2025-11-01
+1142,Rubén Haroldo Colomer Catalán,Lurigancho-Chosica,familiar,True,2025-06-06
+1143,Jordán Avilés Pujol,El Agustino,familiar,False,2025-02-11
+1144,Heraclio Valls Rovira,El Agustino,grupo,True,2024-07-21
+1145,Jose Angel Figuerola Torrents,Lurigancho-Chosica,familiar,False,2025-09-06
+1146,Chelo Zamora-Hoz,El Agustino,corporativo,False,2025-01-11
+1147,Eliseo Ropero Morales,San Juan de Lurigancho,familiar,False,2026-06-13
+1148,Basilio Riba Roda,Lurigancho-Chosica,familiar,False,2025-07-21
+1149,Celestina Montes Ocaña,Lurigancho-Chosica,familiar,True,2024-02-07
+1150,Cesar Gabino Salamanca Coello,El Agustino,familiar,True,2025-11-15
+1151,Óscar Guillen Flores,San Juan de Lurigancho,pareja,True,2025-08-03
+1152,Reyes Boada Capdevila,El Agustino,familiar,False,2024-03-25
+1153,Martín de Maestre,Santa Anita,grupo,False,2024-01-22
+1154,Nélida Cantero Mayol,Ate,familiar,True,2025-11-30
+1155,Ainoa Mármol Gallart,El Agustino,familiar,False,2026-04-15
+1156,Cristian Zabala,Cieneguilla,familiar,False,2025-02-05
+1157,Julie de Alfaro,La Molina,familiar,False,2025-08-08
+1158,Yolanda Zurita-Arranz,Lurigancho-Chosica,grupo,True,2025-01-31
+1159,Amor Luz Font,Santa Anita,familiar,False,2025-02-25
+1160,Joan Aguirre Batlle,Santa Anita,familiar,True,2025-08-26
+1161,Natanael Palomino-Campos,La Molina,grupo,False,2024-01-30
+1162,Toño Vasco Pomares Guardia,El Agustino,corporativo,True,2025-08-14
+1163,Olimpia Cabezas,Surco,pareja,False,2025-05-05
+1164,Teresita Borja Estrada,Lurigancho-Chosica,pareja,False,2024-11-04
+1165,Jesusa Almeida,Lurigancho-Chosica,corporativo,False,2024-03-02
+1166,Íñigo del Múgica,Lurigancho-Chosica,familiar,True,2026-01-31
+1167,Petrona Crespo Alfaro,Ate,corporativo,False,2025-06-22
+1168,Felicidad Mate Guzman,Santa Anita,familiar,False,2026-02-17
+1169,Santiago Barrio-Jiménez,Santa Anita,familiar,True,2025-08-24
+1170,Leopoldo Losada Gomis,Santa Anita,familiar,True,2024-08-23
+1171,Viviana Pozo Cervantes,Lurigancho-Chosica,pareja,True,2024-05-16
+1172,Loreto Gordillo Rincón,Santa Anita,familiar,True,2025-01-08
+1173,Calista Roldan-Miguel,Ate,grupo,True,2025-05-26
+1174,Macarena Catalá Gabaldón,Santa Anita,corporativo,True,2024-08-03
+1175,Macarena Francisco-Cervera,Lurigancho-Chosica,corporativo,True,2025-04-25
+1176,Yéssica Cepeda,San Borja,corporativo,False,2025-10-30
+1177,Nacio Cruz Moll,Cieneguilla,corporativo,True,2024-04-15
+1178,Luisina de Espinosa,Lurigancho-Chosica,pareja,False,2025-05-08
+1179,Prudencio Andreu Montalbán,Lurigancho-Chosica,grupo,False,2025-10-05
+1180,Encarnacion Salazar Llanos,Lurigancho-Chosica,familiar,False,2024-08-24
+1181,Balduino Catalá,Santa Anita,familiar,False,2024-10-13
+1182,Rico Lasa Gual,San Juan de Lurigancho,familiar,False,2024-12-26
+1183,Olegario de Palomar,Lurigancho-Chosica,corporativo,True,2024-05-03
+1184,Benita Vallés Somoza,San Juan de Lurigancho,familiar,False,2025-08-03
+1185,Teodosio Ponce Tur,La Molina,familiar,True,2026-01-06
+1186,Ceferino Ferrando Gonzalo,Chaclacayo,corporativo,True,2024-02-20
+1187,Ramona Alcolea Lerma,Santa Anita,corporativo,False,2025-10-03
+1188,Ramiro de Fuente,El Agustino,corporativo,False,2024-04-12
+1189,Isidoro Trillo Morcillo,Chaclacayo,familiar,False,2025-12-11
+1190,Ignacio del Arnaiz,Chaclacayo,familiar,False,2025-08-13
+1191,Georgina Zapata Arenas,Cieneguilla,pareja,False,2026-03-19
+1192,Jaime Saura Arnal,Santa Anita,grupo,False,2025-01-16
+1193,Lupita Priego,San Juan de Lurigancho,familiar,True,2024-03-01
+1194,Gala de Falcó,Ate,familiar,True,2025-03-28
+1195,Gisela Mayo Macias,Ate,pareja,True,2025-12-17
+1196,Héctor Mariscal Ballester,Lurigancho-Chosica,familiar,False,2026-03-14
+1197,Jesús Sans Botella,Lurigancho-Chosica,familiar,False,2026-02-16
+1198,Cipriano Cerdá Pozuelo,El Agustino,pareja,False,2025-10-04
+1199,Javiera Amaya Escamilla,Lurigancho-Chosica,familiar,False,2025-12-05
+1200,Viviana Franch-Sanz,Ate,corporativo,True,2024-05-20

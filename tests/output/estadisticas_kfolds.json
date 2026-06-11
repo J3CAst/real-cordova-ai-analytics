@@ -1,0 +1,66 @@
+{
+  "k": 5,
+  "n_total": 60,
+  "ex_media": 0.9667,
+  "ex_std": 0.0456,
+  "ex_min": 0.9167,
+  "ex_max": 1.0,
+  "latencia_media_ms": 49029.05,
+  "latencia_std_ms": 10892.86,
+  "hipotesis_aceptada": true,
+  "resultados_por_fold": [
+    {
+      "fold": 1,
+      "n_consultas": 12,
+      "execution_accuracy": 0.9167,
+      "latencia_promedio": 54515.06,
+      "consultas_ok": 11,
+      "consultas_error": 1
+    },
+    {
+      "fold": 2,
+      "n_consultas": 12,
+      "execution_accuracy": 1.0,
+      "latencia_promedio": 45823.6,
+      "consultas_ok": 12,
+      "consultas_error": 0
+    },
+    {
+      "fold": 3,
+      "n_consultas": 12,
+      "execution_accuracy": 1.0,
+      "latencia_promedio": 64407.0,
+      "consultas_ok": 12,
+      "consultas_error": 0
+    },
+    {
+      "fold": 4,
+      "n_consultas": 12,
+      "execution_accuracy": 1.0,
+      "latencia_promedio": 44774.37,
+      "consultas_ok": 12,
+      "consultas_error": 0
+    },
+    {
+      "fold": 5,
+      "n_consultas": 12,
+      "execution_accuracy": 0.9167,
+      "latencia_promedio": 35625.21,
+      "consultas_ok": 11,
+      "consultas_error": 1
+    }
+  ],
+  "ex_por_categoria": {
+    "agregacion_simple": 1.0,
+    "dominio": 1.0,
+    "join": 1.0,
+    "filtro_temporal": 1.0,
+    "vista": 0.875,
+    "compuesta": 0.9
+  },
+  "ex_por_dificultad": {
+    "baja": 1.0,
+    "media": 0.96,
+    "alta": 0.96
+  }
+}

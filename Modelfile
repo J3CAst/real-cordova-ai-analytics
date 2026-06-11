@@ -1,0 +1,25 @@
+FROM llama3.1:8b-instruct-q4_K_M
+
+# ── Parámetros de inferencia ───────────────────────────────
+# Temperature = 0 para máximo determinismo en generación SQL
+PARAMETER temperature 0.0
+
+# Top-p = 0.85 según especificación del sistema prompt de tesis
+PARAMETER top_p 0.85
+
+# Máximo de tokens en la respuesta (SQL no necesita más)
+PARAMETER num_predict 512
+
+# Penalización de repetición para evitar loops en el output
+PARAMETER repeat_penalty 1.1
+
+# Contexto: 4096 tokens (suficiente para schema + few-shot + pregunta)
+PARAMETER num_ctx 4096
+
+# ── System prompt base ─────────────────────────────────────
+SYSTEM """
+Eres un asistente de análisis de datos para el Recreo Campestre Real Córdova.
+Tu tarea principal es responder preguntas sobre reservas e ingresos financieros
+convirtiendo preguntas en lenguaje natural a consultas SQL precisas para PostgreSQL 17.
+Responde siempre en español. Solo genera SQL cuando se te pida explícitamente.
+"""

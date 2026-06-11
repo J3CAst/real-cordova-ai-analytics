@@ -1,0 +1,66 @@
+{
+  "k": 5,
+  "n_total": 60,
+  "ex_media": 0.8167,
+  "ex_std": 0.1236,
+  "ex_min": 0.6667,
+  "ex_max": 1.0,
+  "latencia_media_ms": 10291.54,
+  "latencia_std_ms": 1839.03,
+  "hipotesis_aceptada": false,
+  "resultados_por_fold": [
+    {
+      "fold": 1,
+      "n_consultas": 12,
+      "execution_accuracy": 0.8333,
+      "latencia_promedio": 7988.93,
+      "consultas_ok": 10,
+      "consultas_error": 2
+    },
+    {
+      "fold": 2,
+      "n_consultas": 12,
+      "execution_accuracy": 1.0,
+      "latencia_promedio": 10057.58,
+      "consultas_ok": 12,
+      "consultas_error": 0
+    },
+    {
+      "fold": 3,
+      "n_consultas": 12,
+      "execution_accuracy": 0.8333,
+      "latencia_promedio": 10839.73,
+      "consultas_ok": 10,
+      "consultas_error": 2
+    },
+    {
+      "fold": 4,
+      "n_consultas": 12,
+      "execution_accuracy": 0.6667,
+      "latencia_promedio": 9569.03,
+      "consultas_ok": 8,
+      "consultas_error": 4
+    },
+    {
+      "fold": 5,
+      "n_consultas": 12,
+      "execution_accuracy": 0.75,
+      "latencia_promedio": 13002.41,
+      "consultas_ok": 9,
+      "consultas_error": 3
+    }
+  ],
+  "ex_por_categoria": {
+    "filtro_temporal": 0.75,
+    "compuesta": 1.0,
+    "join": 0.7,
+    "agregacion_simple": 1.0,
+    "vista": 0.5,
+    "dominio": 0.9
+  },
+  "ex_por_dificultad": {
+    "baja": 0.6,
+    "media": 0.92,
+    "alta": 0.8
+  }
+}

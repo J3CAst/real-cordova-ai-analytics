@@ -1,0 +1,54 @@
+=================================================================
+  REPORTE DE BENCHMARK — SISTEMA REAL CÓRDOVA
+  Tesis SENATI EEST | Acosta Cruz, Jean Steven | 2026
+  Generado: 2026-06-11 11:53:56
+=================================================================
+
+1. PARÁMETROS DE EVALUACIÓN
+─────────────────────────────────────────────────────────────────
+   Método          : Validación Cruzada K-Folds (K=5)
+   Dataset         : 60 consultas
+   Modelo          : Meta LLaMA 3.1 8B GGUF Q4_K_M (Ollama)
+   Hardware        : ASUS Vivobook M1603QA (Ryzen 5 5600H, 16GB)
+   Métrica         : Execution Accuracy (EX) — Estándar BIRD
+   Hipótesis H₁   : EX > 85%
+
+2. RESULTADOS POR FOLD
+─────────────────────────────────────────────────────────────────
+   Fold   N       EX (%)  Lat. Prom (ms)    OK   Error
+   ────── ───── ──────── ─────────────── ───── ───────
+   1      12       91.7%          54515    11       1
+   2      12      100.0%          45824    12       0
+   3      12      100.0%          64407    12       0
+   4      12      100.0%          44774    12       0
+   5      12       91.7%          35625    11       1
+   ────── ───── ──────── ─────────────── ───── ───────
+   MEDIA  60       96.7%          49029
+   STD             4.56%          10893
+
+3. EXECUTION ACCURACY POR CATEGORÍA
+─────────────────────────────────────────────────────────────────
+   Agregaciones simples       100.0%  ████████████████████
+   Consultas compuestas        90.0%  ██████████████████
+   Dominio específico         100.0%  ████████████████████
+   Filtros temporales         100.0%  ████████████████████
+   JOINs entre tablas         100.0%  ████████████████████
+   Consultas sobre vistas      87.5%  █████████████████
+
+4. EXECUTION ACCURACY POR DIFICULTAD
+─────────────────────────────────────────────────────────────────
+   Baja        100.0%  ████████████████████
+   Media        96.0%  ███████████████████
+   Alta         96.0%  ███████████████████
+
+5. CONCLUSIÓN ESTADÍSTICA
+─────────────────────────────────────────────────────────────────
+   EX Media (K=5)  : 96.67%
+   Desv. Estándar  : ±4.56%
+   Intervalo 95%   : [87.5%, 105.8%]
+   Umbral H₁       : 85.00%
+
+   DECISIÓN: ✅ H₁ ACEPTADA — EX > 85%
+   El sistema cumple el criterio de precisión declarado en la metodología.
+
+=================================================================

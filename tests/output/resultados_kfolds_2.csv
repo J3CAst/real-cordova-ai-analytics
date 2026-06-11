@@ -1,0 +1,326 @@
+id,categoria,dificultad,pregunta,sql_generado,exito,execution_accuracy,latencia_ms,n_filas,error
+AGG_01,agregacion_simple,baja,¿Cuántas reservas hay en total?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,16754.4,1,
+AGG_06,agregacion_simple,media,¿Cuál es el promedio de personas por reserva?,"SELECT ROUND(AVG(r.numero_personas), 2) AS promedio_personas
+FROM reservas r
+JOIN v_reservas_detalle vd ON vd.reserva_id = r.reserva_id;",True,1.0,26999.84,1,
+TMP_03,filtro_temporal,baja,¿Cuántas reservas hubo este mes?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE DATE_TRUNC('month', fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,29622.19,1,
+TMP_04,filtro_temporal,media,¿Cuánto se ingresó el mes pasado?,"SELECT COALESCE(SUM(CASE WHEN tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN monto ELSE 0 END), 0) AS ingresos_mes_pasado
+FROM transacciones_financieras tf
+WHERE DATE_TRUNC('month', fecha_transaccion) = (CURRENT_DATE - INTERVAL '1 month');",True,1.0,33095.63,1,
+VIS_02,vista,baja,¿Cuál fue la utilidad neta de ayer?,"SELECT COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0)
+      - COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0)
+      AS utilidad_neta
+FROM transacciones_financieras tf
+LEFT JOIN reservas r ON r.reserva_id = tf.reserva_id
+WHERE tf.fecha_transaccion = CURRENT_DATE - 1;",True,1.0,49451.55,1,
+VIS_05,vista,media,¿Cuántas reservas por temporada muestra el detalle este año?,"SELECT 
+    es_temporada_alta,
+    COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+JOIN reservas r ON r.reserva_id = v_reservas_detalle.reserva_id
+WHERE EXTRACT(YEAR FROM fecha_reserva) = CURRENT_YEAR
+GROUP BY es_temporada_alta;",False,0.0,182272.47,0,"Sin SQL válido tras 2 intentos. Último error: (psycopg2.errors.AmbiguousColumn) la referencia a la columna «es_temporada_alta» es ambigua
+LINE 2:     es_temporada_alta,
+            ^
+
+[SQL: SELECT 
+    es_temporada_alta,
+    COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+JOIN reservas r ON r.reserva_id = v_reservas_detalle.reserva_id
+WHERE EXTRACT(YEAR FROM fecha_reserva) = CURRENT_DATE::INTEGER / 100
+GROUP BY es_temporada_alta;]
+(Background on this error at: https://sqlalche.me/e/20/f405)"
+CMP_06,compuesta,alta,¿Cuál es la tasa de cancelación por canal?,"SELECT 
+    r.canal,
+    ROUND(100.0 * SUM(CASE WHEN estado = 'cancelada' THEN 1 ELSE 0 END) / COUNT(*), 2)
+        AS tasa_cancelacion_pct
+FROM reservas r
+JOIN clientes c ON c.cliente_id = r.cliente_id
+WHERE r.estado IN ('cancelada')
+GROUP BY r.canal;",True,1.0,72277.61,4,
+CMP_07,compuesta,alta,¿Cuál es el ingreso mensual promedio por temporada?,"SELECT 
+    EXTRACT(MONTH FROM r.fecha_reserva) AS mes,
+    CASE
+        WHEN r.es_temporada_alta THEN 'verano'
+        ELSE 'invierno'
+    END AS temporada,
+    COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS ingresos_mensual
+FROM transacciones_financieras tf
+JOIN reservas r ON r.reserva_id = tf.reserva_id
+GROUP BY EXTRACT(MONTH FROM r.fecha_reserva),
+         CASE
+             WHEN r.es_temporada_alta THEN 'verano'
+             ELSE 'invierno'
+         END;",True,1.0,81228.91,12,
+CMP_09,compuesta,alta,¿Cuál es la categoría de ítem que más ingreso genera?,"SELECT ir.categoria, COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS total_ingresos
+FROM items_reserva ir
+JOIN transacciones_financieras tf ON tf.reserva_id = ir.reserva_id
+GROUP BY ir.categoria
+ORDER BY total_ingresos DESC;",True,1.0,49302.59,5,
+DOM_01,dominio,media,¿Cuántas reservas perdidas (no show) hubo este mes?,"SELECT COUNT(*) AS total_no_show
+FROM reservas r
+WHERE DATE_TRUNC('month', fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+  AND estado = 'no_show';",True,1.0,37916.02,1,
+DOM_05,dominio,media,¿Cuántas reservas de grupos vinieron este mes?,"SELECT COUNT(*) AS total_grupos
+FROM v_reservas_detalle
+WHERE fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE)
+  AND segmento = 'grupo';",True,1.0,36544.71,1,
+DOM_08,dominio,alta,¿Cuántas reservas confirmadas hay para la próxima semana?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE estado = 'confirmada'
+  AND fecha_reserva >= CURRENT_DATE
+  AND fecha_reserva < (CURRENT_DATE + INTERVAL '7 days');",True,1.0,38714.76,1,
+AGG_04,agregacion_simple,baja,¿Cuántas reservas se completaron?,"SELECT COUNT(*) AS total_reservas
+FROM reservas r
+WHERE r.estado = 'completada';",True,1.0,29069.04,1,
+AGG_05,agregacion_simple,baja,¿Cuántas reservas están canceladas?,"SELECT COUNT(*) AS total_canceladas
+FROM reservas
+WHERE estado = 'cancelada';",True,1.0,22897.29,1,
+AGG_07,agregacion_simple,media,¿Cuántas reservas llegaron por WhatsApp?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE canal = 'whatsapp';",True,1.0,35323.82,1,
+AGG_09,agregacion_simple,media,¿Cuál es el gasto operativo total?,"SELECT COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0) AS gasto_operativo_total
+FROM transacciones_financieras tf
+LEFT JOIN reservas r ON r.reserva_id = tf.reserva_id;",True,1.0,44479.89,1,
+TMP_08,filtro_temporal,alta,¿Cuántas reservas hubo en temporada alta este año?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE es_temporada_alta = TRUE
+  AND DATE_TRUNC('year', fecha_reserva) = DATE_TRUNC('year', CURRENT_DATE);",True,1.0,34448.7,1,
+TMP_10,filtro_temporal,alta,¿Cuántas reservas se hicieron los sábados este mes?,"SELECT COUNT(*) AS total_reservas
+FROM reservas r
+WHERE DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+  AND EXTRACT(DOW FROM r.fecha_reserva) IN (0,6);",True,1.0,37056.2,1,
+JOI_10,join,alta,¿Cuántas reservas no show hubo por mes este año?,"SELECT 
+    DATE_TRUNC('month', r.fecha_reserva) AS mes,
+    COUNT(CASE WHEN r.estado = 'no_show' THEN 1 ELSE NULL END) AS no_shows
+FROM reservas r
+WHERE EXTRACT(YEAR FROM r.fecha_reserva) = EXTRACT(YEAR FROM CURRENT_DATE)
+GROUP BY DATE_TRUNC('month', r.fecha_reserva);",True,1.0,61299.22,6,
+VIS_03,vista,media,¿Cuántas reservas completadas hubo esta semana según el detalle?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE estado = 'completada'
+  AND fecha_reserva >= DATE_TRUNC('week', CURRENT_DATE);",True,1.0,40831.81,1,
+CMP_01,compuesta,media,¿Cuántas reservas por canal hubo este mes?,"SELECT r.canal, COUNT(*) AS total_reservas
+FROM reservas r
+JOIN clientes c ON c.cliente_id = r.cliente_id
+WHERE DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY r.canal;",True,1.0,43238.48,4,
+CMP_04,compuesta,alta,¿Cuáles son los 5 días con más reservas este año?,"SELECT 
+    DATE_TRUNC('day', r.fecha_reserva) AS fecha,
+    COUNT(*) AS total_reservas
+FROM 
+    reservas r
+WHERE 
+    DATE_TRUNC('year', r.fecha_reserva) = DATE_TRUNC('year', CURRENT_DATE)
+GROUP BY 
+    DATE_TRUNC('day', r.fecha_reserva)
+ORDER BY 
+    total_reservas DESC
+LIMIT 5;",True,1.0,84076.72,5,
+DOM_03,dominio,media,¿Cuántas reservas familiares llegaron por WhatsApp este mes?,"SELECT COUNT(*) AS total_reservas_familiares_whatsapp
+FROM v_reservas_detalle
+WHERE segmento = 'familiar'
+  AND canal = 'whatsapp'
+  AND fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE);",True,1.0,50172.56,1,
+DOM_09,dominio,alta,¿Cuál es el porcentaje de reservas por canal este año?,"SELECT 
+    r.canal,
+    ROUND(100.0 * COUNT(*) / (SELECT COUNT(*) FROM reservas), 2) AS porcentaje_reservas
+FROM v_reservas_detalle vr
+JOIN reservas r ON r.reserva_id = vr.reserva_id
+WHERE DATE_TRUNC('year', vr.fecha_reserva) = DATE_TRUNC('year', CURRENT_DATE)
+GROUP BY r.canal;",True,1.0,66989.47,4,
+AGG_10,agregacion_simple,media,¿Cuántas reservas de temporada alta hay?,"SELECT COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+WHERE es_temporada_alta = TRUE;",True,1.0,36707.68,1,
+TMP_02,filtro_temporal,baja,¿Cuánto ingresó el recreo esta semana?,"SELECT COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN monto ELSE 0 END), 0) AS ingresos_semana
+FROM transacciones_financieras tf
+WHERE fecha_transaccion >= DATE_TRUNC('week', CURRENT_DATE);",True,1.0,50586.03,1,
+TMP_06,filtro_temporal,media,¿Cuántas reservas por WhatsApp llegaron este mes?,"SELECT COUNT(*) AS reservas_whatsapp
+FROM (
+    SELECT r.reserva_id, DATE_TRUNC('month', r.fecha_reserva) AS mes
+    FROM reservas r
+    WHERE r.canal = 'whatsapp'
+      AND DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+) sub;",True,1.0,51954.0,1,
+TMP_07,filtro_temporal,media,¿Cuánto se gastó en operaciones esta semana?,"SELECT COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0) AS gastos_operativos
+FROM transacciones_financieras tf
+WHERE fecha_transaccion >= DATE_TRUNC('week', CURRENT_DATE);",True,1.0,46392.69,1,
+JOI_03,join,media,¿Cuánto ingresó en promedio por reserva completada?,"SELECT 
+    AVG(tf.monto) AS promedio_ingreso_por_reserva
+FROM 
+    transacciones_financieras tf
+JOIN 
+    reservas r ON r.reserva_id = tf.reserva_id
+JOIN 
+    v_reservas_detalle vd ON vd.reserva_id = r.reserva_id
+WHERE 
+    r.estado = 'completada'
+    AND tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional');",True,1.0,56798.29,1,
+JOI_04,join,media,¿Cuántas reservas por segmento de cliente hay este mes?,"SELECT c.segmento, COUNT(*) AS total_reservas
+FROM v_reservas_detalle rvd
+JOIN clientes c ON c.cliente_id = rvd.reserva_id
+WHERE DATE_TRUNC('month', rvd.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY c.segmento;",True,1.0,67669.14,4,
+JOI_05,join,alta,¿Cuál es el ingreso total por canal de reserva este mes?,"SELECT 
+    r.canal,
+    COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS ingresos_totales
+FROM reservas r
+JOIN transacciones_financieras tf ON tf.reserva_id = r.reserva_id
+WHERE DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY r.canal;",True,1.0,84257.98,4,
+JOI_06,join,alta,¿Cuántos clientes recurrentes hicieron reservas este mes?,"SELECT COUNT(*) AS total_clientes_recurrentes
+FROM v_reservas_detalle rvd
+JOIN clientes c ON c.cliente_id = rvd.reserva_id
+WHERE c.es_recurrente = TRUE
+  AND DATE_TRUNC('month', rvd.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,113990.09,1,
+JOI_09,join,alta,¿Cuál es el ticket promedio por canal de reserva?,"SELECT r.canal, ROUND(AVG(ir.subtotal), 2) AS ticket_promedio
+FROM reservas r
+JOIN items_reserva ir ON ir.reserva_id = r.reserva_id
+WHERE r.estado = 'completada'
+GROUP BY r.canal;",True,1.0,40511.67,4,
+VIS_01,vista,baja,Dame el resumen financiero de hoy.,"SELECT tf.fecha_transaccion AS fecha,
+    COUNT(DISTINCT r.reserva_id) AS total_reservas,
+    COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS total_ingresos,
+    COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0) AS total_gastos,
+    COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0)
+      - COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0)
+      AS utilidad_neta
+FROM transacciones_financieras tf
+LEFT JOIN reservas r ON r.reserva_id = tf.reserva_id
+WHERE tf.fecha_transaccion = DATE_TRUNC('day', CURRENT_DATE)
+GROUP BY tf.fecha_transaccion;",True,1.0,115924.83,1,
+DOM_06,dominio,alta,¿Cuál fue el ingreso por Yape y Plin este semana?,"SELECT 
+    SUM(CASE WHEN t.tipo IN ('ingreso_reserva','ingreso_consumo') THEN t.monto ELSE 0 END) AS ingresos_yape_plin
+FROM transacciones_financieras t
+WHERE t.fecha_transaccion >= DATE_TRUNC('week', CURRENT_DATE)
+  AND t.metodo_pago IN ('yape', 'plin');",True,1.0,62533.64,1,
+DOM_07,dominio,alta,¿Cuántas devoluciones se hicieron este mes?,"SELECT COUNT(*) AS devoluciones_mes
+FROM transacciones_financieras tf
+WHERE tipo = 'devolucion'
+  AND DATE_TRUNC('month', tf.fecha_transaccion) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,45557.92,1,
+AGG_02,agregacion_simple,baja,¿Cuántos clientes están registrados?,SELECT COUNT(*) AS total_clientes FROM clientes;,True,1.0,26559.12,1,
+AGG_03,agregacion_simple,baja,¿Cuál es el ingreso total registrado?,"SELECT COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS ingreso_total
+FROM transacciones_financieras tf
+LEFT JOIN reservas r ON r.reserva_id = tf.reserva_id;",True,1.0,43299.91,1,
+TMP_12,filtro_temporal,alta,¿Cuántas reservas canceladas hubo en los últimos 30 días?,"SELECT COUNT(*) AS total_cancelaciones
+FROM reservas r
+WHERE estado = 'cancelada'
+  AND fecha_reserva >= CURRENT_DATE - INTERVAL '30 days';",True,1.0,34569.22,1,
+JOI_02,join,media,¿Cuántas reservas tiene el cliente más frecuente?,"SELECT c.nombre_codigo, COUNT(r.reserva_id) AS total_reservas
+FROM clientes c
+JOIN v_reservas_detalle r ON r.cliente = c.nombre_codigo
+GROUP BY c.cliente_id, c.nombre_codigo
+ORDER BY total_reservas DESC
+LIMIT 1;",True,1.0,37705.66,1,
+JOI_08,join,alta,¿Cuánto gastaron los clientes corporativos este mes?,"SELECT COALESCE(SUM(t.monto), 0) AS gasto_corporativo
+FROM reservas r
+JOIN clientes c ON c.cliente_id = r.cliente_id
+JOIN transacciones_financieras t ON t.reserva_id = r.reserva_id
+WHERE c.segmento = 'corporativo'
+  AND t.tipo = 'gasto_operativo'
+  AND DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,51633.68,1,
+VIS_04,vista,media,¿Cuál es el ticket promedio este mes según el detalle?,"SELECT 
+    ROUND(AVG(ir.subtotal), 2) AS ticket_promedio
+FROM 
+    v_reservas_detalle vd
+JOIN 
+    items_reserva ir ON ir.reserva_id = vd.reserva_id
+WHERE 
+    DATE_TRUNC('month', vd.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,40383.91,1,
+VIS_06,vista,media,¿Qué día de la semana tiene más reservas según el detalle?,"SELECT dia_semana_nombre, COUNT(*) AS total_reservas
+FROM v_reservas_detalle
+GROUP BY dia_semana_nombre, dia_semana_num
+ORDER BY COUNT(*) DESC;",True,1.0,35129.33,7,
+VIS_08,vista,alta,¿Cuál es el ingreso promedio diario del mes según el resumen?,"SELECT ROUND(AVG(daily_ingreso), 2) AS ingreso_promedio_diario
+FROM (
+    SELECT tf.fecha_transaccion AS fecha,
+           COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS daily_ingreso
+    FROM transacciones_financieras tf
+    WHERE DATE_TRUNC('month', tf.fecha_transaccion) = DATE_TRUNC('month', CURRENT_DATE)
+    GROUP BY tf.fecha_transaccion
+) sub;",True,1.0,54166.14,1,
+CMP_02,compuesta,media,¿Cuántas reservas por estado hay en total?,"SELECT COUNT(*) AS total_reservas_por_estado
+FROM (
+  SELECT r.estado, COUNT(*) AS cantidad_reservas
+  FROM reservas r
+  GROUP BY r.estado
+) sub;",True,1.0,33417.6,1,
+CMP_05,compuesta,alta,¿Cuántas reservas por mes hubo este año?,"SELECT 
+    DATE_TRUNC('month', CURRENT_DATE) AS mes,
+    COUNT(r.reserva_id) AS total_reservas_por_mes
+FROM 
+    reservas r;",True,1.0,56091.9,1,
+CMP_08,compuesta,alta,¿Cuántas reservas no conciliadas hay?,"SELECT COUNT(*) AS total_reservas_no_conciliadas
+FROM transacciones_financieras tf
+JOIN reservas r ON r.reserva_id = tf.reserva_id
+WHERE tf.es_conciliado = FALSE;",True,1.0,37016.71,1,
+DOM_04,dominio,media,¿Cuánto fue el cuadre de caja de hoy?,"SELECT COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS total_ingresos,
+       COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0) AS total_gastos,
+       COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0)
+         - COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0)
+         AS utilidad_neta
+FROM transacciones_financieras tf
+LEFT JOIN reservas r ON r.reserva_id = tf.reserva_id
+WHERE tf.fecha_transaccion = CURRENT_DATE;",True,1.0,87319.27,1,
+AGG_08,agregacion_simple,media,¿Cuántos clientes son recurrentes?,"SELECT COUNT(*) AS total_clientes_recurrentes
+FROM clientes
+WHERE es_recurrente = TRUE;",True,1.0,19695.63,1,
+TMP_01,filtro_temporal,baja,¿Cuántas reservas hay para hoy?,"SELECT COUNT(*) AS total_reservas
+FROM reservas r
+WHERE DATE(r.fecha_reserva) = CURRENT_DATE;",True,1.0,27282.67,1,
+TMP_05,filtro_temporal,media,¿Cuántas reservas hubo el fin de semana pasado?,"SELECT COUNT(*) AS total_reservas
+FROM reservas r
+WHERE DATE_TRUNC('week', r.fecha_reserva) = DATE_TRUNC('week', CURRENT_DATE - 1)
+  AND (EXTRACT(DOW FROM r.fecha_reserva) IN (0,6));",True,1.0,29920.99,1,
+TMP_09,filtro_temporal,alta,¿Cuál fue el ingreso del último trimestre?,"SELECT COALESCE(SUM(CASE WHEN tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN monto ELSE 0 END), 0) AS ingresos_trimestre
+FROM transacciones_financieras tf
+WHERE fecha_transaccion >= DATE_TRUNC('quarter', CURRENT_DATE - INTERVAL '3 months')
+AND fecha_transaccion <= CURRENT_DATE;",True,1.0,32662.85,1,
+TMP_11,filtro_temporal,alta,¿Cuánto ingresó el recreo ayer?,"SELECT COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS ingresos_ayer
+FROM transacciones_financieras tf
+WHERE fecha_transaccion = CURRENT_DATE - 1;",True,1.0,29618.8,1,
+JOI_01,join,media,¿Cuántas reservas completadas tienen transacción registrada?,"SELECT COUNT(*) AS total_reservas_completadas_con_transaccion
+FROM (
+    SELECT r.reserva_id, t.transaccion_id
+    FROM reservas r
+    JOIN transacciones_financieras t ON t.reserva_id = r.reserva_id
+    WHERE r.estado = 'completada'
+) sub;",True,1.0,30589.24,1,
+JOI_07,join,alta,¿Cuál es el total de personas por distrito este mes?,"SELECT c.distrito, SUM(r.numero_personas) AS total_personas
+FROM reservas r
+JOIN clientes c ON c.cliente_id = r.cliente_id
+WHERE r.estado = 'completada'
+  AND DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY c.distrito;",True,1.0,30631.22,10,
+VIS_07,vista,alta,¿Cuál fue el día con mayor utilidad neta este mes?,"SELECT 
+    tf.fecha_transaccion AS fecha,
+    COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0)
+      - COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0)
+      AS utilidad_neta
+FROM transacciones_financieras tf
+LEFT JOIN reservas r ON r.reserva_id = tf.reserva_id
+WHERE tf.fecha_transaccion >= DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY tf.fecha_transaccion
+ORDER BY utilidad_neta DESC;",True,1.0,52338.56,30,
+CMP_03,compuesta,media,¿Cuál es el ingreso por método de pago este mes?,"SELECT 
+    tf.metodo_pago,
+    COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS ingresos
+FROM transacciones_financieras tf
+JOIN reservas r ON r.reserva_id = tf.reserva_id
+WHERE 
+    DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE)
+GROUP BY tf.metodo_pago;",True,1.0,49799.12,5,
+CMP_10,compuesta,alta,¿Cuántas reservas por segmento y temporada hay en total?,,False,0.0,0.0,0,timed out
+DOM_02,dominio,media,¿Cuál es la tasa de pérdida de reservas este mes?,"SELECT 
+    ROUND(100.0 * SUM(CASE WHEN r.estado = 'no_show' THEN 1 ELSE 0 END) / COUNT(*), 2)
+        AS tasa_perdida_pct
+FROM reservas r
+JOIN transacciones_financieras tf ON tf.reserva_id = r.reserva_id
+WHERE DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,53620.85,1,
+DOM_10,dominio,alta,¿Cuántas personas en total visitaron el recreo este mes?,"SELECT SUM(r.numero_personas) AS total_personas
+FROM reservas r
+JOIN v_reservas_detalle vd ON vd.reserva_id = r.reserva_id
+WHERE DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,35717.38,1,
