@@ -1,66 +1,66 @@
 {
   "k": 5,
   "n_total": 60,
-  "ex_media": 0.9667,
-  "ex_std": 0.0456,
-  "ex_min": 0.9167,
+  "ex_media": 0.9333,
+  "ex_std": 0.0697,
+  "ex_min": 0.8333,
   "ex_max": 1.0,
-  "latencia_media_ms": 49029.05,
-  "latencia_std_ms": 10892.86,
+  "latencia_media_ms": 24563.06,
+  "latencia_std_ms": 10270.56,
   "hipotesis_aceptada": true,
   "resultados_por_fold": [
     {
       "fold": 1,
       "n_consultas": 12,
-      "execution_accuracy": 0.9167,
-      "latencia_promedio": 54515.06,
-      "consultas_ok": 11,
-      "consultas_error": 1
+      "execution_accuracy": 1.0,
+      "latencia_promedio": 22608.56,
+      "consultas_ok": 12,
+      "consultas_error": 0
     },
     {
       "fold": 2,
       "n_consultas": 12,
       "execution_accuracy": 1.0,
-      "latencia_promedio": 45823.6,
+      "latencia_promedio": 10933.22,
       "consultas_ok": 12,
       "consultas_error": 0
     },
     {
       "fold": 3,
       "n_consultas": 12,
-      "execution_accuracy": 1.0,
-      "latencia_promedio": 64407.0,
-      "consultas_ok": 12,
-      "consultas_error": 0
+      "execution_accuracy": 0.9167,
+      "latencia_promedio": 33911.33,
+      "consultas_ok": 11,
+      "consultas_error": 1
     },
     {
       "fold": 4,
       "n_consultas": 12,
-      "execution_accuracy": 1.0,
-      "latencia_promedio": 44774.37,
-      "consultas_ok": 12,
-      "consultas_error": 0
+      "execution_accuracy": 0.9167,
+      "latencia_promedio": 19759.27,
+      "consultas_ok": 11,
+      "consultas_error": 1
     },
     {
       "fold": 5,
       "n_consultas": 12,
-      "execution_accuracy": 0.9167,
-      "latencia_promedio": 35625.21,
-      "consultas_ok": 11,
-      "consultas_error": 1
+      "execution_accuracy": 0.8333,
+      "latencia_promedio": 35602.91,
+      "consultas_ok": 10,
+      "consultas_error": 2
     }
   ],
   "ex_por_categoria": {
-    "agregacion_simple": 1.0,
-    "dominio": 1.0,
-    "join": 1.0,
     "filtro_temporal": 1.0,
     "vista": 0.875,
+    "dominio": 0.8,
+    "join": 1.0,
+    "agregacion_simple": 1.0,
     "compuesta": 0.9
   },
   "ex_por_dificultad": {
-    "baja": 1.0,
-    "media": 0.96,
+    "baja": 0.9,
+    "media": 0.92,
     "alta": 0.96
   }
 }

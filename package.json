@@ -1,0 +1,15 @@
+{
+  "name": "real-cordova-ai-analytics-node",
+  "version": "1.0.0",
+  "description": "Microservicio de Base de Datos para el sistema Text-to-SQL",
+  "main": "init.js",
+  "scripts": {
+    "start": "node init.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "pg": "^8.12.0"
+  },
+  "author": "Jean Steven Acosta Cruz",
+  "license": "ISC"
+}

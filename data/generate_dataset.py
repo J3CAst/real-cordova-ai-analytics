@@ -135,33 +135,25 @@ def generar_hora_salida(hora_llegada_str: str) -> str:
     return f"{h_salida:02d}:{m:02d}:00"
 
 
-def generar_fechas_reserva_pool() -> List[date]:
+def obtener_fechas_por_temporada() -> Tuple[List[date], List[date]]:
     """
-    Genera pool de fechas estratificado:
-    60% en meses de verano, 40% en meses de invierno.
-    Ponderadas adicionalmente por día de semana (fines de
-    semana tienen mayor probabilidad).
+    Retorna dos listas de fechas (verano e invierno) para forzar
+    una estratificación estricta.
     """
     delta = (FECHA_FIN - FECHA_INICIO).days
     todas = [FECHA_INICIO + timedelta(days=i) for i in range(delta + 1)]
+    
+    verano = [d for d in todas if d.month in MESES_VERANO]
+    invierno = [d for d in todas if d.month in MESES_INVIERNO]
+    
+    return verano, invierno
 
-    # Peso base por temporada + amplificador fin de semana
-    pesos = []
-    for d in todas:
-        w = 1.0
-        if d.month in MESES_VERANO:
-            w *= 1.8       # 60% verano
-        elif d.month in MESES_INVIERNO:
-            w *= 0.8       # 40% invierno
-        else:
-            w *= 1.0       # meses intermedios
-        if es_fin_de_semana(d):
-            w *= 2.5       # fines de semana ~2.5× más reservas
-        pesos.append(w)
 
-    total_p = sum(pesos)
-    prob = [p / total_p for p in pesos]
-    return todas, prob
+def get_pesos_dias(fechas: List[date]) -> List[float]:
+    """Asigna mayor peso a los fines de semana."""
+    pesos = [2.5 if es_fin_de_semana(d) else 1.0 for d in fechas]
+    suma = sum(pesos)
+    return [p / suma for p in pesos]
 
 
 # ──────────────────────────────────────────────────────────
@@ -196,12 +188,23 @@ def generar_reservas(n: int, clientes_df: pd.DataFrame) -> pd.DataFrame:
     Genera N reservas con distribución de fechas estratificada
     (Poisson para tasa de llegada, Normal para personas/mesas).
     """
-    print(f"\n[2/4] Generando {n} reservas transaccionales...")
-    todas_fechas, prob_fechas = generar_fechas_reserva_pool()
-
-    # Muestrear N fechas según distribución calibrada
-    indices = np.random.choice(len(todas_fechas), size=n, p=prob_fechas)
-    fechas = [todas_fechas[i] for i in indices]
+    print(f"\n[2/4] Generando {n} reservas transaccionales (60% Verano / 40% Invierno)...")
+    fechas_verano, fechas_invierno = obtener_fechas_por_temporada()
+    
+    # Cuotas exactas
+    n_verano = int(n * 0.60)
+    n_invierno = n - n_verano
+    
+    # Muestreo estricto
+    muestreo_verano = np.random.choice(
+        fechas_verano, size=n_verano, p=get_pesos_dias(fechas_verano)
+    )
+    muestreo_invierno = np.random.choice(
+        fechas_invierno, size=n_invierno, p=get_pesos_dias(fechas_invierno)
+    )
+    
+    fechas = list(muestreo_verano) + list(muestreo_invierno)
+    random.shuffle(fechas)
 
     ids_clientes = clientes_df["cliente_id"].tolist()
     rows = []
@@ -518,8 +521,8 @@ def validar_dataset(
 
     # 2. Estratificación temporal (60/40 verano/invierno)
     pct_alta = reservas_df["es_temporada_alta"].mean()
-    print(f"  % temporada alta (verano)  : {pct_alta:.1%}  [objetivo: ~60%]")
-    assert 0.50 <= pct_alta <= 0.72, f"Estratificación fuera de rango: {pct_alta:.1%}"
+    print(f"  % temporada alta (verano)  : {pct_alta:.1%}  [objetivo: 60.0%]")
+    assert abs(pct_alta - 0.60) < 0.001, f"Estratificación INEXACTA: {pct_alta:.1%} != 60.0%"
 
     # 3. Estados de reserva
     dist_estados = reservas_df["estado"].value_counts(normalize=True)

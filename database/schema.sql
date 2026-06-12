@@ -294,7 +294,28 @@ FROM reservas r
     JOIN clientes c ON c.cliente_id = r.cliente_id;
 COMMENT ON VIEW v_reservas_detalle IS 'Vista desnormalizada para consultas conversacionales Text-to-SQL';
 -- ----------------------------------------------------------
--- 10. VERIFICACIÓN FINAL
+-- 10. TABLA: llm_audit_logs (Métricas de Tesis)
+--     Almacena la latencia, accuracy y f1-score de las 
+--     traducciones Text-to-SQL del modelo Meta LLaMA 3.1.
+-- ----------------------------------------------------------
+CREATE TABLE llm_audit_logs (
+    log_id SERIAL PRIMARY KEY,
+    pregunta_usuario TEXT NOT NULL,
+    sql_generado TEXT NOT NULL,
+    sql_esperado TEXT,
+    execution_accuracy NUMERIC(5,4) NOT NULL DEFAULT 0.0000,
+    f1_score NUMERIC(5,4) NOT NULL DEFAULT 0.0000,
+    latencia_ms INTEGER NOT NULL,
+    tokens_prompt INTEGER,
+    tokens_completion INTEGER,
+    modelo VARCHAR(50) DEFAULT 'llama3.1:8b',
+    error_msg TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+COMMENT ON TABLE llm_audit_logs IS 'Registro de métricas de validación del LLM para la tesis';
+
+-- ----------------------------------------------------------
+-- 11. VERIFICACIÓN FINAL
 -- ----------------------------------------------------------
 SELECT schemaname,
     tablename,

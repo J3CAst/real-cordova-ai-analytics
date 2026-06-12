@@ -5,13 +5,16 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
+# Cargar .env ANTES de importar módulos que dependen de variables de entorno
+load_dotenv()
+
 from engine.llm_engine import LLMEngine
 from engine.audit_logger import get_estadisticas, get_historial, logger
-
-load_dotenv()
+from database.db_pool import ejecutar_query_readonly, pool_engine
 
 # ──────────────────────────────────────────────────────────
 # LIFESPAN — carga el motor al iniciar el servidor
@@ -118,11 +121,12 @@ class SaludResponse(BaseModel):
 class EstadisticasResponse(BaseModel):
     """Métricas de rendimiento del motor LLM."""
     total_consultas: int
-    execution_accuracy: float
-    latencia_promedio_ms: float
-    latencia_max_ms: float
-    latencia_min_ms: float
-    consultas_fallidas: int
+    tasa_exito_sql: Optional[float] = None
+    ex_accuracy: Optional[float] = None
+    latencia_media_ms: Optional[float] = None
+    latencia_p95_ms: Optional[float] = None
+    consultas_con_error: int = 0
+    evaluadas_kfolds: int = 0
 
 
 # ──────────────────────────────────────────────────────────
@@ -140,7 +144,7 @@ class EstadisticasResponse(BaseModel):
     ),
     tags=["Motor LLM"],
 )
-async def procesar_consulta(request: ConsultaRequest) -> ConsultaResponse:
+def procesar_consulta(request: ConsultaRequest) -> ConsultaResponse:
     """
     Endpoint principal del sistema.
     Orquesta el pipeline completo: NL → SQL → PG → Respuesta.
@@ -150,6 +154,27 @@ async def procesar_consulta(request: ConsultaRequest) -> ConsultaResponse:
         if engine is None:
             raise RuntimeError("LLMEngine no está inicializado")
         resultado = engine.consultar(request.pregunta)
+        
+        # ──────────────────────────────────────────────────────
+        # INYECCIÓN VÍA B: Orquestación de Ejecución SQL
+        # ──────────────────────────────────────────────────────
+        if resultado.get("exito") and resultado.get("sql_generado"):
+            try:
+                # Ejecutamos el SQL generado de forma segura
+                filas = ejecutar_query_readonly(resultado["sql_generado"])
+                resultado["datos"] = filas
+                
+                if not filas:
+                    resultado["respuesta_nl"] = "La consulta se ejecutó correctamente, pero no devolvió resultados."
+                else:
+                    resultado["respuesta_nl"] = f"Se encontraron {len(filas)} registros que responden a tu consulta."
+            except Exception as e:
+                resultado["exito"] = False
+                resultado["datos"] = []
+                resultado["error"] = f"Error ejecutando SQL en DB: {str(e)}"
+                resultado["respuesta_nl"] = "El motor LLM generó el SQL, pero falló la extracción de datos."
+                logger.error(f"Fallo en orquestación BD: {e}")
+
         return ConsultaResponse(**resultado)
 
     except Exception as e:
@@ -174,7 +199,7 @@ async def health_check() -> SaludResponse:
     3. PostgreSQL (base de datos)
     """
     import httpx
-    from sqlalchemy import create_engine as sa_engine, text
+    import httpx
 
     ollama_ok = False
     postgres_ok = False
@@ -190,23 +215,17 @@ async def health_check() -> SaludResponse:
     except Exception:
         ollama_ok = False
 
-    # Verificar PostgreSQL
     try:
-        dsn = (
-            f"postgresql+psycopg2://"
-            f"{os.getenv('DB_USER', 'postgres')}:"
-            f"{os.getenv('DB_PASS', 'postgres')}@"
-            f"{os.getenv('DB_HOST', 'localhost')}:"
-            f"{os.getenv('DB_PORT', '5432')}/"
-            f"{os.getenv('DB_NAME', 'real_cordova_db')}"
-        )
-        eng = sa_engine(dsn, pool_pre_ping=True)
-        with eng.connect() as conn:
+        with pool_engine.connect() as conn:
             conn.execute(text("SELECT 1"))
         postgres_ok = True
-    except Exception:
+        db_err = ""
+    except Exception as e:
+        logger.error(f"PostgreSQL Connection Error in /salud: {e}")
+        logger.error(f"Engine URL was: {pool_engine.url}")
         postgres_ok = False
-
+        db_err = f" (Err: {e} | URL: {pool_engine.url.render_as_string(hide_password=False)})"
+    
     # Estado general
     if ollama_ok and postgres_ok:
         estado = "ok"
@@ -216,7 +235,7 @@ async def health_check() -> SaludResponse:
         mensaje = "PostgreSQL OK. Ollama no responde — verifica: ollama serve"
     elif ollama_ok:
         estado = "degradado"
-        mensaje = "Ollama OK. PostgreSQL no responde — verifica credenciales en .env"
+        mensaje = f"Ollama OK. PostgreSQL no responde{db_err}"
     else:
         estado = "error"
         mensaje = "Ollama y PostgreSQL no responden."
@@ -241,7 +260,7 @@ async def health_check() -> SaludResponse:
     ),
     tags=["Auditoría"],
 )
-async def obtener_estadisticas() -> EstadisticasResponse:
+def obtener_estadisticas() -> EstadisticasResponse:
     """
     Métricas calculadas desde el CSV de auditoría:
     - Execution Accuracy (% queries exitosas)
@@ -261,7 +280,7 @@ async def obtener_estadisticas() -> EstadisticasResponse:
     description="Retorna las últimas N consultas procesadas por el motor.",
     tags=["Auditoría"],
 )
-async def obtener_historial(
+def obtener_historial(
     n: int = Query(default=20, ge=1, le=200,
                    description="Número de registros a retornar")
 ) -> list:

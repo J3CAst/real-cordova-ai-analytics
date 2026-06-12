@@ -32,6 +32,27 @@ logger = logging.getLogger("audit_logger")
 # ESTRUCTURA DE UN REGISTRO DE INFERENCIA
 # ──────────────────────────────────────────────────────────
 
+def _calcular_f1_score(sql_gen: str, sql_exp: str) -> float:
+    """Calcula F1-Score a nivel de tokens semánticos."""
+    if not sql_gen or not sql_exp:
+        return 0.0
+    
+    t_gen = set(_normalizar_sql(sql_gen).split())
+    t_exp = set(_normalizar_sql(sql_exp).split())
+    
+    if not t_gen or not t_exp:
+        return 0.0
+        
+    overlap = t_gen.intersection(t_exp)
+    if not overlap:
+        return 0.0
+        
+    precision = len(overlap) / len(t_gen)
+    recall = len(overlap) / len(t_exp)
+    
+    return 2 * (precision * recall) / (precision + recall)
+
+
 def _construir_registro(
     pregunta_nl: str,
     sql_generado: str,
@@ -44,17 +65,15 @@ def _construir_registro(
 ) -> Dict[str, Any]:
     """
     Construye el dict que se serializa a JSONL.
-    Incluye Execution Accuracy si se provee sql_esperado.
+    Incluye Execution Accuracy y F1-Score si se provee sql_esperado.
     """
-    # Execution Accuracy (EX): 1 si el SQL generado es
-    # funcionalmente equivalente al esperado, 0 si no.
-    # En la validación K-Folds se compara resultado real vs esperado.
     ex_score: Optional[int] = None
+    f1_score: float = 0.0
     if sql_esperado is not None:
-        # Comparación normalizada (sin espacios, minúsculas)
         sql_norm = _normalizar_sql(sql_generado)
         esperado_norm = _normalizar_sql(sql_esperado)
         ex_score = 1 if sql_norm == esperado_norm else 0
+        f1_score = _calcular_f1_score(sql_generado, sql_esperado)
 
     return {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -65,7 +84,8 @@ def _construir_registro(
         "resultado_ok": resultado_ok,
         "filas_retorno": filas_retorno,
         "latencia_ms": round(latencia_ms, 2),
-        "ex_score": ex_score,          # 1=correcto, 0=incorrecto, None=no evaluado
+        "ex_score": ex_score,
+        "f1_score": round(f1_score, 4),
         "error_msg": error_msg,
     }
 
@@ -122,11 +142,17 @@ def registrar_inferencia(
         session_id=session_id,
     )
 
+    # 1. Guardar en JSONL (Backup/Rápido)
     try:
         with open(LOG_FILE, "a", encoding="utf-8") as f:
             f.write(json.dumps(registro, ensure_ascii=False) + "\n")
     except IOError as e:
         logger.error(f"No se pudo escribir en {LOG_FILE}: {e}")
+
+    # 2. Insertar en PostgreSQL (Delegado)
+    # Por regla de arquitectura, el backend Python no inicializa conexiones DB.
+    # El archivo JSONL será consumido por el microservicio en Node (init.js) 
+    # para su inserción asíncrona en la tabla llm_audit_logs.
 
     return registro
 

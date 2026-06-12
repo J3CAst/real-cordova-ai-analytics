@@ -46,6 +46,9 @@ venv\Scripts\activate          # Windows
 # source venv/bin/activate     # Linux/macOS
 
 pip install -r requirements.txt
+
+# Instalar dependencias de Node.js (Microservicio de BD)
+npm install
 ```
 
 ### 3. Configurar entorno
@@ -95,10 +98,13 @@ python data/load_to_postgres.py
 # Terminal 1: Ollama (debe estar corriendo)
 ollama serve
 
-# Terminal 2: FastAPI backend
+# Terminal 2: Microservicio Node (Inicialización y Auditoría)
+npm start
+
+# Terminal 3: FastAPI backend
 uvicorn api.main:app --reload --port 8000
 
-# Terminal 3: Streamlit UI
+# Terminal 4: Streamlit UI
 streamlit run ui/app.py --server.port 8501
 ```
 
@@ -126,6 +132,8 @@ real-cordova-ai-analytics/
 │   └── app.py                  ← Interfaz Streamlit conversacional
 ├── tests/
 │   └── test_sql_accuracy.py    ← Validación K-Folds + Execution Accuracy
+├── init.js                     ← Microservicio Node.js para Base de Datos
+├── package.json                ← Dependencias de Node.js
 ├── Modelfile                   ← Configuración Ollama (SHA256 fijo)
 ├── requirements.txt
 ├── .env.example

@@ -229,6 +229,7 @@ def verificar_carga(engine) -> None:
         "reservas": "SELECT COUNT(*) FROM reservas",
         "items_reserva": "SELECT COUNT(*) FROM items_reserva",
         "transacciones_financieras": "SELECT COUNT(*) FROM transacciones_financieras",
+        "llm_audit_logs": "SELECT COUNT(*) FROM llm_audit_logs",
         "vista v_resumen_diario": "SELECT COUNT(*) FROM v_resumen_diario",
         "vista v_reservas_detalle": "SELECT COUNT(*) FROM v_reservas_detalle",
     }
