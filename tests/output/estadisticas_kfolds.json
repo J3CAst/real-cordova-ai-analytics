@@ -1,66 +1,80 @@
 {
   "k": 5,
   "n_total": 60,
-  "ex_media": 0.9333,
-  "ex_std": 0.0697,
-  "ex_min": 0.8333,
-  "ex_max": 1.0,
-  "latencia_media_ms": 24563.06,
-  "latencia_std_ms": 10270.56,
-  "hipotesis_aceptada": true,
+  "ex_media": 0.7,
+  "ex_std": 0.095,
+  "ex_min": 0.5833,
+  "ex_max": 0.8333,
+  "sa_media": 0.0938,
+  "latencia_media_ms": 24401.88,
+  "latencia_std_ms": 6103.4,
+  "hipotesis_aceptada": false,
   "resultados_por_fold": [
     {
       "fold": 1,
       "n_consultas": 12,
-      "execution_accuracy": 1.0,
-      "latencia_promedio": 22608.56,
-      "consultas_ok": 12,
-      "consultas_error": 0
+      "execution_accuracy": 0.6667,
+      "semantic_accuracy": 0.0,
+      "latencia_promedio": 35096.0,
+      "consultas_ok": 8,
+      "consultas_error": 4
     },
     {
       "fold": 2,
       "n_consultas": 12,
-      "execution_accuracy": 1.0,
-      "latencia_promedio": 10933.22,
-      "consultas_ok": 12,
-      "consultas_error": 0
+      "execution_accuracy": 0.8333,
+      "semantic_accuracy": 0.2,
+      "latencia_promedio": 23557.23,
+      "consultas_ok": 10,
+      "consultas_error": 2
     },
     {
       "fold": 3,
       "n_consultas": 12,
-      "execution_accuracy": 0.9167,
-      "latencia_promedio": 33911.33,
-      "consultas_ok": 11,
-      "consultas_error": 1
+      "execution_accuracy": 0.6667,
+      "semantic_accuracy": 0.0,
+      "latencia_promedio": 21252.8,
+      "consultas_ok": 8,
+      "consultas_error": 4
     },
     {
       "fold": 4,
       "n_consultas": 12,
-      "execution_accuracy": 0.9167,
-      "latencia_promedio": 19759.27,
-      "consultas_ok": 11,
-      "consultas_error": 1
+      "execution_accuracy": 0.5833,
+      "semantic_accuracy": 0.0,
+      "latencia_promedio": 21936.03,
+      "consultas_ok": 7,
+      "consultas_error": 5
     },
     {
       "fold": 5,
       "n_consultas": 12,
-      "execution_accuracy": 0.8333,
-      "latencia_promedio": 35602.91,
-      "consultas_ok": 10,
-      "consultas_error": 2
+      "execution_accuracy": 0.75,
+      "semantic_accuracy": 0.1667,
+      "latencia_promedio": 20167.35,
+      "consultas_ok": 9,
+      "consultas_error": 3
     }
   ],
   "ex_por_categoria": {
-    "filtro_temporal": 1.0,
+    "agregacion_simple": 0.8,
     "vista": 0.875,
-    "dominio": 0.8,
-    "join": 1.0,
-    "agregacion_simple": 1.0,
-    "compuesta": 0.9
+    "dominio": 0.6,
+    "filtro_temporal": 0.5833,
+    "join": 0.6,
+    "compuesta": 0.8
+  },
+  "sa_por_categoria": {
+    "agregacion_simple": 0.25,
+    "vista": 0.0,
+    "dominio": 0.0,
+    "filtro_temporal": 0.1667,
+    "join": 0.0,
+    "compuesta": 0.0
   },
   "ex_por_dificultad": {
     "baja": 0.9,
-    "media": 0.92,
-    "alta": 0.96
+    "media": 0.6,
+    "alta": 0.72
   }
 }

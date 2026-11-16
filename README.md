@@ -38,7 +38,7 @@ ollama --version
 ### 2. Clonar e instalar dependencias
 
 ```bash
-git clone https://github.com/[tu-usuario]/real-cordova-ai-analytics.git
+git clone https://github.com/J3CAst/real-cordova-ai-analytics.git
 cd real-cordova-ai-analytics
 
 python -m venv venv
@@ -149,8 +149,42 @@ real-cordova-ai-analytics/
 | Tiempo conciliación diaria | 150 min | < 15 min | Cronómetro |
 | Error en reportes financieros | 15% | < 3% | Δ% error |
 | Pérdida de reservas | 30% | < 10% | Tasa pérdida |
-| Execution Accuracy Text-to-SQL | — | > 85% | EX benchmark |
+| Execution Accuracy Text-to-SQL | — | > 85% | EX benchmark (K-Folds, K=5) |
+| Semantic Accuracy (Answer Accuracy) | — | — | SA benchmark (comparación de result sets) |
 | Latencia de inferencia | — | < 3s | ms promedio |
+
+---
+
+## Estructura del Proyecto (v1.2)
+
+```
+real-cordova-ai-analytics/
+├── database/
+│   └── schema.sql              ← DDL PostgreSQL 17 (tablas + índices B-Tree)
+├── data/
+│   ├── generate_dataset.py     ← Simulación estocástica (15,000 registros)
+│   ├── load_to_postgres.py     ← Pipeline ETL (Pandas + SQLAlchemy)
+│   └── output/                 ← CSV generados (gitignored)
+├── engine/
+│   ├── llm_engine.py           ← LangChain + Ollama Text-to-SQL (10 few-shot examples)
+│   ├── schema_loader.py        ← Schema linking dinámico (LRU caché)
+│   ├── prediccion.py           ← RandomForest 5-features + persistencia joblib
+│   └── audit_logger.py         ← Módulo de auditoría (logs de inferencia)
+├── api/
+│   └── main.py                 ← FastAPI endpoints (+ /admin/refresh-schema)
+├── models/
+│   └── predictor_demanda.joblib  ← Modelo ML serializado (generado en runtime)
+├── ui/
+│   └── app.py                  ← Interfaz Streamlit conversacional (5 tabs)
+├── tests/
+│   └── test_sql_accuracy.py    ← K-Folds + EX clásica + EX semántica (SA)
+├── init.js                     ← Microservicio Node.js para Base de Datos
+├── package.json                ← Dependencias de Node.js
+├── Modelfile                   ← Configuración Ollama (SHA256 fijo)
+├── requirements.txt
+├── .env.example
+└── README.md
+```
 
 ---
 
@@ -159,3 +193,26 @@ real-cordova-ai-analytics/
 - Dataset 100% sintético (Faker locale `es_PE`) — Ley N° 29733
 - Modelo ejecutado on-premise — los datos nunca salen del equipo local
 - SHA256 del modelo fijado en `Modelfile` para reproducibilidad
+
+---
+
+## Registro de Mejoras (v1.2.0)
+
+### Correcciones de bugs
+| Módulo | Problema | Solución |
+|---|---|---|
+| `engine/prediccion.py:95` | `mean_squared_error(squared=False)` deprecado en scikit-learn ≥ 1.5 | Migrado a `root_mean_squared_error()` |
+| `database/db_pool.py:47` | `"WITH "` en blacklist bloqueaba CTEs válidos generados por el LLM | Eliminado; protección real: `statement_timeout=10s` + blacklist DDL/DML |
+| `ui/app.py:769` | `pred.get("is_fin_de_semana")` (clave inexistente) silenciaba el badge | Corregido a `pred.get("es_fin_de_semana", False)` |
+
+### Modelo ML (`engine/prediccion.py`)
+- **+1 feature `es_fin_de_semana`**: vector pasa de 4 a 5 dimensiones, captura el patrón diferencial fin de semana vs. días hábiles
+- **Persistencia joblib** (`models/predictor_demanda.joblib`): el lifespan de FastAPI carga el modelo desde disco en <1s en lugar de re-entrenar ~15s en cada reinicio
+
+### Seguridad y arquitectura (`api/main.py`)
+- **`hmac.compare_digest()`**: comparación de API Key resistente a timing attacks
+- **`POST /admin/refresh-schema`**: invalida el LRU caché y re-introspecciona el schema PostgreSQL sin reiniciar el servidor
+
+### Integridad del benchmark (`tests/test_sql_accuracy.py`)
+- **EX Semántica / Answer Accuracy**: ejecuta el SQL de referencia directamente en PostgreSQL y compara los result sets contra los del SQL generado. Reporte muestra columnas EX + SA por fold y por categoría.
+- **Corrección de data leakage**: 5 preguntas del `DATASET_EVALUACION` coincidían exactamente con los `EJEMPLOS_FEW_SHOT` del prompt (el LLM los recibe en contexto en cada inferencia). Sustituidas por preguntas de misma categoría/dificultad pero sin solapamiento — el EX% ahora mide generalización real.

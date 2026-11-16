@@ -1,14 +1,18 @@
 import os
 import csv
 import json
+import sys
 import time
 import statistics
 from datetime import datetime
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 import httpx
 from sklearn.model_selection import KFold
+
+# Asegura que el raíz del proyecto esté en PYTHONPATH para importar database.*
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # ──────────────────────────────────────────────────────────
 # CONFIGURACIÓN
@@ -19,6 +23,62 @@ K_FOLDS = 5
 OUTPUT_DIR = Path(__file__).parent / "output"
 
 # ──────────────────────────────────────────────────────────
+# EX SEMÁNTICA — comparación directa de result sets
+#
+# Limitación del EX clásico: mide si el SQL ejecutó sin error,
+# no si devolvió el resultado correcto.
+#
+# EX Semántica (Answer Accuracy según BIRD benchmark):
+#   semantic_accuracy = 1.0  si generated_rows == reference_rows
+#   semantic_accuracy = 0.0  si los resultados difieren
+#   semantic_accuracy = None si el SQL de referencia falla (no computable)
+#
+# Comparación insensible a:
+#   - Orden de filas (se ordenan antes de comparar)
+#   - Nombres de columna (se comparan solo valores)
+#   - Precisión de floats (se redondean a 2 decimales)
+# ──────────────────────────────────────────────────────────
+
+def _ejecutar_sql_referencia(sql_ref: str) -> Optional[List[Dict]]:
+    """Ejecuta el SQL de referencia directamente contra PostgreSQL. Retorna None si falla."""
+    try:
+        from database.db_pool import pool_engine
+        from sqlalchemy import text
+        with pool_engine.connect() as conn:
+            res = conn.execute(text(sql_ref))
+            return [dict(row) for row in res.mappings()]
+    except Exception as e:
+        return None
+
+
+def _normalizar_fila(row: Dict) -> str:
+    """
+    Convierte una fila a string comparable, insensible a nombres de columna.
+    Los valores numéricos se redondean a 2 decimales para absorber diferencias
+    de precisión entre el SQL generado y el de referencia.
+    """
+    vals = []
+    for v in row.values():
+        if v is None:
+            vals.append("__null__")
+        elif isinstance(v, float):
+            vals.append(f"{v:.2f}")
+        elif isinstance(v, int):
+            vals.append(str(v))
+        else:
+            vals.append(str(v).strip().lower())
+    return "|".join(sorted(vals))
+
+
+def _resultados_equivalentes(gen: List[Dict], ref: List[Dict]) -> bool:
+    """True si ambos result sets contienen las mismas filas (independiente del orden)."""
+    if len(gen) != len(ref):
+        return False
+    norm_gen = sorted(_normalizar_fila(r) for r in gen)
+    norm_ref = sorted(_normalizar_fila(r) for r in ref)
+    return norm_gen == norm_ref
+
+# ──────────────────────────────────────────────────────────
 # DATASET DE EVALUACIÓN
 # 60 pares (pregunta NL → SQL de referencia)
 # Estratificados por categoría y nivel de dificultad.
@@ -27,12 +87,19 @@ OUTPUT_DIR = Path(__file__).parent / "output"
 # ──────────────────────────────────────────────────────────
 
 DATASET_EVALUACION: List[Dict] = [
+    # CRITERIO DE INTEGRIDAD: ninguna pregunta de este dataset puede coincidir
+    # textual ni semánticamente con los EJEMPLOS_FEW_SHOT de engine/llm_engine.py.
+    # El few-shot está inyectado en el prompt en cada inferencia, por lo que una
+    # pregunta idéntica produciría una recuperación directa en vez de generalización,
+    # inflando artificialmente el EX% (data leakage de evaluación).
+    # Preguntas sustituidas: AGG_01, TMP_02, VIS_02, JOI_09, VIS_05.
 
     # ── CATEGORÍA 1: Agregaciones Simples (10 consultas) ──
     {
+        # Reemplaza: "¿Cuántas reservas hay en total?" — idéntica al few-shot #1
         "id": "AGG_01", "categoria": "agregacion_simple", "dificultad": "baja",
-        "pregunta": "¿Cuántas reservas hay en total?",
-        "sql_referencia": "SELECT COUNT(*) AS total_reservas FROM reservas;"
+        "pregunta": "¿Cuántos ítems de consumo están registrados en total?",
+        "sql_referencia": "SELECT COUNT(*) AS total_items FROM items_reserva;"
     },
     {
         "id": "AGG_02", "categoria": "agregacion_simple", "dificultad": "baja",
@@ -87,9 +154,10 @@ DATASET_EVALUACION: List[Dict] = [
         "sql_referencia": "SELECT COUNT(*) AS reservas_hoy FROM reservas WHERE fecha_reserva = CURRENT_DATE;"
     },
     {
+        # Reemplaza: "¿Cuánto ingresó el recreo esta semana?" — idéntica al few-shot #2
         "id": "TMP_02", "categoria": "filtro_temporal", "dificultad": "baja",
-        "pregunta": "¿Cuánto ingresó el recreo esta semana?",
-        "sql_referencia": "SELECT COALESCE(SUM(monto), 0) AS ingresos_semana FROM transacciones_financieras WHERE tipo LIKE 'ingreso%' AND fecha_transaccion >= DATE_TRUNC('week', CURRENT_DATE);"
+        "pregunta": "¿Cuántas reservas se registraron esta semana?",
+        "sql_referencia": "SELECT COUNT(*) AS reservas_esta_semana FROM reservas WHERE fecha_reserva >= DATE_TRUNC('week', CURRENT_DATE);"
     },
     {
         "id": "TMP_03", "categoria": "filtro_temporal", "dificultad": "baja",
@@ -184,9 +252,10 @@ DATASET_EVALUACION: List[Dict] = [
         "sql_referencia": "SELECT COALESCE(SUM(t.monto), 0) AS gasto_corporativo FROM clientes c JOIN reservas r ON r.cliente_id = c.cliente_id JOIN transacciones_financieras t ON t.reserva_id = r.reserva_id WHERE c.segmento = 'corporativo' AND t.tipo LIKE 'ingreso%' AND DATE_TRUNC('month', r.fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);"
     },
     {
+        # Reemplaza: "¿Cuál es el ticket promedio por canal de reserva?" — casi idéntica al few-shot #4
         "id": "JOI_09", "categoria": "join", "dificultad": "alta",
-        "pregunta": "¿Cuál es el ticket promedio por canal de reserva?",
-        "sql_referencia": "SELECT r.canal, ROUND(AVG(ir.subtotal), 2) AS ticket_promedio FROM reservas r JOIN items_reserva ir ON ir.reserva_id = r.reserva_id WHERE r.estado = 'completada' GROUP BY r.canal ORDER BY ticket_promedio DESC;"
+        "pregunta": "¿Cuál es el ingreso total por segmento de cliente este año?",
+        "sql_referencia": "SELECT c.segmento, COALESCE(SUM(t.monto), 0) AS ingreso_total FROM clientes c JOIN reservas r ON r.cliente_id = c.cliente_id JOIN transacciones_financieras t ON t.reserva_id = r.reserva_id WHERE t.tipo LIKE 'ingreso%' AND EXTRACT(YEAR FROM r.fecha_reserva) = EXTRACT(YEAR FROM CURRENT_DATE) GROUP BY c.segmento ORDER BY ingreso_total DESC;"
     },
     {
         "id": "JOI_10", "categoria": "join", "dificultad": "alta",
@@ -201,9 +270,10 @@ DATASET_EVALUACION: List[Dict] = [
         "sql_referencia": "SELECT * FROM v_resumen_diario WHERE fecha = CURRENT_DATE;"
     },
     {
+        # Reemplaza: "¿Cuál fue la utilidad neta de ayer?" — idéntica al few-shot #3
         "id": "VIS_02", "categoria": "vista", "dificultad": "baja",
-        "pregunta": "¿Cuál fue la utilidad neta de ayer?",
-        "sql_referencia": "SELECT utilidad_neta FROM v_resumen_diario WHERE fecha = CURRENT_DATE - 1;"
+        "pregunta": "¿Cuál fue el total de ingresos de ayer según el resumen diario?",
+        "sql_referencia": "SELECT total_ingresos FROM v_resumen_diario WHERE fecha = CURRENT_DATE - 1;"
     },
     {
         "id": "VIS_03", "categoria": "vista", "dificultad": "media",
@@ -216,9 +286,10 @@ DATASET_EVALUACION: List[Dict] = [
         "sql_referencia": "SELECT ROUND(AVG(ticket_total), 2) AS ticket_promedio FROM v_reservas_detalle WHERE estado = 'completada' AND DATE_TRUNC('month', fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);"
     },
     {
+        # Reemplaza: "¿Cuántas reservas por temporada muestra el detalle este año?" — idéntica al few-shot #5
         "id": "VIS_05", "categoria": "vista", "dificultad": "media",
-        "pregunta": "¿Cuántas reservas por temporada muestra el detalle este año?",
-        "sql_referencia": "SELECT temporada, COUNT(*) AS total FROM v_reservas_detalle WHERE EXTRACT(YEAR FROM fecha_reserva) = EXTRACT(YEAR FROM CURRENT_DATE) GROUP BY temporada;"
+        "pregunta": "¿Cuántas reservas por estado hay en el detalle este mes?",
+        "sql_referencia": "SELECT estado, COUNT(*) AS total FROM v_reservas_detalle WHERE DATE_TRUNC('month', fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE) GROUP BY estado ORDER BY total DESC;"
     },
     {
         "id": "VIS_06", "categoria": "vista", "dificultad": "media",
@@ -366,12 +437,16 @@ def _is_retryable_error(error_text: str) -> bool:
 
 def evaluar_consulta(item: Dict, max_retries: int = 1, delay_seconds: float = 3.0) -> Dict:
     """
-    Evalúa una consulta individual enviándola al motor LLM
-    via la API FastAPI y registrando el resultado.
+    Evalúa una consulta individual enviándola al motor LLM via la API FastAPI.
 
-    Execution Accuracy (EX):
-    - 1.0 si la API retorna exito=True (SQL ejecutó sin error)
-    - 0.0 si la API retorna exito=False
+    Métricas calculadas:
+    - execution_accuracy (EX clásico):
+        1.0 si la API retorna exito=True (SQL ejecutó sin error)
+        0.0 si la API retorna exito=False
+    - semantic_accuracy (EX semántica — Answer Accuracy según BIRD benchmark):
+        1.0 si el result set generado == result set de referencia
+        0.0 si los resultados difieren
+        None si el SQL de referencia falla (no computable)
 
     Returns
     -------
@@ -387,13 +462,24 @@ def evaluar_consulta(item: Dict, max_retries: int = 1, delay_seconds: float = 3.
             r.raise_for_status()
             resp = r.json()
 
+            exito = resp.get("exito", False)
+            datos_generados = resp.get("datos", [])
+
+            # EX Semántica: comparar result sets
+            semantic_accuracy = None
+            if exito:
+                ref_rows = _ejecutar_sql_referencia(item["sql_referencia"])
+                if ref_rows is not None:
+                    semantic_accuracy = 1.0 if _resultados_equivalentes(datos_generados, ref_rows) else 0.0
+
             return {
                 **item,
                 "sql_generado": resp.get("sql_generado", ""),
-                "exito": resp.get("exito", False),
-                "execution_accuracy": 1.0 if resp.get("exito") else 0.0,
+                "exito": exito,
+                "execution_accuracy": 1.0 if exito else 0.0,
+                "semantic_accuracy": semantic_accuracy,
                 "latencia_ms": resp.get("latencia_ms", 0),
-                "n_filas": len(resp.get("datos", [])),
+                "n_filas": len(datos_generados),
                 "error": resp.get("error", ""),
             }
 
@@ -405,6 +491,7 @@ def evaluar_consulta(item: Dict, max_retries: int = 1, delay_seconds: float = 3.
                     "sql_generado": "",
                     "exito": False,
                     "execution_accuracy": 0.0,
+                    "semantic_accuracy": 0.0,
                     "latencia_ms": 0.0,
                     "n_filas": 0,
                     "error": error_text,
@@ -466,7 +553,7 @@ def ejecutar_kfolds(dataset: List[Dict], k: int = 5) -> Dict:
             fold_resultados.append(resultado)
             todos_resultados.append(resultado)
 
-            estado = "✓" if resultado["exito"] else "✗"
+            estado = "OK" if resultado["exito"] else "XX"
             lat = resultado["latencia_ms"]
             print(f" {estado} ({lat:.0f}ms)")
 
@@ -475,17 +562,23 @@ def ejecutar_kfolds(dataset: List[Dict], k: int = 5) -> Dict:
         lat_list = [r["latencia_ms"] for r in fold_resultados if r["latencia_ms"] > 0]
         lat_fold = statistics.mean(lat_list) if lat_list else 0.0
 
+        # Semantic accuracy: excluye casos donde ref SQL falló (None)
+        sa_vals = [r["semantic_accuracy"] for r in fold_resultados if r.get("semantic_accuracy") is not None]
+        sa_fold = statistics.mean(sa_vals) if sa_vals else None
+
         resultados_por_fold.append({
             "fold": fold_num,
             "n_consultas": n_test,
             "execution_accuracy": round(ex_fold, 4),
+            "semantic_accuracy": round(sa_fold, 4) if sa_fold is not None else None,
             "latencia_promedio": round(lat_fold, 2),
             "consultas_ok": sum(1 for r in fold_resultados if r["exito"]),
             "consultas_error": sum(1 for r in fold_resultados if not r["exito"]),
         })
 
+        sa_str = f" | SA: {sa_fold:.1%}" if sa_fold is not None else ""
         print(
-            f"    → Fold {fold_num} EX: {ex_fold:.1%} | Latencia: {lat_fold:.0f}ms\n")
+            f"    → Fold {fold_num} EX: {ex_fold:.1%}{sa_str} | Latencia: {lat_fold:.0f}ms\n")
 
     # ── Estadísticas agregadas ───────────────────────────
     ex_vals = [f["execution_accuracy"] for f in resultados_por_fold]
@@ -499,20 +592,27 @@ def ejecutar_kfolds(dataset: List[Dict], k: int = 5) -> Dict:
     lat_media = statistics.mean(lat_vals)
     lat_std = statistics.stdev(lat_vals) if len(lat_vals) > 1 else 0.0
 
+    # Semantic accuracy global
+    sa_vals_global = [r["semantic_accuracy"] for r in todos_resultados if r.get("semantic_accuracy") is not None]
+    sa_media = round(statistics.mean(sa_vals_global), 4) if sa_vals_global else None
+
     # EX por categoría
     ex_por_categoria = {}
+    sa_por_categoria = {}
     for cat in set(r["categoria"] for r in todos_resultados):
         items_cat = [r for r in todos_resultados if r["categoria"] == cat]
         ex_cat = statistics.mean(r["execution_accuracy"] for r in items_cat)
         ex_por_categoria[cat] = round(ex_cat, 4)
+        sa_cat_vals = [r["semantic_accuracy"] for r in items_cat if r.get("semantic_accuracy") is not None]
+        if sa_cat_vals:
+            sa_por_categoria[cat] = round(statistics.mean(sa_cat_vals), 4)
 
     # EX por dificultad
     ex_por_dificultad = {}
     for dif in ["baja", "media", "alta"]:
         items_dif = [r for r in todos_resultados if r["dificultad"] == dif]
         if items_dif:
-            ex_dif = statistics.mean(r["execution_accuracy"]
-                                     for r in items_dif)
+            ex_dif = statistics.mean(r["execution_accuracy"] for r in items_dif)
             ex_por_dificultad[dif] = round(ex_dif, 4)
 
     return {
@@ -522,11 +622,13 @@ def ejecutar_kfolds(dataset: List[Dict], k: int = 5) -> Dict:
         "ex_std": round(ex_std, 4),
         "ex_min": round(ex_min, 4),
         "ex_max": round(ex_max, 4),
+        "sa_media": sa_media,
         "latencia_media_ms": round(lat_media, 2),
         "latencia_std_ms": round(lat_std, 2),
         "hipotesis_aceptada": ex_media >= 0.85,
         "resultados_por_fold": resultados_por_fold,
         "ex_por_categoria": ex_por_categoria,
+        "sa_por_categoria": sa_por_categoria,
         "ex_por_dificultad": ex_por_dificultad,
         "todos_resultados": todos_resultados,
     }
@@ -544,6 +646,9 @@ def generar_reporte(resultado: Dict) -> str:
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     sep = "─" * 65
 
+    sa_media = resultado.get("sa_media")
+    sa_str = f"{sa_media*100:.2f}%" if sa_media is not None else "N/A"
+
     lineas = [
         "=" * 65,
         "  REPORTE DE BENCHMARK — SISTEMA REAL CÓRDOVA",
@@ -557,34 +662,39 @@ def generar_reporte(resultado: Dict) -> str:
         f"   Dataset         : {resultado['n_total']} consultas",
         f"   Modelo          : Meta LLaMA 3.1 8B GGUF Q4_K_M (Ollama)",
         f"   Hardware        : ASUS Vivobook M1603QA (Ryzen 5 5600H, 16GB)",
-        f"   Métrica         : Execution Accuracy (EX) — Estándar BIRD",
+        f"   Métrica EX      : Execution Accuracy — SQL ejecutó sin error (estándar BIRD)",
+        f"   Métrica SA      : Semantic Accuracy — result set coincide con referencia",
         f"   Hipótesis H₁   : EX > 85%",
         "",
         "2. RESULTADOS POR FOLD",
         sep,
-        f"   {'Fold':<6} {'N':<5} {'EX (%)':>8} {'Lat. Prom (ms)':>15} {'OK':>5} {'Error':>7}",
-        f"   {'─'*6} {'─'*5} {'─'*8} {'─'*15} {'─'*5} {'─'*7}",
+        f"   {'Fold':<6} {'N':<5} {'EX (%)':>8} {'SA (%)':>8} {'Lat. (ms)':>10} {'OK':>5} {'Err':>5}",
+        f"   {'─'*6} {'─'*5} {'─'*8} {'─'*8} {'─'*10} {'─'*5} {'─'*5}",
     ]
 
     for f in resultado["resultados_por_fold"]:
+        sa_fold = f.get("semantic_accuracy")
+        sa_col = f"{sa_fold*100:>7.1f}%" if sa_fold is not None else "    N/A "
         lineas.append(
             f"   {f['fold']:<6} {f['n_consultas']:<5} "
             f"{f['execution_accuracy']*100:>7.1f}% "
-            f"{f['latencia_promedio']:>14.0f} "
+            f"{sa_col} "
+            f"{f['latencia_promedio']:>9.0f} "
             f"{f['consultas_ok']:>5} "
-            f"{f['consultas_error']:>7}"
+            f"{f['consultas_error']:>5}"
         )
 
     lineas += [
-        f"   {'─'*6} {'─'*5} {'─'*8} {'─'*15} {'─'*5} {'─'*7}",
+        f"   {'─'*6} {'─'*5} {'─'*8} {'─'*8} {'─'*10} {'─'*5} {'─'*5}",
         f"   {'MEDIA':<6} {resultado['n_total']:<5} "
         f"{resultado['ex_media']*100:>7.1f}% "
-        f"{resultado['latencia_media_ms']:>14.0f}",
+        f"{sa_media*100:>7.1f}% " if sa_media is not None else
+        f"   {'MEDIA':<6} {resultado['n_total']:<5} "
+        f"{resultado['ex_media']*100:>7.1f}%      N/A ",
         f"   {'STD':<6} {'':5} "
-        f"{resultado['ex_std']*100:>7.2f}% "
-        f"{resultado['latencia_std_ms']:>14.0f}",
+        f"{resultado['ex_std']*100:>7.2f}%",
         "",
-        "3. EXECUTION ACCURACY POR CATEGORÍA",
+        "3. EXECUTION ACCURACY POR CATEGORÍA (EX clásico vs. SA semántica)",
         sep,
     ]
 
@@ -598,8 +708,10 @@ def generar_reporte(resultado: Dict) -> str:
     }
     for cat, ex in sorted(resultado["ex_por_categoria"].items()):
         label = cat_labels.get(cat, cat)
-        barra = "█" * int(ex * 20)
-        lineas.append(f"   {label:<25} {ex*100:>6.1f}%  {barra}")
+        barra = "|" * int(ex * 20)
+        sa_cat = resultado.get("sa_por_categoria", {}).get(cat)
+        sa_cat_str = f"  SA:{sa_cat*100:.1f}%" if sa_cat is not None else ""
+        lineas.append(f"   {label:<25} EX:{ex*100:>5.1f}%{sa_cat_str}  {barra}")
 
     lineas += [
         "",
@@ -607,20 +719,22 @@ def generar_reporte(resultado: Dict) -> str:
         sep,
     ]
     for dif, ex in resultado["ex_por_dificultad"].items():
-        barra = "█" * int(ex * 20)
+        barra = "|" * int(ex * 20)
         lineas.append(f"   {dif.capitalize():<10} {ex*100:>6.1f}%  {barra}")
 
+    sa_concl = f"{resultado['sa_media']*100:.2f}%" if resultado.get('sa_media') is not None else "N/A"
     lineas += [
         "",
         "5. CONCLUSIÓN ESTADÍSTICA",
         sep,
-        f"   EX Media (K=5)  : {resultado['ex_media']*100:.2f}%",
+        f"   EX Media (K=5)  : {resultado['ex_media']*100:.2f}%  ← SQL ejecutó sin error",
+        f"   SA Media (K=5)  : {sa_concl}  ← result set correcto (Answer Accuracy)",
         f"   Desv. Estándar  : ±{resultado['ex_std']*100:.2f}%",
         f"   Intervalo 95%   : [{(resultado['ex_media']-2*resultado['ex_std'])*100:.1f}%, "
         f"{(resultado['ex_media']+2*resultado['ex_std'])*100:.1f}%]",
         f"   Umbral H₁       : 85.00%",
         "",
-        f"   DECISIÓN: {'✅ H₁ ACEPTADA — EX > 85%' if resultado['hipotesis_aceptada'] else '❌ H₀ NO RECHAZADA — EX ≤ 85%'}",
+        f"   DECISION: {'[ACEPTADA] H1: EX > 85%' if resultado['hipotesis_aceptada'] else '[RECHAZADA] H0: EX <= 85%'}",
         f"   El sistema {'cumple' if resultado['hipotesis_aceptada'] else 'NO cumple'} el criterio de precisión declarado en la metodología.",
         "",
         "=" * 65,
@@ -641,7 +755,7 @@ def exportar_resultados(resultado: Dict, reporte: str) -> None:
     csv_path = OUTPUT_DIR / "resultados_kfolds.csv"
     campos = [
         "id", "categoria", "dificultad", "pregunta",
-        "sql_generado", "exito", "execution_accuracy",
+        "sql_generado", "exito", "execution_accuracy", "semantic_accuracy",
         "latencia_ms", "n_filas", "error"
     ]
     with open(csv_path, "w", newline="", encoding="utf-8") as f:
@@ -660,7 +774,7 @@ def exportar_resultados(resultado: Dict, reporte: str) -> None:
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(stats, f, indent=2, ensure_ascii=False)
 
-    print(f"\n  📁 Resultados exportados en {OUTPUT_DIR}/")
+    print(f"\n  [OK] Resultados exportados en {OUTPUT_DIR}/")
     print(f"     ✓ {csv_path.name}")
     print(f"     ✓ {txt_path.name}")
     print(f"     ✓ {json_path.name}")

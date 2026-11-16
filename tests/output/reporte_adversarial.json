@@ -1,0 +1,337 @@
+{
+  "total_consultas": 20,
+  "sql_valido": 17,
+  "sql_ejecutable": 15,
+  "accuracy_sql_pct": 85.0,
+  "accuracy_exec_pct": 75.0,
+  "latencia_media_ms": 28060.0,
+  "degradacion_vs_limpio_pp": 8.33,
+  "meta_80pct_cumplida": true,
+  "por_categoria": {
+    "sin_acentos": {
+      "total": 5,
+      "valido": 5,
+      "ejecutable": 5
+    },
+    "typo": {
+      "total": 5,
+      "valido": 3,
+      "ejecutable": 2
+    },
+    "abreviatura": {
+      "total": 5,
+      "valido": 5,
+      "ejecutable": 5
+    },
+    "incompleta": {
+      "total": 5,
+      "valido": 4,
+      "ejecutable": 3
+    }
+  },
+  "detalle": [
+    {
+      "id": "ADV-01",
+      "categoria": "sin_acentos",
+      "texto_original": "cuanto ingreso el recreo esta semana",
+      "texto_normalizado": "cuánto ingresó el recreo esta semana",
+      "transformaciones": [
+        "'cuanto' → 'cuánto'",
+        "'ingreso' → 'ingresó'"
+      ],
+      "sql_generado": "SELECT COALESCE(SUM(CASE WHEN tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN monto ELSE 0 END), 0) AS ingresos_semana FROM transacciones_financieras WHERE fecha_transaccion >= DATE_TRUNC('week', CURRENT_DATE);",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 54336.0,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-02",
+      "categoria": "sin_acentos",
+      "texto_original": "cuantas reservas hay para manana",
+      "texto_normalizado": "cuántas reservas hay para mañana",
+      "transformaciones": [
+        "'cuantas' → 'cuántas'",
+        "'manana' → 'mañana'"
+      ],
+      "sql_generado": "SELECT COUNT(*) AS total_reservas FROM reservas WHERE fecha_reserva = CURRENT_DATE + 1;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 41023.0,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-03",
+      "categoria": "sin_acentos",
+      "texto_original": "cual fue la utilidad de ayer",
+      "texto_normalizado": "cuál fue la utilidad de ayer",
+      "transformaciones": [
+        "'cual' → 'cuál'"
+      ],
+      "sql_generado": "SELECT COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) - COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0) AS utilidad_neta FROM transacciones_financieras tf WHERE tf.fecha_transaccion = CURRENT_DATE - 1;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 48055.4,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-04",
+      "categoria": "sin_acentos",
+      "texto_original": "cuantos clientes nuevos hubo este mes",
+      "texto_normalizado": "cuántos clientes nuevos hubo este mes",
+      "transformaciones": [
+        "'cuantos' → 'cuántos'"
+      ],
+      "sql_generado": "SELECT COUNT(*) AS nuevos_clientes FROM clientes c WHERE EXTRACT(MONTH FROM CURRENT_DATE) = EXTRACT(MONTH FROM c.fecha_registro);",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 22355.7,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-05",
+      "categoria": "sin_acentos",
+      "texto_original": "que canal trae mas reservas",
+      "texto_normalizado": "que canal trae más reservas",
+      "transformaciones": [
+        "'mas' → 'más'"
+      ],
+      "sql_generado": "SELECT r.canal, COUNT(*) AS total_reservas FROM reservas r GROUP BY r.canal ORDER BY total_reservas DESC LIMIT 1;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 44640.3,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-06",
+      "categoria": "typo",
+      "texto_original": "cuanto se ingreso en resrvas este mes",
+      "texto_normalizado": "cuánto se ingresó en reservas este mes",
+      "transformaciones": [
+        "'cuanto' → 'cuánto'",
+        "'ingreso' → 'ingresó'",
+        "'resrvas' → 'reservas'"
+      ],
+      "sql_generado": "SELECT COALESCE(SUM(CASE WHEN tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN monto ELSE 0 END), 0) AS ingresos_mes FROM transacciones_financieras WHERE fecha_transaccion >= DATE_TRUNC('month', CURRENT_DATE);",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 38528.9,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-07",
+      "categoria": "typo",
+      "texto_original": "cuantas resrvas se cancelaron ayer",
+      "texto_normalizado": "cuántas reservas se cancelaron ayer",
+      "transformaciones": [
+        "'cuantas' → 'cuántas'",
+        "'resrvas' → 'reservas'"
+      ],
+      "sql_generado": "SELECT COUNT(*) AS total_canceladas FROM reservas WHERE fecha_cancelacion = CURRENT_DATE - 1 AND estado = 'cancelada';",
+      "sql_valido": true,
+      "sql_ejecutable": false,
+      "keyword_score": 1.0,
+      "latencia_ms": 5580.7,
+      "error_bd": "(psycopg2.errors.UndefinedColumn) no existe la columna «fecha_cancelacion»\nLINE "
+    },
+    {
+      "id": "ADV-08",
+      "categoria": "typo",
+      "texto_original": "muestra los clientes mas recurrenes",
+      "texto_normalizado": "muestra los clientes más recurrente",
+      "transformaciones": [
+        "'mas' → 'más'",
+        "'recurrenes' ≈ 'recurrente' (fuzzy)"
+      ],
+      "sql_generado": "No hay suficiente información para responder a la pregunta final. ¿Podrías proporcionar más detalles o especificar qué tipo de respuesta estás buscando?",
+      "sql_valido": false,
+      "sql_ejecutable": false,
+      "keyword_score": 0.0,
+      "latencia_ms": 33337.6,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-09",
+      "categoria": "typo",
+      "texto_original": "cual es el tickt promedio por canal",
+      "texto_normalizado": "cuál es el ticket promedio por canal",
+      "transformaciones": [
+        "'cual' → 'cuál'",
+        "'tickt' ≈ 'ticket' (fuzzy)"
+      ],
+      "sql_generado": "SELECT r.canal, ROUND(AVG(ir.subtotal), 2) AS ticket_promedio FROM reservas r JOIN items_reserva ir ON ir.reserva_id = r.reserva_id WHERE r.estado = 'completada' GROUP BY r.canal ORDER BY ticket_promedio DESC;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 22553.1,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-10",
+      "categoria": "typo",
+      "texto_original": "cuantos no-shws hubo esta semana",
+      "texto_normalizado": "cuántos no-shws hubo esta semana",
+      "transformaciones": [
+        "'cuantos' → 'cuántos'"
+      ],
+      "sql_generado": "No hay suficiente información para responder a la pregunta final. ¿Podrías proporcionar más detalles o especificar qué tipo de consulta se necesita?",
+      "sql_valido": false,
+      "sql_ejecutable": false,
+      "keyword_score": 0.0,
+      "latencia_ms": 5373.6,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-11",
+      "categoria": "abreviatura",
+      "texto_original": "q tal fue la smna pasada en ingresos",
+      "texto_normalizado": "q tal fue la semana pasada en ingresos",
+      "transformaciones": [
+        "'smna' → 'semana'"
+      ],
+      "sql_generado": "SELECT COUNT(*) AS total_reservas FROM reservas;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 0.0,
+      "latencia_ms": 23083.2,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-12",
+      "categoria": "abreviatura",
+      "texto_original": "cuantas rese hay pa hoy",
+      "texto_normalizado": "cuántas reservas hay pa hoy",
+      "transformaciones": [
+        "'cuantas' → 'cuántas'",
+        "'rese' → 'reserva'",
+        "'reserva' ≈ 'reservas' (fuzzy)"
+      ],
+      "sql_generado": "SELECT COUNT(*) AS total_reservas FROM reservas WHERE fecha_reserva = CURRENT_DATE;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 17624.7,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-13",
+      "categoria": "abreviatura",
+      "texto_original": "tb quiero saber cuantos clientes vip hay",
+      "texto_normalizado": "tb quiero saber cuántos clientes vip hay",
+      "transformaciones": [
+        "'cuantos' → 'cuántos'"
+      ],
+      "sql_generado": "SELECT COUNT(*) AS total_clientes_vip FROM clientes c WHERE c.segmento = 'vip';",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 9992.2,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-14",
+      "categoria": "abreviatura",
+      "texto_original": "ventas de este mes vs mes anterior xq quiero comparar",
+      "texto_normalizado": "ventas de este mes vs mes anterior porque quiero comparar",
+      "transformaciones": [
+        "'xq' → 'porque'"
+      ],
+      "sql_generado": "SELECT COUNT(*) AS total_reservas FROM reservas;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 0.0,
+      "latencia_ms": 23483.5,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-15",
+      "categoria": "abreviatura",
+      "texto_original": "los 5 mejores clientes pq necesito llamarlos",
+      "texto_normalizado": "los 5 mejores clientes porque necesito llamarlos",
+      "transformaciones": [
+        "'pq' → 'porque'"
+      ],
+      "sql_generado": "SELECT COUNT(*) AS total_reservas FROM reservas;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 0.0,
+      "latencia_ms": 22964.8,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-16",
+      "categoria": "incompleta",
+      "texto_original": "ingresos mayo",
+      "texto_normalizado": "ingresos mayo",
+      "transformaciones": [],
+      "sql_generado": "No hay suficiente información para responder a la pregunta \"ingresos mayo\". ¿Podrías proporcionar más detalles o contexto sobre qué tipo de ingresos se refiere?",
+      "sql_valido": false,
+      "sql_ejecutable": false,
+      "keyword_score": 0.33,
+      "latencia_ms": 34926.7,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-17",
+      "categoria": "incompleta",
+      "texto_original": "reservas fin de semana temporada alta",
+      "texto_normalizado": "reservas fin de semana temporada alta",
+      "transformaciones": [],
+      "sql_generado": "SELECT COUNT(*) AS total_reservas FROM reservas r;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 0.33,
+      "latencia_ms": 22733.4,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-18",
+      "categoria": "incompleta",
+      "texto_original": "cancelaciones",
+      "texto_normalizado": "cancelaciones",
+      "transformaciones": [],
+      "sql_generado": "SELECT COUNT(*) AS num_cancelaciones, SUM(ir.subtotal) AS monto_total_cancelado \nFROM reservas r \nJOIN items_reserva ir ON ir.reserva_id = r.reserva_id \nWHERE r.estado = 'cancelada';",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 51147.0,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-19",
+      "categoria": "incompleta",
+      "texto_original": "cuanto hizo ayer el negocio",
+      "texto_normalizado": "cuánto hizo ayer el negocio",
+      "transformaciones": [
+        "'cuanto' → 'cuánto'"
+      ],
+      "sql_generado": "SELECT COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN ABS(tf.monto) ELSE 0 END), 0) AS ingresos_ayer FROM transacciones_financieras tf WHERE tf.fecha_transaccion = CURRENT_DATE - 1;",
+      "sql_valido": true,
+      "sql_ejecutable": true,
+      "keyword_score": 1.0,
+      "latencia_ms": 19388.7,
+      "error_bd": null
+    },
+    {
+      "id": "ADV-20",
+      "categoria": "incompleta",
+      "texto_original": "top 3 mesas mas usadas",
+      "texto_normalizado": "top 3 mesas más usadas",
+      "transformaciones": [
+        "'mas' → 'más'"
+      ],
+      "sql_generado": "SELECT m.nombre_mesa AS mesa, COUNT(r.reserva_id) AS total_reservas FROM reservas r JOIN mesas m ON m.mesa_id = r.mesa_id GROUP BY m.mesa_id, m.nombre_mesa ORDER BY total_reservas DESC LIMIT 3;",
+      "sql_valido": true,
+      "sql_ejecutable": false,
+      "keyword_score": 1.0,
+      "latencia_ms": 20070.7,
+      "error_bd": "(psycopg2.errors.UndefinedTable) no existe la relación «mesas»\nLINE 1: ...eserva"
+    }
+  ]
+}

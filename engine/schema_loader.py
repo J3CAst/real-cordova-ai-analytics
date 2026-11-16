@@ -83,6 +83,26 @@ VISTA_DEFINICIONES = {
 # correctos para cada combinación de tablas frecuente.
 # ──────────────────────────────────────────────────────────
 
+ESTADISTICAS_DATOS = """
+-- ════════════════════════════════════════════════════════
+-- ESTADÍSTICAS DEL DATASET (referencia para el LLM)
+-- Generado con 15,000 reservas sintéticas (2024-01-01 a 2026-06-30)
+-- ════════════════════════════════════════════════════════
+-- clientes          : ~1,200 registros | es_recurrente ~30% TRUE
+-- reservas          : ~15,000 registros | 60% es_temporada_alta=TRUE
+--   estados         : completada ~55%, cancelada ~20%, confirmada ~15%, no_show ~7%, pendiente ~3%
+--   canales         : whatsapp 65%, llamada 20%, presencial 10%, web 5%
+--   fecha_reserva   : rango 2024-01-01 → 2026-06-30
+-- items_reserva     : ~50,000 registros | avg ~3-4 ítems por reserva completada
+--   categorías      : entrada, gastronomia, bebida, instalacion, extra
+-- transacciones_financieras: ~20,000 registros
+--   tipos ingreso   : ingreso_reserva, ingreso_consumo, ingreso_adicional
+--   tipo gasto      : gasto_operativo
+--   métodos de pago : efectivo 40%, yape 30%, plin 15%, transferencia 10%, tarjeta 5%
+-- TEMPORADA ALTA    : es_temporada_alta=TRUE → diciembre a marzo (verano peruano)
+-- TEMPORADA BAJA    : es_temporada_alta=FALSE → junio a setiembre (invierno peruano)
+"""
+
 GLOSARIO_NEGOCIO = """
 -- ════════════════════════════════════════════════════════
 -- GLOSARIO DEL DOMINIO (Recreo Campestre Real Córdova)
@@ -179,8 +199,8 @@ def get_schema_context() -> str:
 
 
 def get_full_context() -> str:
-    """Schema completo + glosario ampliado (v2)."""
-    return get_schema_context() + "\n" + GLOSARIO_NEGOCIO
+    """Schema completo + estadísticas del dataset + glosario ampliado (v3)."""
+    return get_schema_context() + "\n" + ESTADISTICAS_DATOS + "\n" + GLOSARIO_NEGOCIO
 
 
 if __name__ == "__main__":

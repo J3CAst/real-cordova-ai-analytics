@@ -1,68 +1,21 @@
 id,categoria,dificultad,pregunta,sql_generado,exito,execution_accuracy,latencia_ms,n_filas,error
-AGG_01,agregacion_simple,baja,¿Cuántas reservas hay en total?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,21507.67,1,
-AGG_06,agregacion_simple,media,¿Cuál es el promedio de personas por reserva?,"SELECT AVG(r.numero_personas) AS promedio_personas
-FROM reservas r
-JOIN v_reservas_detalle vd ON vd.reserva_id = r.reserva_id;",True,1.0,156227.56,1,
-TMP_03,filtro_temporal,baja,¿Cuántas reservas hubo este mes?,"SELECT COUNT(*) AS total_reservas
-FROM v_reservas_detalle
-WHERE DATE_TRUNC('month', fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,26411.72,1,
-TMP_04,filtro_temporal,media,¿Cuánto se ingresó el mes pasado?,"SELECT COALESCE(SUM(CASE WHEN tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN monto ELSE 0 END), 0) AS ingresos_mes_pasado
-FROM transacciones_financieras
-WHERE DATE_TRUNC('month', fecha_transaccion) = (CURRENT_DATE - INTERVAL '1 month');",True,1.0,36701.65,1,
-VIS_02,vista,baja,¿Cuál fue la utilidad neta de ayer?,"SELECT 
-    COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0)
-      - COALESCE(SUM(CASE WHEN tf.tipo = 'gasto_operativo' THEN ABS(tf.monto) ELSE 0 END), 0)
-      AS utilidad_neta
-FROM transacciones_financieras tf
-LEFT JOIN reservas r ON r.reserva_id = tf.reserva_id
-WHERE tf.fecha_transaccion = CURRENT_DATE - 1;",True,1.0,54425.37,1,
-VIS_05,vista,media,¿Cuántas reservas por temporada muestra el detalle este año?,"SELECT 
-    COUNT(*) AS total_reservas_por_temporada
-FROM 
-    v_reservas_detalle
-WHERE 
-    EXTRACT(YEAR FROM fecha_reserva) = EXTRACT(YEAR FROM CURRENT_DATE)
-GROUP BY 
-    es_temporada_alta, temporada;",True,1.0,42620.04,2,
-CMP_06,compuesta,alta,¿Cuál es la tasa de cancelación por canal?,"SELECT 
-    r.canal,
-    ROUND(100.0 * SUM(CASE WHEN r.estado = 'cancelada' THEN 1 ELSE 0 END) / COUNT(*), 2)
-        AS tasa_cancelacion_pct
-FROM reservas r
-JOIN clientes c ON c.cliente_id = r.cliente_id
-GROUP BY r.canal
-ORDER BY tasa_cancelacion_pct DESC;",True,1.0,51294.85,4,
-CMP_07,compuesta,alta,¿Cuál es el ingreso mensual promedio por temporada?,"SELECT 
-    EXTRACT(MONTH FROM r.fecha_reserva) AS mes_num,
-    CASE
-        WHEN r.es_temporada_alta THEN 'verano'
-        ELSE 'invierno'
-    END AS temporada,
-    COALESCE(SUM(CASE WHEN tf.tipo IN ('ingreso_reserva','ingreso_consumo','ingreso_adicional') THEN tf.monto ELSE 0 END), 0) AS ingresos_mensual
-FROM reservas r
-JOIN transacciones_financieras tf ON tf.reserva_id = r.reserva_id
-GROUP BY EXTRACT(MONTH FROM r.fecha_reserva), 
-         CASE
-             WHEN r.es_temporada_alta THEN 'verano'
-             ELSE 'invierno'
-         END;",True,1.0,61658.69,12,
-CMP_09,compuesta,alta,¿Cuál es la categoría de ítem que más ingreso genera?,"SELECT ir.categoria, COALESCE(SUM(ir.subtotal), 0) AS ingresos_categoria
-FROM items_reserva ir
-JOIN transacciones_financieras tf ON tf.reserva_id = ir.reserva_id
-WHERE tf.tipo IN ('ingreso_consumo', 'ingreso_adicional')
-GROUP BY ir.categoria
-ORDER BY COALESCE(SUM(ir.subtotal), 0) DESC;",True,1.0,44503.94,0,
-DOM_01,dominio,media,¿Cuántas reservas perdidas (no show) hubo este mes?,"SELECT COUNT(*) AS total_no_show
-FROM v_reservas_detalle
-WHERE estado = 'no_show'
-  AND DATE_TRUNC('month', fecha_reserva) = DATE_TRUNC('month', CURRENT_DATE);",True,1.0,26676.46,1,
-DOM_05,dominio,media,¿Cuántas reservas de grupos vinieron este mes?,"SELECT COUNT(*) AS total_grupos
-FROM v_reservas_detalle
-WHERE fecha_reserva >= DATE_TRUNC('month', CURRENT_DATE)
-  AND canal = 'web'
-  AND segmento = 'grupo';",True,1.0,29839.34,1,
-DOM_08,dominio,alta,¿Cuántas reservas confirmadas hay para la próxima semana?,"SELECT COUNT(*) AS total_reservas
-FROM v_reservas_detalle
-WHERE estado IN ('confirmada', 'completada')
-  AND fecha_reserva >= CURRENT_DATE
-  AND fecha_reserva < CURRENT_DATE + INTERVAL '7 days';",True,1.0,29443.17,1,
+AGG_01,agregacion_simple,baja,¿Cuántas reservas hay en total?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,13722.96,1,
+AGG_06,agregacion_simple,media,¿Cuál es el promedio de personas por reserva?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,51830.75,1,
+TMP_03,filtro_temporal,baja,¿Cuántas reservas hubo este mes?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,60364.93,1,
+TMP_04,filtro_temporal,media,¿Cuánto se ingresó el mes pasado?,"No hay una pregunta específica en la lista proporcionada. Sin embargo, puedo ayudarte a revisar las consultas SQL que se presentan y ofrecerte sugerencias para mejorarlas según las reglas de estilo mencionadas.
+
+Aquí te muestro algunas observaciones sobre cada consulta:
+
+1. **Pregunta: ¿Cuántas reservas hay en total?**
+   - La consulta es correcta, pero si se necesita incluir otras columnas en el SELECT, asegúrate de agregarlas al GROUP BY.
+
+2. **Pregunta: ¿Cuánto ingresó el recreo esta semana?**
+   - La consulta utiliza COALESCE y CASE para manejar los tipos de transacciones. Es una forma ef",False,0.0,22124.2,0,Error ejecutando la consulta. Verifica que la pregunta sea válida o intenta reformularla.
+VIS_02,vista,baja,¿Cuál fue la utilidad neta de ayer?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,49919.96,1,
+VIS_05,vista,media,¿Cuántas reservas por temporada muestra el detalle este año?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,49974.06,1,
+CMP_06,compuesta,alta,¿Cuál es la tasa de cancelación por canal?,No hay preguntas para responder. Las respuestas son las consultas SQL que se proporcionan en cada pregunta.,False,0.0,4271.81,0,Error ejecutando la consulta. Verifica que la pregunta sea válida o intenta reformularla.
+CMP_07,compuesta,alta,¿Cuál es el ingreso mensual promedio por temporada?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,22782.46,1,
+CMP_09,compuesta,alta,¿Cuál es la categoría de ítem que más ingreso genera?,SELECT COUNT(*) AS total_reservas FROM reservas;,True,1.0,52748.71,1,
+DOM_01,dominio,media,¿Cuántas reservas perdidas (no show) hubo este mes?,"No hay suficiente información en la pregunta para proporcionar una respuesta. Por favor, proporciona más detalles o contexto sobre la pregunta.",False,0.0,33096.78,0,Error ejecutando la consulta. Verifica que la pregunta sea válida o intenta reformularla.
+DOM_05,dominio,media,¿Cuántas reservas de grupos vinieron este mes?,"Lo siento, pero no puedo generar SQL. Puedo ayudarte con la sintaxis y el diseño de consultas SQL si lo necesitas.",False,0.0,5620.32,0,Error ejecutando la consulta. Verifica que la pregunta sea válida o intenta reformularla.
+DOM_08,dominio,alta,¿Cuántas reservas confirmadas hay para la próxima semana?,"No hay suficiente información en la pregunta para proporcionar una respuesta. Por favor, proporciona más detalles o reformula la pregunta de manera que pueda ser respondida con precisión.",False,0.0,6342.66,0,Error ejecutando la consulta. Verifica que la pregunta sea válida o intenta reformularla.

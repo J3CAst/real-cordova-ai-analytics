@@ -25,10 +25,11 @@ dsn_url = URL.create(
 # Mantiene conexiones abiertas para evitar el overhead de 
 # TCP handshake en cada consulta de FastAPI a PostgreSQL.
 pool_engine = create_engine(
-    dsn_url, 
-    pool_size=5, 
-    max_overflow=10, 
-    pool_pre_ping=True
+    dsn_url,
+    pool_size=5,
+    max_overflow=10,
+    pool_pre_ping=True,
+    connect_args={"options": "-c statement_timeout=10000"},  # 10 s max por query
 )
 
 def ejecutar_query_readonly(sql: str) -> List[Dict[str, Any]]:
@@ -38,13 +39,26 @@ def ejecutar_query_readonly(sql: str) -> List[Dict[str, Any]]:
     """
     sql_upper = sql.upper().strip()
     
-    # Validación estricta de seguridad contra inyecciones y DDL/DML
+    # Validación estricta: solo SELECT permitido, sin exfiltración ni DDL/DML
     operaciones_prohibidas = [
-        "INSERT ", "UPDATE ", "DELETE ", "DROP ", "ALTER ", 
-        "TRUNCATE ", "GRANT ", "REVOKE ", "COMMIT", "ROLLBACK"
+        "INSERT ", "UPDATE ", "DELETE ", "DROP ", "ALTER ",
+        "TRUNCATE ", "GRANT ", "REVOKE ", "COMMIT", "ROLLBACK",
+        "UNION ",       # bloquea UNION-based injection
+        # "WITH " eliminado: el LLM genera CTEs válidos (WITH ... AS (SELECT ...))
+        # que son consultas de solo lectura. La protección real viene del
+        # statement_timeout=10s y del blacklist de DDL/DML arriba.
+        "EXECUTE ",     # bloquea ejecución dinámica
+        "CALL ",        # bloquea llamadas a stored procedures
+        "INFORMATION_SCHEMA",   # bloquea introspección de tablas del sistema
+        "PG_",          # bloquea acceso a catálogos pg_catalog, pg_tables, etc.
+        "--",           # bloquea comentarios SQL inline
+        "/*",           # bloquea comentarios SQL en bloque
     ]
     if any(op in sql_upper for op in operaciones_prohibidas):
-        raise ValueError("Violación de seguridad: El motor intentó ejecutar una operación de escritura o modificación (DML/DDL). Solo se permite SELECT.")
+        raise ValueError(
+            "Violación de seguridad: la consulta contiene operaciones no permitidas. "
+            "Solo se aceptan SELECT simples sobre las tablas del negocio."
+        )
 
     try:
         with pool_engine.connect() as conn:

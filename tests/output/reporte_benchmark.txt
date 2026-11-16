@@ -1,7 +1,7 @@
 =================================================================
   REPORTE DE BENCHMARK — SISTEMA REAL CÓRDOVA
   Tesis SENATI EEST | Acosta Cruz, Jean Steven | 2026
-  Generado: 2026-06-12 11:34:15
+  Generado: 2026-07-04 20:25:52
 =================================================================
 
 1. PARÁMETROS DE EVALUACIÓN
@@ -10,45 +10,47 @@
    Dataset         : 60 consultas
    Modelo          : Meta LLaMA 3.1 8B GGUF Q4_K_M (Ollama)
    Hardware        : ASUS Vivobook M1603QA (Ryzen 5 5600H, 16GB)
-   Métrica         : Execution Accuracy (EX) — Estándar BIRD
+   Métrica EX      : Execution Accuracy — SQL ejecutó sin error (estándar BIRD)
+   Métrica SA      : Semantic Accuracy — result set coincide con referencia
    Hipótesis H₁   : EX > 85%
 
 2. RESULTADOS POR FOLD
 ─────────────────────────────────────────────────────────────────
-   Fold   N       EX (%)  Lat. Prom (ms)    OK   Error
-   ────── ───── ──────── ─────────────── ───── ───────
-   1      12      100.0%          22609    12       0
-   2      12      100.0%          10933    12       0
-   3      12       91.7%          33911    11       1
-   4      12       91.7%          19759    11       1
-   5      12       83.3%          35603    10       2
-   ────── ───── ──────── ─────────────── ───── ───────
-   MEDIA  60       93.3%          24563
-   STD             6.97%          10271
+   Fold   N       EX (%)   SA (%)  Lat. (ms)    OK   Err
+   ────── ───── ──────── ──────── ────────── ───── ─────
+   1      12       66.7%     0.0%     35096     8     4
+   2      12       83.3%    20.0%     23557    10     2
+   3      12       66.7%     0.0%     21253     8     4
+   4      12       58.3%     0.0%     21936     7     5
+   5      12       75.0%    16.7%     20167     9     3
+   ────── ───── ──────── ──────── ────────── ───── ─────
+   MEDIA  60       70.0%     9.4% 
+   STD             9.50%
 
-3. EXECUTION ACCURACY POR CATEGORÍA
+3. EXECUTION ACCURACY POR CATEGORÍA (EX clásico vs. SA semántica)
 ─────────────────────────────────────────────────────────────────
-   Agregaciones simples       100.0%  ████████████████████
-   Consultas compuestas        90.0%  ██████████████████
-   Dominio específico          80.0%  ████████████████
-   Filtros temporales         100.0%  ████████████████████
-   JOINs entre tablas         100.0%  ████████████████████
-   Consultas sobre vistas      87.5%  █████████████████
+   Agregaciones simples      EX: 80.0%  SA:25.0%  ||||||||||||||||
+   Consultas compuestas      EX: 80.0%  SA:0.0%  ||||||||||||||||
+   Dominio específico        EX: 60.0%  SA:0.0%  ||||||||||||
+   Filtros temporales        EX: 58.3%  SA:16.7%  |||||||||||
+   JOINs entre tablas        EX: 60.0%  SA:0.0%  ||||||||||||
+   Consultas sobre vistas    EX: 87.5%  SA:0.0%  |||||||||||||||||
 
 4. EXECUTION ACCURACY POR DIFICULTAD
 ─────────────────────────────────────────────────────────────────
-   Baja         90.0%  ██████████████████
-   Media        92.0%  ██████████████████
-   Alta         96.0%  ███████████████████
+   Baja         90.0%  ||||||||||||||||||
+   Media        60.0%  ||||||||||||
+   Alta         72.0%  ||||||||||||||
 
 5. CONCLUSIÓN ESTADÍSTICA
 ─────────────────────────────────────────────────────────────────
-   EX Media (K=5)  : 93.33%
-   Desv. Estándar  : ±6.97%
-   Intervalo 95%   : [79.4%, 107.3%]
+   EX Media (K=5)  : 70.00%  ← SQL ejecutó sin error
+   SA Media (K=5)  : 9.38%  ← result set correcto (Answer Accuracy)
+   Desv. Estándar  : ±9.50%
+   Intervalo 95%   : [51.0%, 89.0%]
    Umbral H₁       : 85.00%
 
-   DECISIÓN: ✅ H₁ ACEPTADA — EX > 85%
-   El sistema cumple el criterio de precisión declarado en la metodología.
+   DECISION: [RECHAZADA] H0: EX <= 85%
+   El sistema NO cumple el criterio de precisión declarado en la metodología.
 
 =================================================================
